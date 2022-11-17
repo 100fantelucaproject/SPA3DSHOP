@@ -2,9 +2,7 @@
   <Head title="Forgot Password" />
 
   <jet-authentication-card>
-    <template #logo>
-      <jet-authentication-card-logo />
-    </template>
+
 
     <div class="card-body">
       <div class="mb-2">

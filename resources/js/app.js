@@ -1,4 +1,4 @@
-import'./bootstrap';
+import './bootstrap';
 
 import { createApp, h } from 'vue';
 import { createInertiaApp } from '@inertiajs/inertia-vue3';
@@ -19,4 +19,9 @@ createInertiaApp({
     },
 });
 
-InertiaProgress.init({ color: '#4B5563' });
+InertiaProgress.init({
+    delay: 250,
+    color: '#4B5563',
+    includeCSS: true,
+    showSpinner: true,
+});
