@@ -6,8 +6,6 @@
       </h2>
     </template>
     <Navbar></Navbar>
-    {{ user }}
-    {{ user1 }}
     <welcome />
   </app-layout>
 </template>

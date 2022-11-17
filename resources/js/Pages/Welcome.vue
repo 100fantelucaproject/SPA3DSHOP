@@ -1,24 +1,24 @@
 <template>
   <Head title="Welcome" />
+  <AppLayout>
+    <MainCarousel />
+    <MainCategory />
+  </AppLayout>
 
-  <div>
-
-<Navbar></Navbar>
-
-  </div>
 </template>
-
-<style scoped>
-
-</style>
 
 <script>
 import { Head } from '@inertiajs/inertia-vue3';
-import Navbar from '../Layouts/Navbar.vue';
+import AppLayout from '../Layouts/AppLayout.vue';
+import MainCategory from '../Layouts/MainCategory.vue';
+import MainCarousel from '../Layouts/MainCarousel.vue';
+
 export default {
   components:{
     Head,
-    Navbar,
+    AppLayout,
+    MainCarousel,
+    MainCategory,
   }
 }
 </script>

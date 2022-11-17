@@ -15,7 +15,7 @@
                             aria-expanded="false">
                             modelli
                         </a>
-                        <ul class="dropdown-menu">
+                        <ul class="dropdown-menu m-0">
                             <li><a class="dropdown-item" href="#">Tutti i modelli</a></li>
                             <li><a class="dropdown-item" href="#">Per categoria</a></li>
                         </ul>
@@ -48,7 +48,7 @@
                                 aria-expanded="false">
                                 <i class="fa-solid fa-user"></i>
                             </a>
-                            <ul class="dropdown-menu">
+                            <ul class="dropdown-menu m-0">
                                 <li>
                                     <h6 class="dropdown-header small text-muted">
                                         Manage Account
