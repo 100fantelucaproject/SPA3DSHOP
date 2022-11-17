@@ -1,58 +1,62 @@
 <template>
-  <Head title="Two-factor Confirmation" />
+  <AppLayout>
 
-  <jet-authentication-card>
-    <template #logo>
-      <jet-authentication-card-logo />
-    </template>
+    <jet-authentication-card>
+      <template #logo>
+        <jet-authentication-card-logo />
+      </template>
 
-    <div class="card-body">
+      <div class="card-body">
 
-      <div class="mb-3">
-        <template v-if="! recovery">
-          Please confirm access to your account by entering the authentication code provided by your authenticator application.
-        </template>
+        <div class="mb-3">
+          <template v-if="!recovery">
+            Please confirm access to your account by entering the authentication code provided by your authenticator
+            application.
+          </template>
 
-        <template v-else>
-          Please confirm access to your account by entering one of your emergency recovery codes.
-        </template>
+          <template v-else>
+            Please confirm access to your account by entering one of your emergency recovery codes.
+          </template>
+        </div>
+
+        <jet-validation-errors class="mb-3" />
+
+        <form @submit.prevent="submit">
+          <div class="mb-3" v-if="!recovery">
+            <jet-label for="code" value="Code" />
+            <jet-input ref="code" id="code" type="text" inputmode="numeric" v-model="form.code" autofocus
+              autocomplete="one-time-code" />
+          </div>
+
+          <div class="mb-3" v-else>
+            <jet-label for="recovery_code" value="Recovery Code" />
+            <jet-input ref="recovery_code" id="recovery_code" type="text" v-model="form.recovery_code"
+              autocomplete="one-time-code" />
+          </div>
+
+          <div class="d-flex justify-content-end mt-3">
+            <button type="button" class="btn btn-outline-secondary" @click.prevent="toggleRecovery">
+              <template v-if="!recovery">
+                Use a recovery code
+              </template>
+
+              <template v-else>
+                Use an authentication code
+              </template>
+            </button>
+
+            <jet-button :class="{ 'text-white-50': form.processing }" :disabled="form.processing">
+              <div v-show="form.processing" class="spinner-border spinner-border-sm" role="status">
+                <span class="visually-hidden">Loading...</span>
+              </div>
+
+              Log in
+            </jet-button>
+          </div>
+        </form>
       </div>
-
-      <jet-validation-errors class="mb-3" />
-
-      <form @submit.prevent="submit">
-        <div class="mb-3" v-if="! recovery">
-          <jet-label for="code" value="Code" />
-          <jet-input ref="code" id="code" type="text" inputmode="numeric" v-model="form.code" autofocus autocomplete="one-time-code" />
-        </div>
-
-        <div class="mb-3" v-else>
-          <jet-label for="recovery_code" value="Recovery Code" />
-          <jet-input ref="recovery_code" id="recovery_code" type="text" v-model="form.recovery_code" autocomplete="one-time-code" />
-        </div>
-
-        <div class="d-flex justify-content-end mt-3">
-          <button type="button" class="btn btn-outline-secondary" @click.prevent="toggleRecovery">
-            <template v-if="! recovery">
-              Use a recovery code
-            </template>
-
-            <template v-else>
-              Use an authentication code
-            </template>
-          </button>
-
-          <jet-button :class="{ 'text-white-50': form.processing }" :disabled="form.processing">
-            <div v-show="form.processing" class="spinner-border spinner-border-sm" role="status">
-              <span class="visually-hidden">Loading...</span>
-            </div>
-
-            Log in
-          </jet-button>
-        </div>
-      </form>
-    </div>
-  </jet-authentication-card>
+    </jet-authentication-card>
+  </AppLayout>
 </template>
 
 <script>
@@ -64,9 +68,11 @@ import JetButton from '@/Jetstream/Button.vue'
 import JetInput from '@/Jetstream/Input.vue'
 import JetLabel from '@/Jetstream/Label.vue'
 import JetValidationErrors from '@/Jetstream/ValidationErrors.vue'
+import AppLayout from '../../Layouts/AppLayout.vue'
 
 export default defineComponent({
   components: {
+    AppLayout,
     Head,
     JetAuthenticationCard,
     JetAuthenticationCardLogo,

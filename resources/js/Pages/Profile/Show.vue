@@ -1,5 +1,6 @@
 <template>
-  <app-layout title="Profile">
+  
+  <App-layout title="Profile">
     <template #header>
       <h2 class="h4 font-weight-bold">
         Profile
@@ -31,12 +32,12 @@
 
       <delete-user-form />
     </template>
-  </app-layout>
+  </App-layout>
 </template>
 
 <script>
 import { defineComponent } from 'vue'
-import AppLayout from '@/Layouts/AppLayout.vue'
+import AppLayout from '../../Layouts/AppLayout.vue'
 import DeleteUserForm from '@/Pages/Profile/Partials/DeleteUserForm.vue'
 import JetSectionBorder from '@/Jetstream/SectionBorder.vue'
 import LogoutOtherBrowserSessionsForm from '@/Pages/Profile/Partials/LogoutOtherBrowserSessionsForm.vue'

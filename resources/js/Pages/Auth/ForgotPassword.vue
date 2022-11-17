@@ -1,38 +1,40 @@
 <template>
-  <Head title="Forgot Password" />
+  <AppLayout title="Forgot Password">
 
-  <jet-authentication-card>
+    <jet-authentication-card>
 
 
-    <div class="card-body">
-      <div class="mb-2">
-        Forgot your password? No problem. Just let us know your email address and we will email you a password reset link that will allow you to choose a new one.
-      </div>
-
-      <div v-if="status" class="alert alert-success" role="alert">
-        {{ status }}
-      </div>
-
-      <jet-validation-errors class="mb-2" />
-
-      <form @submit.prevent="submit">
-        <div>
-          <jet-label for="email" value="Email" />
-          <jet-input id="email" type="email" v-model="form.email" required autofocus />
+      <div class="card-body">
+        <div class="mb-2">
+          Forgot your password? No problem. Just let us know your email address and we will email you a password reset
+          link that will allow you to choose a new one.
         </div>
 
-        <div class="d-flex justify-content-end mt-4">
-          <jet-button :class="{ 'text-white-50': form.processing }" :disabled="form.processing">
-            <div v-show="form.processing" class="spinner-border spinner-border-sm" role="status">
-              <span class="visually-hidden">Loading...</span>
-            </div>
-            
-            Email Password Reset Link
-          </jet-button>
+        <div v-if="status" class="alert alert-success" role="alert">
+          {{ status }}
         </div>
-      </form>
-    </div>
-  </jet-authentication-card>
+
+        <jet-validation-errors class="mb-2" />
+
+        <form @submit.prevent="submit">
+          <div>
+            <jet-label for="email" value="Email" />
+            <jet-input id="email" type="email" v-model="form.email" required autofocus />
+          </div>
+
+          <div class="d-flex justify-content-end mt-4">
+            <jet-button :class="{ 'text-white-50': form.processing }" :disabled="form.processing">
+              <div v-show="form.processing" class="spinner-border spinner-border-sm" role="status">
+                <span class="visually-hidden">Loading...</span>
+              </div>
+
+              Email Password Reset Link
+            </jet-button>
+          </div>
+        </form>
+      </div>
+    </jet-authentication-card>
+  </AppLayout>
 </template>
 
 <script>
@@ -44,9 +46,11 @@ import JetButton from '@/Jetstream/Button.vue'
 import JetInput from '@/Jetstream/Input.vue'
 import JetLabel from '@/Jetstream/Label.vue'
 import JetValidationErrors from '@/Jetstream/ValidationErrors.vue'
+import AppLayout from '../../Layouts/AppLayout.vue';
 
 export default defineComponent({
   components: {
+    AppLayout,
     Head,
     JetAuthenticationCard,
     JetAuthenticationCardLogo,

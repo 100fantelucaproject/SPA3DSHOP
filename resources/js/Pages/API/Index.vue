@@ -1,5 +1,5 @@
 <template>
-  <app-layout title="API Tokens">
+  <AppLayout title="API Tokens">
     <template #header>
       <h2 class="h4 font-weight-bold">
         API Tokens
@@ -11,7 +11,7 @@
       :available-permissions="availablePermissions"
       :default-permissions="defaultPermissions"
     />
-  </app-layout>
+  </AppLayout>
 </template>
 
 <script>

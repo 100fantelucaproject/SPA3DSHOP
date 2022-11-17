@@ -1,5 +1,5 @@
 <template>
-  <Head title="Privacy Policy" />
+  <AppLayout title="Privacy and policy">
     <div class="row justify-content-center pt-4">
       <div class="col-6">
         <div>
@@ -12,17 +12,19 @@
         </div>
       </div>
     </div>
+  </AppLayout>
 </template>
 
 <script>
 import { defineComponent } from "vue"
-import { Head } from '@inertiajs/inertia-vue3'
 import JetAuthenticationCardLogo from '@/Jetstream/AuthenticationCardLogo.vue'
+import AppLayout from "../Layouts/AppLayout.vue"
 
 export default defineComponent({
   props: ['policy'],
 
   components: {
+    AppLayout,
     Head,
     JetAuthenticationCardLogo,
   },

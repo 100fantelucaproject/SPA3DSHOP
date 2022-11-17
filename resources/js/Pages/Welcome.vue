@@ -1,6 +1,5 @@
 <template>
-  <Head title="Welcome" />
-  <AppLayout>
+  <AppLayout title="Welcome">
     <MainCarousel />
     <MainCategory />
   </AppLayout>

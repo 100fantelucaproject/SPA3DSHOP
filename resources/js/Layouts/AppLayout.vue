@@ -4,11 +4,8 @@
     <Head :title="title" />
 
     <Navbar />
-
     <!-- Page Content -->
-
-      <slot></slot>
-
+    <slot></slot>
 
     <Footer />
   </div>
