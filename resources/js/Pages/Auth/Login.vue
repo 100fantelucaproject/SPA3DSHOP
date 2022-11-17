@@ -35,7 +35,7 @@
                                         <label class="form-check-label" for="remember_me">Ricordati di me</label>
                                     </div>
                                     <div class="text-center">
-                                        <jet-button type="submit" class="btn btn-warning fw-bold"
+                                        <jet-button type="submit" class="btn btn-success fw-bold"
                                             :class="{ 'text-white-50': form.processing }" :disabled="form.processing">
                                             <div v-show="form.processing" class="spinner-border spinner-border-sm"
                                                 role="status">
