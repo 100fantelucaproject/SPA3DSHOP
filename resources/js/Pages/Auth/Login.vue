@@ -1,58 +1,64 @@
 <template>
-  <Head title="Log in" />
-
-  <jet-authentication-card>
-    <template #logo>
-      <jet-authentication-card-logo />
-    </template>
-
-    <div class="card-body">
-
-      <jet-validation-errors class="mb-3" />
-
-      <div v-if="status" class="alert alert-success mb-3 rounded-0" role="alert">
-        {{ status }}
-      </div>
-
-      <form @submit.prevent="submit">
-        <div class="mb-3">
-          <jet-label for="email" value="Email" />
-          <jet-input id="email" type="email" v-model="form.email" required autofocus />
+    <div class="container-fluid my-5 p-5">
+        <div class="row d-flex justify-content-center align-content-center">
+            <div class="col-0 col-lg-2"></div>
+            <div class="col-12 col-lg-8">
+                <div class="card rounded-4 border-dark border border-1 shadow-lg">
+                    <div class="row m-0 p-0 justify-content-center">
+                        <div class="col-12 col-lg-6 text-center welcome-view d-none d-lg-block">
+                            <div class="row d-flex justify-content-center align-content-center align-items-center">
+                                <div class="col-12 text-uppercase ">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-lg-6 ">
+                            <div class="card-body">
+                                <h5 class="card-title text-center text-uppercase fw-bold">BENTORNATO !</h5>
+                                <jet-validation-errors class="mb-3" />
+                                <div v-if="status" class="alert alert-success mb-3 rounded-0" role="alert">
+                                    {{ status }}
+                                </div>
+                                <form class="mb-3" @submit.prevent="submit">
+                                    <div class="mb-3">
+                                        <jet-label for="email" class="form-label fw-bold">Email</jet-label>
+                                        <jet-input v-model="form.email" type="email" class="form-control" id="email"
+                                            required autofocus />
+                                    </div>
+                                    <div class="mb-3">
+                                        <jet-label for="password" class="form-label fw-bold">Password</jet-label>
+                                        <jet-input v-model="form.password" type="password" class="form-control"
+                                            id="password" required autocomplete="current-password" />
+                                    </div>
+                                    <div class="mb-3 form-check">
+                                        <jet-checkbox id="remember_me" name="remember"
+                                            v-model:checked="form.remember" />
+                                        <label class="form-check-label" for="remember_me">Ricordati di me</label>
+                                    </div>
+                                    <div class="text-center">
+                                        <jet-button type="submit" class="btn btn-warning fw-bold"
+                                            :class="{ 'text-white-50': form.processing }" :disabled="form.processing">
+                                            <div v-show="form.processing" class="spinner-border spinner-border-sm"
+                                                role="status">
+                                                <span class="visually-hidden">Loading...</span>
+                                            </div>
+                                            Login
+                                        </jet-button>
+                                    </div>
+                                    <div class="text-center">
+                                        <Link v-if="canResetPassword" :href="route('password.request')"
+                                            class="text-muted me-3">
+                                        <p class="fw-small fst-italic text-center">Password dimenticata?</p>
+                                        </Link>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-0 col-lg-2"></div>
         </div>
-
-        <div class="mb-3">
-          <jet-label for="password" value="Password" />
-          <jet-input id="password" type="password" v-model="form.password" required autocomplete="current-password" />
-        </div>
-
-        <div class="mb-3">
-          <div class="custom-control custom-checkbox">
-            <jet-checkbox id="remember_me" name="remember" v-model:checked="form.remember" />
-
-            <label class="custom-control-label" for="remember_me">
-              Remember Me
-            </label>
-          </div>
-        </div>
-
-        <div class="mb-0">
-          <div class="d-flex justify-content-end align-items-baseline">
-            <Link v-if="canResetPassword" :href="route('password.request')" class="text-muted me-3">
-              Forgot your password?
-            </Link>
-
-            <jet-button class="ms-4" :class="{ 'text-white-50': form.processing }" :disabled="form.processing">
-              <div v-show="form.processing" class="spinner-border spinner-border-sm" role="status">
-                <span class="visually-hidden">Loading...</span>
-              </div>
-
-              Log in
-            </jet-button>
-          </div>
-        </div>
-      </form>
     </div>
-  </jet-authentication-card>
 </template>
 
 <script>
@@ -108,3 +114,18 @@ export default defineComponent({
   }
 })
 </script>
+
+<style scoped>
+.welcome-view {
+    background-color: black;
+    background-image: url('../../../css/Media/Smile_bentornato.jpeg'); 
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    border-top-left-radius: 15px;
+    border-bottom-left-radius: 15px;
+    border-right-color: black;
+    border-right-width: 1px;
+    border-right-style: solid;
+}
+</style>
