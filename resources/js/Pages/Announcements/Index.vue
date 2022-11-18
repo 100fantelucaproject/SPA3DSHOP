@@ -58,7 +58,9 @@
                         <div v-for="announcement in announcements.data" :key="announcement.id"
                             class="col-12 col-md-6 col-lg-4">
                             <Card :title="announcement.title" :description="announcement.description"
-                                :price="announcement.price" :date="announcement.created_at"> </Card>
+                            :price="announcement.price" :date="announcement.created_at"> </Card>
+                            
+                            <Link :href="route('announcement.show', { announcement: announcement})"> sfsf</Link>
                         </div>
                     </div>
                     <div class="my-2">
@@ -70,8 +72,8 @@
                                 :class="{'bg-dark': link.active, 'bg-light': !link.active,
                                             'text-dark' : !link.active,
                                            'd-none': (
-                                ((parseInt(link.label)) < (announcements.meta.current_page - 3)) ||
-                                ((parseInt(link.label)) > (announcements.meta.current_page + 3))
+                                ((parseInt(link.label)) < (announcements.meta.current_page - 2)) ||
+                                ((parseInt(link.label)) > (announcements.meta.current_page + 2))
                                 ),
                                 'rounded-start': (link.label == 1),
                                 'rounded-end': (link.label == announcements.meta.last_page),}"

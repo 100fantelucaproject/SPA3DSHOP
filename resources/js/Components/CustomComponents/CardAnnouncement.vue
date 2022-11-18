@@ -5,7 +5,7 @@
                 <h6 class="fs-6 fw-bold card-title text-center">{{ title }}</h6>
             </div>
             <div class="py-1 d-flex justify-content-center">
-                <img src="https://picsum.photos/300/300" class="img-fluid rounded-2 " alt="image card">
+                <img src="../../../css/Media/Smile_bentornato.jpeg" class="img-fluid rounded-2 " alt="image card">
             </div>
             <hr class="my-1">
             <div class="text-center fst-italic">

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AnnouncementController;
+use App\Models\Announcement;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -31,7 +32,7 @@ Route::inertia('/', 'Welcome')->name('welcome');
 //Announcements routes 
 
 Route::get('/announcement/index', [AnnouncementController::class, 'index'])->name('announcement.index');
-
+Route::get('/announcement/show/{announcement}', [AnnouncementController::class, 'show'])->name('announcement.show');
 
 Route::middleware([
     'auth:sanctum',
