@@ -5,7 +5,9 @@
 
     <Navbar />
     <!-- Page Content -->
-    <slot></slot>
+    <div class="container-fluid my-2">
+      <slot></slot>
+    </div>
 
     <Footer />
   </div>

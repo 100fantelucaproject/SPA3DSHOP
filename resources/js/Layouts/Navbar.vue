@@ -52,7 +52,7 @@
                                 <li>
                                     <h6 class="dropdown-header small text-muted">
                                         Manage Account
-                                    </h6>>
+                                    </h6>
                                 </li>
                                 <li>
                                     <hr class="dropdown-divider">

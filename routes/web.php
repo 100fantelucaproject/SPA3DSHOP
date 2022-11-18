@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AnnouncementController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -22,8 +23,14 @@ use Inertia\Inertia;
 //     ]);
 // });
 
-Route::inertia('/', 'Welcome')->name('welcome');
+//Main routes
 
+Route::inertia('/', 'Welcome')->name('welcome');
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+//Announcements routes 
+
+Route::get('/announcement/index', [AnnouncementController::class, 'index'])->name('announcement.index');
 
 
 Route::middleware([
