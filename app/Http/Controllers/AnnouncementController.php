@@ -16,7 +16,7 @@ class AnnouncementController extends Controller
      */
     public function index()
     {
-        $announcements = AnnouncementResource::collection(Announcement::all());
+        $announcements = AnnouncementResource::collection(Announcement::paginate(9));
 
         return Inertia::render('Announcements/Index', compact('announcements'));
     }

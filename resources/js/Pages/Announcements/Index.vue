@@ -55,11 +55,30 @@
                 </div>
                 <div class="col-12 col-md-8 bg-success py-4">
                     <div class="row justify-content-around">
-                        <div v-for="announcement in announcements" :key="announcement.id"
+                        <div v-for="announcement in announcements.data" :key="announcement.id"
                             class="col-12 col-md-6 col-lg-4">
                             <Card :title="announcement.title" :description="announcement.description"
                                 :price="announcement.price" :date="announcement.created_at"> </Card>
                         </div>
+                    </div>
+                    <div class="my-2">
+                        <template v-for="link in announcements.meta.links" >
+                            <Link v-if="
+                                link.url
+                                " :href="link.url"   v-html="link.label"
+                                class="p-2 text-decoration-none text-light fw-bold border border-dark"
+                                :class="{'bg-dark': link.active, 'bg-light': !link.active,
+                                            'text-dark' : !link.active,
+                                           'd-none': (
+                                ((parseInt(link.label)) < (announcements.meta.current_page - 3)) ||
+                                ((parseInt(link.label)) > (announcements.meta.current_page + 3))
+                                ),
+                                'rounded-start': (link.label == 1),
+                                'rounded-end': (link.label == announcements.meta.last_page),}"
+                                
+                                />
+                            <span class="p-2" v-else v-html="link.label"></span>
+                        </template>
                     </div>
                 </div>
             </div>
@@ -72,11 +91,11 @@
 import { Link } from '@inertiajs/inertia-vue3';
 import AppLayout from '../../Layouts/AppLayout.vue';
 import Card from '../../Components/CustomComponents/CardAnnouncement.vue';
-import Pagination from '../../Components/CustomComponents/Pagination.vue';
+
 
 export default {
     components: {
-        Pagination,
+        Link,
         AppLayout,
         Card,
     },
