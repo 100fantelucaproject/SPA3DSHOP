@@ -1,5 +1,5 @@
 <template>
-    <AppLayout title="Create post">
+    <AppLayout title="Edit post">
         <div class="container-fluid my-5 p-5">
             <div class="row d-flex justify-content-center align-content-center">
                 <div class="col-0 col-lg-2"></div>
@@ -15,7 +15,7 @@
                             <div class="col-12 col-lg-6 ">
                                 <div class="card-body">
                                     <h5 class="card-title text-center text-uppercase fw-bold">INSERISCI IL TUP POST</h5>
-                                    <form class="mb-3" @submit.prevent="form.post(route('announcement.store'))">
+                                    <form class="mb-3" @submit.prevent="form.put(route('announcement.update', form ))">
                                         <div class="mb-3">
                                             <label for="title" class="form-label fw-bold">Titolo</label>
                                             <input v-model="form.title" type="text" class="form-control" id="title"/>
@@ -54,12 +54,19 @@ import AppLayout from '../../Layouts/AppLayout.vue';
 import JetValidationErrors from '@/Jetstream/ValidationErrors.vue';
 
 export default {
-    setup(){
-        const form = useForm({
-            title: '',
-            description: '',
-            price: '',
-        });
+    props: {
+        announcement: Object,
+        errors: Object,
+    },
+    setup(props){
+        // const form = useForm({
+        //     id: props.announcement.id,
+        //     title: props.announcement.title,
+        //     description: props.announcement.description,
+        //     price: props.announcement.price,
+        // });
+        // or
+        const form = useForm(props.announcement);
 
         return { form };
     },
@@ -67,9 +74,7 @@ export default {
         AppLayout,
         JetValidationErrors,
     },
-    props: {
-        errors: Object,
-    }
+
 
 }
 

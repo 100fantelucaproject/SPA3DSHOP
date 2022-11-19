@@ -60,10 +60,10 @@
                             <Card :title="announcement.title" :description="announcement.description"
                                 :price="announcement.price" :date="announcement.created_at"> </Card>
 
-                            <Link class="px-2" :href="route('announcement.show', { announcement: announcement })"> View
+                            <Link class="px-2" :href="route('announcement.show', announcement.id )"> View
                             </Link>
                             <button @click="destroy(announcement.id)" class="btn btn-danger px-2">Delete</button>
-                            <Link class="px-2" :href="route('announcement.edit', { announcement: announcement })"> Edit
+                            <Link class="px-2" :href="route('announcement.edit', announcement.id )"> Edit
                             </Link>
                         </div>
                     </div>

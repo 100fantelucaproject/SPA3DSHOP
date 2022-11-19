@@ -37,6 +37,9 @@ Route::get('/announcement/create', [AnnouncementController::class, 'create'])->n
 Route::post('/announcement/store', [AnnouncementController::class, 'store'])->name('announcement.store');
 Route::delete('/announcement/destroy({announcement}', [AnnouncementController::class, 'destroy'])->name('announcement.destroy');
 Route::get('/announcement/edit/{announcement}', [AnnouncementController::class, 'edit'])->name('announcement.edit');
+Route::put('/annoucement/update/{announcement}', [AnnouncementController::class, 'update'])->name('announcement.update');
+
+
 
 Route::middleware([
     'auth:sanctum',

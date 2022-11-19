@@ -17,7 +17,7 @@ class AnnouncementController extends Controller
      */
     public function index()
     {
-        $announcements = AnnouncementResource::collection(Announcement::orderBy('created_at', 'desc')->paginate(9));
+        $announcements = AnnouncementResource::collection(Announcement::orderBy('id', 'desc')->paginate(50));
 
         return Inertia::render('Announcements/Index', compact('announcements'));
     }
@@ -64,7 +64,7 @@ class AnnouncementController extends Controller
      */
     public function edit(Announcement $announcement)
     {
-        
+        return inertia('Announcements/Edit', compact('announcement'));
     }
 
     /**
@@ -74,9 +74,11 @@ class AnnouncementController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Announcement $announcement, AnnouncementStoreRequest $request)
     {
-        //
+        $announcement->update($request->validated());
+
+        return redirect()->route('announcement.index')->with('message', 'Announcement updated successfully');
     }
 
     /**
@@ -89,6 +91,6 @@ class AnnouncementController extends Controller
     {
         $announcement->delete();
 
-        redirect()->route('announcement.index')->with('message', 'Announcement deleted successfully');
+        return redirect()->route('announcement.index')->with('message', 'Announcement deleted successfully');
     }
 }
