@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Inertia\Inertia;
 use App\Models\Announcement;
 use Illuminate\Http\Request;
+use App\Http\Requests\AnnouncementStoreRequest;
 use App\Http\Resources\AnnouncementResource;
 
 class AnnouncementController extends Controller
@@ -16,7 +17,7 @@ class AnnouncementController extends Controller
      */
     public function index()
     {
-        $announcements = AnnouncementResource::collection(Announcement::paginate(9));
+        $announcements = AnnouncementResource::collection(Announcement::orderBy('created_at', 'desc')->paginate(9));
 
         return Inertia::render('Announcements/Index', compact('announcements'));
     }
@@ -28,7 +29,7 @@ class AnnouncementController extends Controller
      */
     public function create()
     {
-        //
+        return Inertia::render('Announcements/Create');
     }
 
     /**
@@ -37,9 +38,11 @@ class AnnouncementController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(AnnouncementStoreRequest $request)
     {
-        //
+        Announcement::create($request->validated());
+        
+        return redirect()->route('announcement.index')->with('message', 'Post creato');
     }
 
     /**
@@ -59,9 +62,9 @@ class AnnouncementController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Announcement $announcement)
     {
-        //
+        
     }
 
     /**
@@ -82,8 +85,10 @@ class AnnouncementController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Announcement $announcement)
     {
-        //
+        $announcement->delete();
+
+        redirect()->route('announcement.index')->with('message', 'Announcement deleted successfully');
     }
 }

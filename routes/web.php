@@ -33,6 +33,10 @@ Route::inertia('/', 'Welcome')->name('welcome');
 
 Route::get('/announcement/index', [AnnouncementController::class, 'index'])->name('announcement.index');
 Route::get('/announcement/show/{announcement}', [AnnouncementController::class, 'show'])->name('announcement.show');
+Route::get('/announcement/create', [AnnouncementController::class, 'create'])->name('announcement.create');
+Route::post('/announcement/store', [AnnouncementController::class, 'store'])->name('announcement.store');
+Route::delete('/announcement/destroy({announcement}', [AnnouncementController::class, 'destroy'])->name('announcement.destroy');
+Route::get('/announcement/edit/{announcement}', [AnnouncementController::class, 'edit'])->name('announcement.edit');
 
 Route::middleware([
     'auth:sanctum',

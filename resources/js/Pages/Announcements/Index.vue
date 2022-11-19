@@ -58,27 +58,30 @@
                         <div v-for="announcement in announcements.data" :key="announcement.id"
                             class="col-12 col-md-6 col-lg-4">
                             <Card :title="announcement.title" :description="announcement.description"
-                            :price="announcement.price" :date="announcement.created_at"> </Card>
-                            
-                            <Link :href="route('announcement.show', { announcement: announcement})"> sfsf</Link>
+                                :price="announcement.price" :date="announcement.created_at"> </Card>
+
+                            <Link class="px-2" :href="route('announcement.show', { announcement: announcement })"> View
+                            </Link>
+                            <button @click="destroy(announcement.id)" class="btn btn-danger px-2">Delete</button>
+                            <Link class="px-2" :href="route('announcement.edit', { announcement: announcement })"> Edit
+                            </Link>
                         </div>
                     </div>
                     <div class="my-2">
-                        <template v-for="link in announcements.meta.links" >
+                        <template v-for="link in announcements.meta.links">
                             <Link v-if="
                                 link.url
-                                " :href="link.url"   v-html="link.label"
-                                class="p-2 text-decoration-none text-light fw-bold border border-dark"
-                                :class="{'bg-dark': link.active, 'bg-light': !link.active,
-                                            'text-dark' : !link.active,
-                                           'd-none': (
-                                ((parseInt(link.label)) < (announcements.meta.current_page - 2)) ||
-                                ((parseInt(link.label)) > (announcements.meta.current_page + 2))
-                                ),
-                                'rounded-start': (link.label == 1),
-                                'rounded-end': (link.label == announcements.meta.last_page),}"
-                                
-                                />
+                            " :href="link.url" v-html="link.label"
+                                class="p-2 text-decoration-none text-light fw-bold border border-dark" :class="{
+                                    'bg-dark': link.active, 'bg-light': !link.active,
+                                    'text-dark': !link.active,
+                                    'd-none': (
+                                        ((parseInt(link.label)) < (announcements.meta.current_page - 2)) ||
+                                        ((parseInt(link.label)) > (announcements.meta.current_page + 2))
+                                    ),
+                                    'rounded-start': (link.label == 1),
+                                    'rounded-end': (link.label == announcements.meta.last_page),
+                                }" />
                             <span class="p-2" v-else v-html="link.label"></span>
                         </template>
                     </div>
@@ -93,6 +96,7 @@
 import { Link } from '@inertiajs/inertia-vue3';
 import AppLayout from '../../Layouts/AppLayout.vue';
 import Card from '../../Components/CustomComponents/CardAnnouncement.vue';
+import { Inertia } from '@inertiajs/inertia';
 
 
 export default {
@@ -103,6 +107,17 @@ export default {
     },
     props: {
         announcements: Object,
+    },
+    setup() {
+
+    const destroy = (id) => {
+            if (confirm('Ne sei sicuro?')){
+                Inertia.delete(route('announcement.destroy', id));
+            }
+    }
+
+    return { destroy };
+
     }
 }
 </script>
