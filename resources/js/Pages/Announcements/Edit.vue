@@ -15,10 +15,10 @@
                             <div class="col-12 col-lg-6 ">
                                 <div class="card-body">
                                     <h5 class="card-title text-center text-uppercase fw-bold">INSERISCI IL TUP POST</h5>
-                                    <form class="mb-3" @submit.prevent="form.put(route('announcement.update', form ))">
+                                    <form class="mb-3" @submit.prevent="form.put(route('announcement.update', form))">
                                         <div class="mb-3">
                                             <label for="title" class="form-label fw-bold">Titolo</label>
-                                            <input v-model="form.title" type="text" class="form-control" id="title"/>
+                                            <input v-model="form.title" type="text" class="form-control" id="title" />
                                             <div v-if="errors.title" class="text-danger"> {{ errors.title }}</div>
                                         </div>
                                         <div class="mb-3">
@@ -28,8 +28,7 @@
                                         </div>
                                         <div class="mb-3">
                                             <label for="price" class="form-label fw-bold">Prezzo</label>
-                                            <input v-model="form.price" type="number" class="form-control"
-                                                id="price" />
+                                            <input v-model="form.price" type="number" class="form-control" id="price" />
                                         </div>
                                         <div class="text-center mb-3">
                                             <button :disabled="form.processing" class="btn btn-danger" type="submit">
@@ -58,14 +57,7 @@ export default {
         announcement: Object,
         errors: Object,
     },
-    setup(props){
-        // const form = useForm({
-        //     id: props.announcement.id,
-        //     title: props.announcement.title,
-        //     description: props.announcement.description,
-        //     price: props.announcement.price,
-        // });
-        // or
+    setup(props) {
         const form = useForm(props.announcement);
 
         return { form };

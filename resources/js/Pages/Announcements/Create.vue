@@ -18,7 +18,7 @@
                                     <form class="mb-3" @submit.prevent="form.post(route('announcement.store'))">
                                         <div class="mb-3">
                                             <label for="title" class="form-label fw-bold">Titolo</label>
-                                            <input v-model="form.title" type="text" class="form-control" id="title"/>
+                                            <input v-model="form.title" type="text" class="form-control" id="title" />
                                             <div v-if="errors.title" class="text-danger"> {{ errors.title }}</div>
                                         </div>
                                         <div class="mb-3">
@@ -28,8 +28,7 @@
                                         </div>
                                         <div class="mb-3">
                                             <label for="price" class="form-label fw-bold">Prezzo</label>
-                                            <input v-model="form.price" type="number" class="form-control"
-                                                id="price" />
+                                            <input v-model="form.price" type="number" class="form-control" id="price" />
                                         </div>
                                         <div class="text-center mb-3">
                                             <button :disabled="form.processing" class="btn btn-danger" type="submit">
@@ -54,7 +53,7 @@ import AppLayout from '../../Layouts/AppLayout.vue';
 import JetValidationErrors from '@/Jetstream/ValidationErrors.vue';
 
 export default {
-    setup(){
+    setup() {
         const form = useForm({
             title: '',
             description: '',
