@@ -4,44 +4,42 @@
             <div class="row d-flex justify-content-center">
                 <div class="col-12 col-md-4 bg-warning py-4">
                     <div class="mb-3">
-                        <form class="d-flex" role="search">
-                            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                            <button class="btn btn-outline-success" type="submit">Search</button>
-                        </form>
+                        <input v-model="searched" class="form-control me-2" type="search" placeholder="Search"
+                            aria-label="Search">
                     </div>
                     <h6 class="text-center fw-bold text-uppercase">Range di prezzo</h6>
                     <div class="row d-flex justify-content-between text-center mb-3">
                         <div class="col-6">
                             <label for="exampleFormControlInput1" class="form-label">Min</label>
-                            <input type="email" class="form-control" id="exampleFormControlInput1"
-                                placeholder="name@example.com">
+                            <input type="email" class="form-control" 
+                                placeholder="">
                         </div>
                         <div class="col-6">
                             <label for="exampleFormControlInput1" class="form-label">Max</label>
-                            <input type="email" class="form-control" id="exampleFormControlInput1"
-                                placeholder="name@example.com">
+                            <input type="email" class="form-control" 
+                                placeholder="">
                         </div>
                     </div>
                     <div class="row d-flex justify-content-between text-center mb-3">
                         <div class="col-6">
-                            <button class="btn btn-dark">
+                            <button class="btn btn-dark" @click=" orderDate = 'asc' ">
                                 Ordina dal più vecchio
                             </button>
                         </div>
                         <div class="col-6">
-                            <button class="btn btn-dark">
+                            <button class="btn btn-dark" @click=" orderDate = 'desc' ">
                                 Ordina dal più nuovo
                             </button>
                         </div>
                     </div>
                     <div class="row d-flex justify-content-between text-center mb-3">
                         <div class="col-6">
-                            <button class="btn btn-dark">
+                            <button class="btn btn-dark" @click=" orderPrice='desc' ">
                                 Ordina dal più costoso
                             </button>
                         </div>
                         <div class="col-6">
-                            <button class="btn btn-dark">
+                            <button class="btn btn-dark" @click=" orderPrice='asc' ">
                                 Ordina dal meno costoso
                             </button>
                         </div>
@@ -80,6 +78,7 @@
 </template>
 
 <script>
+import { ref, watch } from 'vue';
 import { Link } from '@inertiajs/inertia-vue3';
 import AppLayout from '../../Layouts/AppLayout.vue';
 import Card from '../../Components/CustomComponents/CardAnnouncement.vue';
@@ -88,6 +87,7 @@ import Pagination from '../../Components/CustomComponents/Pagination.vue';
 
 
 export default {
+
     components: {
         Pagination,
         Link,
@@ -99,13 +99,51 @@ export default {
     },
     setup() {
 
+        const orderDate = ref('');
+        const orderPrice = ref(''); 
+        const searched = ref('');
+
+        //Delete post
         const destroy = (id) => {
             if (confirm('Ne sei sicuro?')) {
                 Inertia.delete(route('announcement.destroy', id));
             }
         }
 
-        return { destroy };
+        watch(orderDate, (current, previous) => {
+            Inertia.get(route('announcement.index',
+                {
+                    created_at: current,
+                    price: orderPrice.value,
+                    search_global: searched.value,
+                }));
+        });
+
+        watch(orderPrice, (current, previous) => {
+
+            Inertia.get(route('announcement.index',
+                {
+                    created_at: orderDate.value,
+                    price: current,
+                    search_global: searched.value,
+                }));
+        });
+
+        watch(searched, _.debounce((current, previous) => {
+
+            Inertia.get(route('announcement.index',
+                {
+                    created_at: orderDate.value,
+                    price: orderPrice.value,
+                    search_global: current,
+                }));
+        }, 1000));
+
+        return { destroy, orderPrice, orderDate, searched };
+    },
+
+    methods: {
+
 
     }
 }

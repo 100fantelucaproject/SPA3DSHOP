@@ -17,7 +17,19 @@ class AnnouncementController extends Controller
      */
     public function index()
     {
-        $announcements = AnnouncementResource::collection(Announcement::orderBy('id', 'desc')->paginate(10));
+
+        $announcements = AnnouncementResource::collection(
+            Announcement::when(request('created_at'), function ($query){
+                $query->orderBy('created_at', request('created_at'));
+            })
+            ->when(request('price'), function ($query){
+                $query->orderBy('price', request('price'));
+            })
+            ->when(request('search_global'), function ($query){
+                $query->where('title', 'like', '%'.request('search_global').'%')
+                      ->orWhere('description', 'like', '%'.request('search_global').'%');
+            })
+            ->paginate(10));
 
         return Inertia::render('Announcements/Index', compact('announcements'));
     }
@@ -78,7 +90,9 @@ class AnnouncementController extends Controller
     {
         $announcement->update($request->validated());
 
-        return redirect()->route('announcement.index')->with('message', 'Announcement updated successfully');
+        $announcements = AnnouncementResource::collection(Announcement::paginate(10));
+
+        return inertia('Announcements/Index', compact('announcements'))->with('message', 'Announcement deleted successfully');
     }
 
     /**

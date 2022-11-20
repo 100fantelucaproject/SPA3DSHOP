@@ -31,7 +31,7 @@ Route::inertia('/', 'Welcome')->name('welcome');
 
 //Announcements routes 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------
-Route::get('/announcement/index', [AnnouncementController::class, 'index'])->name('announcement.index');
+Route::get('/announcement/index/', [AnnouncementController::class, 'index'])->name('announcement.index');
 
 Route::get('/announcement/show/{announcement}', [AnnouncementController::class, 'show'])->name('announcement.show');
 
