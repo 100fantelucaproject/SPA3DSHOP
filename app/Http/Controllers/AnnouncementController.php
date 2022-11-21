@@ -10,6 +10,9 @@ use App\Http\Resources\AnnouncementResource;
 
 class AnnouncementController extends Controller
 {
+
+
+    protected $maximun = 1000000000;
     /**
      * Display a listing of the resource.
      *
@@ -18,20 +21,50 @@ class AnnouncementController extends Controller
     public function index()
     {
 
-        $announcements = AnnouncementResource::collection(
-            Announcement::when(request('created_at'), function ($query){
-                $query->orderBy('created_at', request('created_at'));
-            })
-            ->when(request('price'), function ($query){
-                $query->orderBy('price', request('price'));
-            })
-            ->when(request('search_global'), function ($query){
-                $query->where('title', 'like', '%'.request('search_global').'%')
-                      ->orWhere('description', 'like', '%'.request('search_global').'%');
-            })
-            ->paginate(10));
+        $textSearch = !empty(request('search_global')) ? request('search_global') : '' ;
+        $orderColumn = request('orderColumn') ? request('orderColumn') : 'created_at';
+        $order = request('order') ? request('order') : 'desc';
+        $rangePrice = [
+            'priceMin' => !empty(request('priceMin')) ? request('priceMin') : 0 ,
+            'priceMax' => !empty(request('priceMax')) ? request('priceMax') : $this->maximun,
+        ];
 
-        return Inertia::render('Announcements/Index', compact('announcements'));
+
+        if ($orderColumn === 'created_at') {
+            $foundAnnouncements = Announcement::orderBy('id', $order)
+                ->when($textSearch, function ($query, $textSearch) {
+                    $query->where('title', 'like', '%' . $textSearch . '%')
+                        ->orWhere('description', 'like', '%' . $textSearch . '%');
+                })
+                ->when($rangePrice, function ($query, $rangePrice) {
+                    $query->whereBetween('price', [ $rangePrice['priceMin'] , $rangePrice['priceMax']]);
+                })
+                ->paginate(10);
+        } 
+        else if ($orderColumn === 'price') {
+            $foundAnnouncements = Announcement::orderBy('price', $order)
+                ->when($textSearch, function ($query, $textSearch) {
+                    $query->where('title', 'like', '%' . $textSearch . '%')
+                        ->orWhere('description', 'like', '%' . $textSearch . '%');
+                })
+                ->when($rangePrice, function ($query, $rangePrice) {
+                    $query->whereBetween('price', [ $rangePrice['priceMin'] , $rangePrice['priceMax']]);
+                })
+                ->paginate(10);
+        }
+
+        $announcements = AnnouncementResource::collection($foundAnnouncements);
+
+        return Inertia::render(
+            'Announcements/Index',
+            compact(
+                'announcements',
+                'textSearch',
+                'orderColumn',
+                'order',
+                'rangePrice'
+            )
+        );
     }
 
     /**
@@ -53,7 +86,7 @@ class AnnouncementController extends Controller
     public function store(AnnouncementStoreRequest $request)
     {
         Announcement::create($request->validated());
-        
+
         return redirect()->route('announcement.index')->with('message', 'Post creato');
     }
 
@@ -90,9 +123,7 @@ class AnnouncementController extends Controller
     {
         $announcement->update($request->validated());
 
-        $announcements = AnnouncementResource::collection(Announcement::paginate(10));
-
-        return inertia('Announcements/Index', compact('announcements'))->with('message', 'Announcement deleted successfully');
+        return redirect(route('announcement.index'));
     }
 
     /**
@@ -105,6 +136,6 @@ class AnnouncementController extends Controller
     {
         $announcement->delete();
 
-        return redirect()->route('announcement.index')->with('message', 'Announcement deleted successfully');
+        return redirect()->back()->with('message', 'Announcement deleted successfully');
     }
 }

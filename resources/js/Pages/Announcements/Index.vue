@@ -10,36 +10,36 @@
                     <h6 class="text-center fw-bold text-uppercase">Range di prezzo</h6>
                     <div class="row d-flex justify-content-between text-center mb-3">
                         <div class="col-6">
-                            <label for="exampleFormControlInput1" class="form-label">Min</label>
-                            <input type="email" class="form-control" 
-                                placeholder="">
+                            <label for="exampleFormControlInput1" class="form-label">Min: {{ rangePrice.priceMin
+                            }}</label>
+                            <input type="number" class="form-control" placeholder="Prezzo min" v-model="Min" >
                         </div>
                         <div class="col-6">
-                            <label for="exampleFormControlInput1" class="form-label">Max</label>
-                            <input type="email" class="form-control" 
-                                placeholder="">
+                            <label for="exampleFormControlInput1" class="form-label">Max: {{ rangePrice.priceMax
+                            }}</label>
+                            <input type="number" class="form-control" placeholder="Prezzo max" v-model="Max" >
                         </div>
                     </div>
                     <div class="row d-flex justify-content-between text-center mb-3">
                         <div class="col-6">
-                            <button class="btn btn-dark" @click=" orderDate = 'asc' ">
+                            <button class="btn btn-dark" @click="changeOrder('created_at', 'asc')">
                                 Ordina dal più vecchio
                             </button>
                         </div>
                         <div class="col-6">
-                            <button class="btn btn-dark" @click=" orderDate = 'desc' ">
+                            <button class="btn btn-dark" @click="changeOrder('created_at', 'desc')">
                                 Ordina dal più nuovo
                             </button>
                         </div>
                     </div>
                     <div class="row d-flex justify-content-between text-center mb-3">
                         <div class="col-6">
-                            <button class="btn btn-dark" @click=" orderPrice='desc' ">
+                            <button class="btn btn-dark" @click="changeOrder('price', 'desc')">
                                 Ordina dal più costoso
                             </button>
                         </div>
                         <div class="col-6">
-                            <button class="btn btn-dark" @click=" orderPrice='asc' ">
+                            <button class="btn btn-dark" @click="changeOrder('price', 'asc')">
                                 Ordina dal meno costoso
                             </button>
                         </div>
@@ -51,7 +51,9 @@
                         <option value="3">Three</option>
                     </select>
                 </div>
+
                 <div class="col-12 col-md-8 bg-success py-4">
+                    <div v-if="textSearch">Risultati relativi a: {{ textSearch }}</div>
                     <div class="row justify-content-around">
                         <div v-for="announcement in announcements.data" :key="announcement.id"
                             class="col-12 col-md-6 col-lg-4">
@@ -68,7 +70,7 @@
                         </div>
                     </div>
                     <div class="my-4">
-                        <Pagination :elements="announcements"></Pagination>
+                        <Pagination :elements="announcements" :researchData="researchData"></Pagination>
                     </div>
                 </div>
             </div>
@@ -78,30 +80,45 @@
 </template>
 
 <script>
-import { ref, watch } from 'vue';
+import { toRefs, toRef, ref, watch } from 'vue';
 import { Link } from '@inertiajs/inertia-vue3';
 import AppLayout from '../../Layouts/AppLayout.vue';
 import Card from '../../Components/CustomComponents/CardAnnouncement.vue';
 import { Inertia } from '@inertiajs/inertia';
 import Pagination from '../../Components/CustomComponents/Pagination.vue';
+import { DOMDirectiveTransforms } from '@vue/compiler-dom';
 
 
 export default {
-
+    props: {
+        announcements: Object,
+        textSearch: String,
+        orderColumn: String,
+        order: String,
+        rangePrice: Object,
+    },
+    data() {
+        return {
+            researchData: {
+                textSearch: this.textSearch,
+                orderColumn: this.orderColumn,
+                order: this.order,
+                rangePrice: this.rangePrice,
+            }
+        };
+    },
     components: {
         Pagination,
         Link,
         AppLayout,
         Card,
     },
-    props: {
-        announcements: Object,
-    },
-    setup() {
+    setup(props) {
 
-        const orderDate = ref('');
-        const orderPrice = ref(''); 
-        const searched = ref('');
+        const searched = ref(props.textSearch);
+        const Max = ref(props.rangePrice.priceMax);
+        const Min = ref(props.rangePrice.PriceMin);
+        console.log(props.rangePrice.priceMax);
 
         //Delete post
         const destroy = (id) => {
@@ -110,41 +127,51 @@ export default {
             }
         }
 
-        watch(orderDate, (current, previous) => {
+        const changeOrder = (column, order) => {
             Inertia.get(route('announcement.index',
                 {
-                    created_at: current,
-                    price: orderPrice.value,
-                    search_global: searched.value,
+                    orderColumn: column,
+                    order: order,
+                    search_global: props.textSearch,
+                    priceMin: props.rangePrice.priceMin,
+                    priceMax: props.rangePrice.priceMax,
                 }));
-        });
-
-        watch(orderPrice, (current, previous) => {
-
-            Inertia.get(route('announcement.index',
-                {
-                    created_at: orderDate.value,
-                    price: current,
-                    search_global: searched.value,
-                }));
-        });
+        };
 
         watch(searched, _.debounce((current, previous) => {
-
             Inertia.get(route('announcement.index',
                 {
-                    created_at: orderDate.value,
-                    price: orderPrice.value,
+                    orderColumn: props.orderColumn,
+                    order: props.order,
                     search_global: current,
+                    priceMin: props.rangePrice.priceMin,
+                    priceMax: props.rangePrice.priceMax,
                 }));
-        }, 1000));
+        }, 800));
 
-        return { destroy, orderPrice, orderDate, searched };
+        watch(Max, _.debounce((current) => {
+            Inertia.get(route('announcement.index',
+                {
+                    orderColumn: props.orderColumn,
+                    order: props.order,
+                    search_global: props.textSearch,
+                    priceMin: props.rangePrice.priceMin,
+                    priceMax: current,
+                }));
+        }, 800));
+
+        watch(Min, _.debounce((current) => {
+            Inertia.get(route('announcement.index',
+                {
+                    orderColumn: props.orderColumn,
+                    order: props.order,
+                    search_global: props.textSearch,
+                    priceMin: current,
+                    priceMax: props.rangePrice.priceMax,
+                }));
+        }, 800));
+
+        return { destroy, searched, changeOrder, Min, Max };
     },
-
-    methods: {
-
-
-    }
 }
 </script>
