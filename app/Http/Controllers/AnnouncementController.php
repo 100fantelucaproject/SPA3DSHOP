@@ -20,7 +20,6 @@ class AnnouncementController extends Controller
      */
     public function index()
     {
-
         $textSearch = !empty(request('search_global')) ? request('search_global') : '' ;
         $orderColumn = request('orderColumn') ? request('orderColumn') : 'created_at';
         $order = request('order') ? request('order') : 'desc';

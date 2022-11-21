@@ -118,7 +118,6 @@ export default {
         const searched = ref(props.textSearch);
         const Max = ref(props.rangePrice.priceMax);
         const Min = ref(props.rangePrice.PriceMin);
-        console.log(props.rangePrice.priceMax);
 
         //Delete post
         const destroy = (id) => {
