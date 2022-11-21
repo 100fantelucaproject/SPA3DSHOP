@@ -7,6 +7,8 @@ use App\Models\Announcement;
 use Illuminate\Http\Request;
 use App\Http\Requests\AnnouncementStoreRequest;
 use App\Http\Resources\AnnouncementResource;
+use App\Http\Resources\CategoryResource;
+use App\Models\Category;
 
 class AnnouncementController extends Controller
 {
@@ -20,39 +22,48 @@ class AnnouncementController extends Controller
      */
     public function index()
     {
-        $textSearch = !empty(request('search_global')) ? request('search_global') : '' ;
+        $textSearch = !empty(request('search_global')) ? request('search_global') : '';
         $orderColumn = request('orderColumn') ? request('orderColumn') : 'created_at';
         $order = request('order') ? request('order') : 'desc';
         $rangePrice = [
-            'priceMin' => !empty(request('priceMin')) ? request('priceMin') : 0 ,
+            'priceMin' => !empty(request('priceMin')) ? request('priceMin') : 0,
             'priceMax' => !empty(request('priceMax')) ? request('priceMax') : $this->maximun,
         ];
+        $category =  request('category') ? request('category') : "";
 
 
         if ($orderColumn === 'created_at') {
-            $foundAnnouncements = Announcement::orderBy('id', $order)
+            $foundAnnouncements = Announcement::with('category')
+                ->orderBy('id', $order)
                 ->when($textSearch, function ($query, $textSearch) {
                     $query->where('title', 'like', '%' . $textSearch . '%')
                         ->orWhere('description', 'like', '%' . $textSearch . '%');
                 })
                 ->when($rangePrice, function ($query, $rangePrice) {
-                    $query->whereBetween('price', [ $rangePrice['priceMin'] , $rangePrice['priceMax']]);
+                    $query->whereBetween('price', [$rangePrice['priceMin'], $rangePrice['priceMax']]);
+                })
+                ->when($category, function ($query, $category) {
+                    $query->where('category_id', $category);
                 })
                 ->paginate(10);
-        } 
-        else if ($orderColumn === 'price') {
-            $foundAnnouncements = Announcement::orderBy('price', $order)
+        } else if ($orderColumn === 'price') {
+            $foundAnnouncements = Announcement::with('category')
+                ->orderBy('price', $order)
                 ->when($textSearch, function ($query, $textSearch) {
                     $query->where('title', 'like', '%' . $textSearch . '%')
                         ->orWhere('description', 'like', '%' . $textSearch . '%');
                 })
                 ->when($rangePrice, function ($query, $rangePrice) {
-                    $query->whereBetween('price', [ $rangePrice['priceMin'] , $rangePrice['priceMax']]);
+                    $query->whereBetween('price', [$rangePrice['priceMin'], $rangePrice['priceMax']]);
+                })
+                ->when($category, function ($query, $category) {
+                    $query->where('category_id', $category);
                 })
                 ->paginate(10);
         }
 
         $announcements = AnnouncementResource::collection($foundAnnouncements);
+        $categories = CategoryResource::collection(Category::all());
 
         return Inertia::render(
             'Announcements/Index',
@@ -61,7 +72,9 @@ class AnnouncementController extends Controller
                 'textSearch',
                 'orderColumn',
                 'order',
-                'rangePrice'
+                'rangePrice',
+                'category',
+                'categories',
             )
         );
     }

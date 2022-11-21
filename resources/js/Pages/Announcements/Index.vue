@@ -12,12 +12,12 @@
                         <div class="col-6">
                             <label for="exampleFormControlInput1" class="form-label">Min: {{ rangePrice.priceMin
                             }}</label>
-                            <input type="number" class="form-control" placeholder="Prezzo min" v-model="Min" >
+                            <input type="number" class="form-control" placeholder="Prezzo min" v-model="Min">
                         </div>
                         <div class="col-6">
                             <label for="exampleFormControlInput1" class="form-label">Max: {{ rangePrice.priceMax
                             }}</label>
-                            <input type="number" class="form-control" placeholder="Prezzo max" v-model="Max" >
+                            <input type="number" class="form-control" placeholder="Prezzo max" v-model="Max">
                         </div>
                     </div>
                     <div class="row d-flex justify-content-between text-center mb-3">
@@ -44,21 +44,19 @@
                             </button>
                         </div>
                     </div>
-                    <select class="form-select" aria-label="Default select example">
-                        <option selected>Open this select menu</option>
-                        <option value="1">One</option>
-                        <option value="2">Two</option>
-                        <option value="3">Three</option>
+                    <select class="form-select" aria-label="Default select example" v-model="selectedCategory">
+                        <option value="" selected>Tutte le categorie</option>
+                        <option v-for="category in categories" :value="category.id">
+                            {{ category.name }}</option>
                     </select>
                 </div>
-
                 <div class="col-12 col-md-8 bg-success py-4">
                     <div v-if="textSearch">Risultati relativi a: {{ textSearch }}</div>
                     <div class="row justify-content-around">
                         <div v-for="announcement in announcements.data" :key="announcement.id"
                             class="col-12 col-md-6 col-lg-4">
                             <Card :title="announcement.title" :description="announcement.description"
-                                :price="announcement.price" :date="announcement.created_at"> </Card>
+                                :price="announcement.price" :date="announcement.created_at" :category="announcement.category" > </Card>
 
                             <Link class="px-2" :href="route('announcement.show', announcement.id)"> View
                             </Link>
@@ -80,7 +78,7 @@
 </template>
 
 <script>
-import { toRefs, toRef, ref, watch } from 'vue';
+import { ref, watch } from 'vue';
 import { Link } from '@inertiajs/inertia-vue3';
 import AppLayout from '../../Layouts/AppLayout.vue';
 import Card from '../../Components/CustomComponents/CardAnnouncement.vue';
@@ -96,6 +94,8 @@ export default {
         orderColumn: String,
         order: String,
         rangePrice: Object,
+        categories: Object,
+        category: String,
     },
     data() {
         return {
@@ -104,6 +104,7 @@ export default {
                 orderColumn: this.orderColumn,
                 order: this.order,
                 rangePrice: this.rangePrice,
+                category: this.category,
             }
         };
     },
@@ -118,6 +119,7 @@ export default {
         const searched = ref(props.textSearch);
         const Max = ref(props.rangePrice.priceMax);
         const Min = ref(props.rangePrice.PriceMin);
+        const selectedCategory = ref(props.category.id);
 
         //Delete post
         const destroy = (id) => {
@@ -134,6 +136,7 @@ export default {
                     search_global: props.textSearch,
                     priceMin: props.rangePrice.priceMin,
                     priceMax: props.rangePrice.priceMax,
+                    category: props.category,
                 }));
         };
 
@@ -145,6 +148,7 @@ export default {
                     search_global: current,
                     priceMin: props.rangePrice.priceMin,
                     priceMax: props.rangePrice.priceMax,
+                    category: props.category,
                 }));
         }, 800));
 
@@ -156,6 +160,7 @@ export default {
                     search_global: props.textSearch,
                     priceMin: props.rangePrice.priceMin,
                     priceMax: current,
+                    category: props.category,
                 }));
         }, 800));
 
@@ -167,10 +172,24 @@ export default {
                     search_global: props.textSearch,
                     priceMin: current,
                     priceMax: props.rangePrice.priceMax,
+                    category: props.category,
                 }));
         }, 800));
 
-        return { destroy, searched, changeOrder, Min, Max };
+        watch(selectedCategory, (current) => {
+            Inertia.get(route('announcement.index',
+                {
+                    orderColumn: props.orderColumn,
+                    order: props.order,
+                    search_global: props.textSearch,
+                    priceMin: props.rangePrice.priceMin,
+                    priceMax: props.rangePrice.priceMax,
+                    category: current,
+                }));
+        });
+
+
+        return { destroy, searched, changeOrder, Min, Max, selectedCategory };
     },
 }
 </script>

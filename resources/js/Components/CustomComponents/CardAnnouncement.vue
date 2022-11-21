@@ -9,7 +9,7 @@
             </div>
             <hr class="my-1">
             <div class="text-center fst-italic">
-                <p class="card-text">Categoria</p>
+                <p class="card-text">{{ category}}</p>
             </div>
             <hr class="my-1">
             <div class="py-1 text-center">
@@ -34,6 +34,7 @@ export default{
         description: String,
         price: Number,
         date: String,
+        category: String,
     }
 }
 </script>
