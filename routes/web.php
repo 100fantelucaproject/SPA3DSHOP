@@ -1,7 +1,9 @@
 <?php
 
 use App\Http\Controllers\AnnouncementController;
+use App\Http\Controllers\UserController;
 use App\Models\Announcement;
+use GuzzleHttp\Middleware;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -17,13 +19,6 @@ use Inertia\Inertia;
 |
 */
 
-// Route::get('/', function () {
-//     return Inertia::render('Welcome', [
-//         'canLogin' => Route::has('login'),
-//         'canRegister' => Route::has('register'),
-//     ]);
-// });
-
 //Main routes
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------
 Route::inertia('/', 'Welcome')->name('welcome');
@@ -35,25 +30,32 @@ Route::get('/announcement/index/', [AnnouncementController::class, 'index'])->na
 
 Route::get('/announcement/show/{announcement}', [AnnouncementController::class, 'show'])->name('announcement.show');
 
-Route::get('/announcement/create', [AnnouncementController::class, 'create'])->name('announcement.create');
+Route::middleware(['auth', 'verified'])->group(function () {
+
+    Route::get('/announcement/create', [AnnouncementController::class, 'create'])->name('announcement.create');
+
+    Route::get('/announcement/edit/{announcement}', [AnnouncementController::class, 'edit'])->name('announcement.edit');
+
+    Route::put('/annoucement/update/{announcement}', [AnnouncementController::class, 'update'])->name('announcement.update');
+});
 
 Route::post('/announcement/store', [AnnouncementController::class, 'store'])->name('announcement.store');
 
 Route::delete('/announcement/destroy({announcement}', [AnnouncementController::class, 'destroy'])->name('announcement.destroy');
-
-Route::get('/announcement/edit/{announcement}', [AnnouncementController::class, 'edit'])->name('announcement.edit');
-
-Route::put('/annoucement/update/{announcement}', [AnnouncementController::class, 'update'])->name('announcement.update');
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+//User Routes
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------
+Route::get('/user/announcements', [UserController::class, 'UserAnnouncements'])->name('user.announcements');
 
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-Route::middleware([
-    'auth:sanctum',
-    config('jetstream.auth_session'),
-    'verified',
-])->group(function () {
-    Route::get('/dashboard', function () {
-        return Inertia::render('Dashboard');
-    })->name('dashboard');
-});
+Route::get('/dashboard', function () {
+    return Inertia::render('Dashboard');
+})
+->middleware([
+        'auth:sanctum',
+        config('jetstream.auth_session'),
+        'verified',
+    ])
+->name('dashboard');

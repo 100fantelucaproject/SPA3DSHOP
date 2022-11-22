@@ -106,8 +106,7 @@ export default {
         const Max = ref(props.researchData.rangePrice.priceMax);
         const Min = ref(props.researchData.rangePrice.PriceMin);
         const selectedCategory = ref(props.researchData.category);
-        console.log(props.researchData.category);
-console.log(typeof(parseInt(props.researchData.rangePrice.priceMin)));
+
         //Delete post
         const destroy = (id) => {
             if (confirm('Ne sei sicuro?')) {

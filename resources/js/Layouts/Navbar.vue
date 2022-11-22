@@ -16,7 +16,9 @@
                             modelli
                         </a>
                         <ul class="dropdown-menu m-0">
-                            <li><Link class="dropdown-item" :href="route('announcement.index')">Tutti i modelli</Link></li>
+                            <li>
+                                <Link class="dropdown-item" :href="route('announcement.index')">Tutti i modelli</Link>
+                            </li>
                             <li><a class="dropdown-item" href="#">Per categoria</a></li>
                         </ul>
                     </li>

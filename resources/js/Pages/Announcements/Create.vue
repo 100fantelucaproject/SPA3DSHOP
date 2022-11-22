@@ -30,6 +30,14 @@
                                             <label for="price" class="form-label fw-bold">Prezzo</label>
                                             <input v-model="form.price" type="number" class="form-control" id="price" />
                                         </div>
+                                        <div class="mb-3">
+                                            <select class="form-select" aria-label="Default select example"
+                                                v-model="form.category_id">
+                                                <option selected value="">Seleziona una categoria</option>
+                                                <option v-for="category in categories" :value="category.id">
+                                                    {{ category.name }}</option>
+                                            </select>
+                                        </div>
                                         <div class="text-center mb-3">
                                             <button :disabled="form.processing" class="btn btn-danger" type="submit">
                                                 submit
@@ -53,11 +61,16 @@ import AppLayout from '../../Layouts/AppLayout.vue';
 import JetValidationErrors from '@/Jetstream/ValidationErrors.vue';
 
 export default {
+    props: {
+        errors: Object,
+        categories: Object,
+    },
     setup() {
         const form = useForm({
             title: '',
             description: '',
             price: '',
+            category_id: '',
         });
 
         return { form };
@@ -66,10 +79,6 @@ export default {
         AppLayout,
         JetValidationErrors,
     },
-    props: {
-        errors: Object,
-    }
-
 }
 
 </script>

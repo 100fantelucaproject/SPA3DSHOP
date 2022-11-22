@@ -3,12 +3,13 @@
 namespace App\Http\Controllers;
 
 use Inertia\Inertia;
+use App\Models\Category;
 use App\Models\Announcement;
 use Illuminate\Http\Request;
-use App\Http\Requests\AnnouncementStoreRequest;
-use App\Http\Resources\AnnouncementResource;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Resources\CategoryResource;
-use App\Models\Category;
+use App\Http\Resources\AnnouncementResource;
+use App\Http\Requests\AnnouncementStoreRequest;
 
 class AnnouncementController extends Controller
 {
@@ -36,31 +37,29 @@ class AnnouncementController extends Controller
         $this->priceMax = !empty(request('priceMax')) ? intval(request('priceMax')) : $this->maximum;
         $this->category =  request('category') ? request('category') : "";
 
-
-        $foundAnnouncements = Announcement::with('category')
-            ->orderBy($this->orderColumn, $this->order)
-            ->where(function ($subQuery) {
-                if ($this->textSearch) {
-                    $subQuery->where('title', 'like', '%' . $this->textSearch . '%')
-                        ->orWhere('description', 'like', '%' . $this->textSearch . '%');
-                }
-            })
-            ->where(function ($subQuery) {
-                if ($this->priceMin != 0 || $this->priceMax != $this->maximum) {
-                    $subQuery->whereBetween('price', [$this->priceMin, $this->priceMax]);
-                }
-            })
-            ->where(function ($subQuery) {
-                if ($this->category) {
-                    $subQuery->where('category_id', $this->category);
-                }
-            })
-            ->paginate(10);
-
-
-        $announcements = AnnouncementResource::collection($foundAnnouncements);
-
         $categories = CategoryResource::collection(Category::all());
+
+        $announcements = AnnouncementResource::collection(
+            Announcement::with('category')
+                ->orderBy($this->orderColumn, $this->order)
+                ->where(function ($subQuery) {
+                    if ($this->textSearch) {
+                        $subQuery->where('title', 'like', '%' . $this->textSearch . '%')
+                            ->orWhere('description', 'like', '%' . $this->textSearch . '%');
+                    }
+                })
+                ->where(function ($subQuery) {
+                    if ($this->priceMin != 0 || $this->priceMax != $this->maximum) {
+                        $subQuery->whereBetween('price', [$this->priceMin, $this->priceMax]);
+                    }
+                })
+                ->where(function ($subQuery) {
+                    if ($this->category) {
+                        $subQuery->where('category_id', $this->category);
+                    }
+                })
+                ->paginate(10)
+        );
 
         return Inertia::render(
             'Announcements/Index',
@@ -78,7 +77,6 @@ class AnnouncementController extends Controller
                 ],
                 'categories' => $categories,
             ]
-
         );
     }
 
@@ -90,7 +88,9 @@ class AnnouncementController extends Controller
      */
     public function create()
     {
-        return Inertia::render('Announcements/Create');
+        $categories = CategoryResource::collection(Category::all());
+
+        return Inertia::render('Announcements/Create', compact('categories'));
     }
 
     /**
@@ -101,7 +101,10 @@ class AnnouncementController extends Controller
      */
     public function store(AnnouncementStoreRequest $request)
     {
-        Announcement::create($request->validated());
+
+        $announcement = Category::find($request->category_id)->announcements()->create($request->validated());
+
+        Auth::user()->announcements()->save($announcement);
 
         return redirect()->route('announcement.index')->with('message', 'Post creato');
     }
@@ -125,6 +128,8 @@ class AnnouncementController extends Controller
      */
     public function edit(Announcement $announcement)
     {
+        $this->authorize('view', $announcement);
+
         return inertia('Announcements/Edit', compact('announcement'));
     }
 
@@ -137,6 +142,8 @@ class AnnouncementController extends Controller
      */
     public function update(Announcement $announcement, AnnouncementStoreRequest $request)
     {
+        $this->authorize('update', $announcement);
+
         $announcement->update($request->validated());
 
         return redirect(route('announcement.index'));
@@ -150,6 +157,8 @@ class AnnouncementController extends Controller
      */
     public function destroy(Announcement $announcement)
     {
+        $this->authorize('delete', $announcement);
+
         $announcement->delete();
 
         return redirect()->back()->with('message', 'Announcement deleted successfully');

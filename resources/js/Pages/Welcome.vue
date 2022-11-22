@@ -7,6 +7,7 @@
 </template>
 
 <script>
+
 import { Head } from '@inertiajs/inertia-vue3';
 import AppLayout from '../Layouts/AppLayout.vue';
 import MainCategory from '../Layouts/MainCategory.vue';
