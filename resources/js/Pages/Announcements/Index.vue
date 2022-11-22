@@ -10,13 +10,13 @@
                     <h6 class="text-center fw-bold text-uppercase">Range di prezzo</h6>
                     <div class="row d-flex justify-content-between text-center mb-3">
                         <div class="col-6">
-                            <label for="exampleFormControlInput1" class="form-label">Min: {{ rangePrice.priceMin
-                            }}</label>
+                            <label for="exampleFormControlInput1" class="form-label">Min:
+                                {{ researchData.rangePrice.priceMin }}</label>
                             <input type="number" class="form-control" placeholder="Prezzo min" v-model="Min">
                         </div>
                         <div class="col-6">
-                            <label for="exampleFormControlInput1" class="form-label">Max: {{ rangePrice.priceMax
-                            }}</label>
+                            <label for="exampleFormControlInput1" class="form-label">Max:
+                                {{ researchData.rangePrice.priceMax }}</label>
                             <input type="number" class="form-control" placeholder="Prezzo max" v-model="Max">
                         </div>
                     </div>
@@ -51,24 +51,20 @@
                     </select>
                 </div>
                 <div class="col-12 col-md-8 bg-success py-4">
-                    <div v-if="textSearch">Risultati relativi a: {{ textSearch }}</div>
+                    <div v-if="researchData.textSearch">Risultati relativi a: {{ researchData.textSearch }}</div>
                     <div class="row justify-content-around">
                         <div v-for="announcement in announcements.data" :key="announcement.id"
                             class="col-12 col-md-6 col-lg-4">
-                            <Card :title="announcement.title" :description="announcement.description"
-                                :price="announcement.price" :date="announcement.created_at" :category="announcement.category" > </Card>
-
+                            <Card :announcement="announcement" />
                             <Link class="px-2" :href="route('announcement.show', announcement.id)"> View
                             </Link>
-
                             <button @click="destroy(announcement.id)" class="btn btn-danger px-2">Delete</button>
-
                             <Link class="px-2" :href="route('announcement.edit', announcement.id)"> Edit
                             </Link>
                         </div>
                     </div>
                     <div class="my-4">
-                        <Pagination :elements="announcements" :researchData="researchData"></Pagination>
+                        <Pagination :elements="announcements" :researchData="searchData"></Pagination>
                     </div>
                 </div>
             </div>
@@ -88,39 +84,30 @@ import { DOMDirectiveTransforms } from '@vue/compiler-dom';
 
 
 export default {
-    props: {
-        announcements: Object,
-        textSearch: String,
-        orderColumn: String,
-        order: String,
-        rangePrice: Object,
-        categories: Object,
-        category: String,
-    },
-    data() {
-        return {
-            researchData: {
-                textSearch: this.textSearch,
-                orderColumn: this.orderColumn,
-                order: this.order,
-                rangePrice: this.rangePrice,
-                category: this.category,
-            }
-        };
-    },
     components: {
         Pagination,
         Link,
         AppLayout,
         Card,
     },
+    props: {
+        announcements: Object,
+        researchData: Object,
+        categories: Object,
+    },
+    data() {
+        return {
+            searchData: this.researchData,
+        };
+    },
     setup(props) {
 
-        const searched = ref(props.textSearch);
-        const Max = ref(props.rangePrice.priceMax);
-        const Min = ref(props.rangePrice.PriceMin);
-        const selectedCategory = ref(props.category.id);
-
+        const searched = ref(props.researchData.textSearch);
+        const Max = ref(props.researchData.rangePrice.priceMax);
+        const Min = ref(props.researchData.rangePrice.PriceMin);
+        const selectedCategory = ref(props.researchData.category);
+        console.log(props.researchData.category);
+console.log(typeof(parseInt(props.researchData.rangePrice.priceMin)));
         //Delete post
         const destroy = (id) => {
             if (confirm('Ne sei sicuro?')) {
@@ -133,57 +120,58 @@ export default {
                 {
                     orderColumn: column,
                     order: order,
-                    search_global: props.textSearch,
-                    priceMin: props.rangePrice.priceMin,
-                    priceMax: props.rangePrice.priceMax,
-                    category: props.category,
+                    search_global: props.researchData.textSearch,
+                    priceMin: props.researchData.rangePrice.priceMin,
+                    priceMax: props.researchData.rangePrice.priceMax,
+                    category: props.researchData.category,
                 }));
         };
 
         watch(searched, _.debounce((current, previous) => {
+            console.log(current);
             Inertia.get(route('announcement.index',
                 {
-                    orderColumn: props.orderColumn,
-                    order: props.order,
+                    orderColumn: props.researchData.orderColumn,
+                    order: props.researchData.order,
                     search_global: current,
-                    priceMin: props.rangePrice.priceMin,
-                    priceMax: props.rangePrice.priceMax,
-                    category: props.category,
+                    priceMin: props.researchData.rangePrice.priceMin,
+                    priceMax: props.researchData.rangePrice.priceMax,
+                    category: props.researchData.category,
                 }));
-        }, 800));
+        }, 600));
 
         watch(Max, _.debounce((current) => {
             Inertia.get(route('announcement.index',
                 {
-                    orderColumn: props.orderColumn,
-                    order: props.order,
-                    search_global: props.textSearch,
-                    priceMin: props.rangePrice.priceMin,
+                    orderColumn: props.researchData.orderColumn,
+                    order: props.researchData.order,
+                    search_global: props.researchData.textSearch,
+                    priceMin: props.researchData.rangePrice.priceMin,
                     priceMax: current,
-                    category: props.category,
+                    category: props.researchData.category,
                 }));
-        }, 800));
+        }, 600));
 
         watch(Min, _.debounce((current) => {
             Inertia.get(route('announcement.index',
                 {
-                    orderColumn: props.orderColumn,
-                    order: props.order,
-                    search_global: props.textSearch,
+                    orderColumn: props.researchData.orderColumn,
+                    order: props.researchData.order,
+                    search_global: props.researchData.textSearch,
                     priceMin: current,
-                    priceMax: props.rangePrice.priceMax,
-                    category: props.category,
+                    priceMax: props.researchData.rangePrice.priceMax,
+                    category: props.researchData.category,
                 }));
-        }, 800));
+        }, 600));
 
         watch(selectedCategory, (current) => {
             Inertia.get(route('announcement.index',
                 {
-                    orderColumn: props.orderColumn,
-                    order: props.order,
-                    search_global: props.textSearch,
-                    priceMin: props.rangePrice.priceMin,
-                    priceMax: props.rangePrice.priceMax,
+                    orderColumn: props.researchData.orderColumn,
+                    order: props.researchData.order,
+                    search_global: props.researchData.textSearch,
+                    priceMin: props.researchData.rangePrice.priceMin,
+                    priceMax: props.researchData.rangePrice.priceMax,
                     category: current,
                 }));
         });

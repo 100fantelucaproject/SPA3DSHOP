@@ -14,7 +14,14 @@ class AnnouncementController extends Controller
 {
 
 
-    protected $maximun = 1000000000;
+    protected $maximum = 1000000000;
+    public $textSearch;
+    public $orderColumn;
+    public $order;
+    public $priceMin;
+    public $priceMax;
+    public $category;
+
     /**
      * Display a listing of the resource.
      *
@@ -22,62 +29,59 @@ class AnnouncementController extends Controller
      */
     public function index()
     {
-        $textSearch = !empty(request('search_global')) ? request('search_global') : '';
-        $orderColumn = request('orderColumn') ? request('orderColumn') : 'created_at';
-        $order = request('order') ? request('order') : 'desc';
-        $rangePrice = [
-            'priceMin' => !empty(request('priceMin')) ? request('priceMin') : 0,
-            'priceMax' => !empty(request('priceMax')) ? request('priceMax') : $this->maximun,
-        ];
-        $category =  request('category') ? request('category') : "";
+        $this->textSearch = !empty(request('search_global')) ? request('search_global') : '';
+        $this->orderColumn = request('orderColumn') ? request('orderColumn') : 'created_at';
+        $this->order = request('order') ? request('order') : 'desc';
+        $this->priceMin = !empty(request('priceMin')) ? intval(request('priceMin')) : 0;
+        $this->priceMax = !empty(request('priceMax')) ? intval(request('priceMax')) : $this->maximum;
+        $this->category =  request('category') ? request('category') : "";
 
 
-        if ($orderColumn === 'created_at') {
-            $foundAnnouncements = Announcement::with('category')
-                ->orderBy('id', $order)
-                ->when($textSearch, function ($query, $textSearch) {
-                    $query->where('title', 'like', '%' . $textSearch . '%')
-                        ->orWhere('description', 'like', '%' . $textSearch . '%');
-                })
-                ->when($rangePrice, function ($query, $rangePrice) {
-                    $query->whereBetween('price', [$rangePrice['priceMin'], $rangePrice['priceMax']]);
-                })
-                ->when($category, function ($query, $category) {
-                    $query->where('category_id', $category);
-                })
-                ->paginate(10);
-        } else if ($orderColumn === 'price') {
-            $foundAnnouncements = Announcement::with('category')
-                ->orderBy('price', $order)
-                ->when($textSearch, function ($query, $textSearch) {
-                    $query->where('title', 'like', '%' . $textSearch . '%')
-                        ->orWhere('description', 'like', '%' . $textSearch . '%');
-                })
-                ->when($rangePrice, function ($query, $rangePrice) {
-                    $query->whereBetween('price', [$rangePrice['priceMin'], $rangePrice['priceMax']]);
-                })
-                ->when($category, function ($query, $category) {
-                    $query->where('category_id', $category);
-                })
-                ->paginate(10);
-        }
+        $foundAnnouncements = Announcement::with('category')
+            ->orderBy($this->orderColumn, $this->order)
+            ->where(function ($subQuery) {
+                if ($this->textSearch) {
+                    $subQuery->where('title', 'like', '%' . $this->textSearch . '%')
+                        ->orWhere('description', 'like', '%' . $this->textSearch . '%');
+                }
+            })
+            ->where(function ($subQuery) {
+                if ($this->priceMin != 0 || $this->priceMax != $this->maximum) {
+                    $subQuery->whereBetween('price', [$this->priceMin, $this->priceMax]);
+                }
+            })
+            ->where(function ($subQuery) {
+                if ($this->category) {
+                    $subQuery->where('category_id', $this->category);
+                }
+            })
+            ->paginate(10);
+
 
         $announcements = AnnouncementResource::collection($foundAnnouncements);
+
         $categories = CategoryResource::collection(Category::all());
 
         return Inertia::render(
             'Announcements/Index',
-            compact(
-                'announcements',
-                'textSearch',
-                'orderColumn',
-                'order',
-                'rangePrice',
-                'category',
-                'categories',
-            )
+            [
+                'announcements' => $announcements,
+                'researchData' => [
+                    'textSearch' => $this->textSearch,
+                    'orderColumn' => $this->orderColumn,
+                    'order' => $this->order,
+                    'rangePrice' => [
+                        'priceMin' => $this->priceMin,
+                        'priceMax' => $this->priceMax,
+                    ],
+                    'category' => $this->category,
+                ],
+                'categories' => $categories,
+            ]
+
         );
     }
+
 
     /**
      * Show the form for creating a new resource.
