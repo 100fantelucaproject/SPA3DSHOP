@@ -130,7 +130,9 @@ class AnnouncementController extends Controller
     {
         $this->authorize('view', $announcement);
 
-        return inertia('Announcements/Edit', compact('announcement'));
+        $categories = CategoryResource::collection(Category::all());
+
+        return inertia('Announcements/Edit', compact('announcement', 'categories'));
     }
 
     /**
@@ -144,7 +146,14 @@ class AnnouncementController extends Controller
     {
         $this->authorize('update', $announcement);
 
-        $announcement->update($request->validated());
+        $request->validated();
+
+        $announcement->update([
+            'title' => $request->title,
+            'description' => $request->description,
+            'price' => $request->price,
+            'category_id' => $request->category_id,
+        ]);
 
         return redirect(route('announcement.index'));
     }

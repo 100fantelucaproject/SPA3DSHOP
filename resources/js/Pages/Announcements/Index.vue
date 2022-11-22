@@ -56,11 +56,6 @@
                         <div v-for="announcement in announcements.data" :key="announcement.id"
                             class="col-12 col-md-6 col-lg-4">
                             <Card :announcement="announcement" />
-                            <Link class="px-2" :href="route('announcement.show', announcement.id)"> View
-                            </Link>
-                            <button @click="destroy(announcement.id)" class="btn btn-danger px-2">Delete</button>
-                            <Link class="px-2" :href="route('announcement.edit', announcement.id)"> Edit
-                            </Link>
                         </div>
                     </div>
                     <div class="my-4">
@@ -80,7 +75,7 @@ import AppLayout from '../../Layouts/AppLayout.vue';
 import Card from '../../Components/CustomComponents/CardAnnouncement.vue';
 import { Inertia } from '@inertiajs/inertia';
 import Pagination from '../../Components/CustomComponents/Pagination.vue';
-import { DOMDirectiveTransforms } from '@vue/compiler-dom';
+
 
 
 export default {
@@ -106,13 +101,6 @@ export default {
         const Max = ref(props.researchData.rangePrice.priceMax);
         const Min = ref(props.researchData.rangePrice.PriceMin);
         const selectedCategory = ref(props.researchData.category);
-
-        //Delete post
-        const destroy = (id) => {
-            if (confirm('Ne sei sicuro?')) {
-                Inertia.delete(route('announcement.destroy', id));
-            }
-        }
 
         const changeOrder = (column, order) => {
             Inertia.get(route('announcement.index',
@@ -176,7 +164,7 @@ export default {
         });
 
 
-        return { destroy, searched, changeOrder, Min, Max, selectedCategory };
+        return { searched, changeOrder, Min, Max, selectedCategory };
     },
 }
 </script>

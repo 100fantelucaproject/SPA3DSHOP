@@ -53,6 +53,23 @@
                             <ul class="dropdown-menu m-0">
                                 <li>
                                     <h6 class="dropdown-header small text-muted">
+                                        Annucni
+                                    </h6>
+                                </li>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                                <li>
+                                    <Link :href="route('user.announcements')"  class="dropdown-item">I tuoi annunci </Link>
+                                </li>
+                                <li>
+                                    <Link :href="route('announcement.create')" class="dropdown-item">Crea un annuncio</Link>
+                                </li>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                                <li>
+                                    <h6 class="dropdown-header small text-muted">
                                         Manage Account
                                     </h6>
                                 </li>
@@ -60,7 +77,7 @@
                                     <hr class="dropdown-divider">
                                 </li>
                                 <li>
-                                    <Link :href="route('profile.show')" class="dropdown-item" href="#">Profilo
+                                    <Link :href="route('profile.show')" class="dropdown-item">Profilo
                                     </Link>
                                 </li>
                                 <li>

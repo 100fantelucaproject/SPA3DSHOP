@@ -17,6 +17,7 @@ class UserController extends Controller
         $announcements = AnnouncementResource::collection(
             Announcement::with('category')
             ->where('user_id', Auth::id())
+            ->orderBy('created_at', 'desc')
             ->paginate(10)
         );
 

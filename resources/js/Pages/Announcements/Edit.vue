@@ -30,6 +30,14 @@
                                             <label for="price" class="form-label fw-bold">Prezzo</label>
                                             <input v-model="form.price" type="number" class="form-control" id="price" />
                                         </div>
+                                        <div class="mb-3">
+                                            <select class="form-select" aria-label="Default select example"
+                                                v-model="form.category_id">
+                                                <!-- <option selected :value="announcement.category_id"></option> -->
+                                                <option v-for="category in categories" :value="category.id">
+                                                    {{ category.name }}</option>
+                                            </select>
+                                        </div>
                                         <div class="text-center mb-3">
                                             <button :disabled="form.processing" class="btn btn-danger" type="submit">
                                                 submit
@@ -48,7 +56,7 @@
 </template>
 
 <script>
-import { Link, useForm } from '@inertiajs/inertia-vue3';
+import { useForm } from '@inertiajs/inertia-vue3';
 import AppLayout from '../../Layouts/AppLayout.vue';
 import JetValidationErrors from '@/Jetstream/ValidationErrors.vue';
 
@@ -56,6 +64,7 @@ export default {
     props: {
         announcement: Object,
         errors: Object,
+        categories: Object,
     },
     setup(props) {
         const form = useForm(props.announcement);

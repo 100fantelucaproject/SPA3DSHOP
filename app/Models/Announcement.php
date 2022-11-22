@@ -15,6 +15,8 @@ class Announcement extends Model
         'title',
         'description',
         'price',
+        'category_id',
+        'user_id',
     ];
 
     public function category()

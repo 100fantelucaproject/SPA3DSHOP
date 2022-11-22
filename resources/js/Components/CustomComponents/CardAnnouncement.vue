@@ -23,14 +23,35 @@
                     Prezzo: {{ announcement.price }} €
                 </div>
             </div>
+            <Link class="px-2" :href="route('announcement.show', announcement.id)"> View
+            </Link>
+            <button @click="destroy(announcement.id)" class="btn btn-danger px-2">Delete</button>
+            <Link class="px-2" :href="route('announcement.edit', announcement.id)"> Edit
+            </Link>
         </div>
     </div>
 </template>
 
 <script>
-export default{
-    props:{
+import { Link } from '@inertiajs/inertia-vue3';
+import { Inertia } from '@inertiajs/inertia';
+
+export default {
+    components: {
+        Link,
+    },
+    props: {
         announcement: Object,
+    },
+    setup() {
+        //Delete post
+        const destroy = (id) => {
+            if (confirm('Ne sei sicuro?')) {
+                Inertia.delete(route('announcement.destroy', id));
+            }
+        }
+
+        return { destroy }
     }
 }
 </script>
