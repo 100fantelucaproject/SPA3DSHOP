@@ -15,7 +15,8 @@
                             <div class="col-12 col-lg-6 ">
                                 <div class="card-body">
                                     <h5 class="card-title text-center text-uppercase fw-bold">INSERISCI IL TUP POST</h5>
-                                    <form class="mb-3" @submit.prevent="form.post(route('announcement.store'))">
+                                    <form class="mb-3" enctype="multipart/form-data" @submit.prevent="submit">
+                                        {{ errors }}
                                         <div class="mb-3">
                                             <label for="title" class="form-label fw-bold">Titolo</label>
                                             <input v-model="form.title" type="text" class="form-control" id="title" />
@@ -38,6 +39,11 @@
                                                     {{ category.name }}</option>
                                             </select>
                                         </div>
+                                        <div class="mb-3">
+                                            <label for="file">Carica qui le tua immagini di presentazione</label>
+                                            <input type="file" multiple @change="previewImage" ref="images" />
+                                        </div>
+                                        <img v-if="url" :src="url" />
                                         <div class="text-center mb-3">
                                             <button :disabled="form.processing" class="btn btn-danger" type="submit">
                                                 submit
@@ -56,7 +62,7 @@
 </template>
 
 <script>
-import { Link, useForm } from '@inertiajs/inertia-vue3';
+import { ref, refs, useForm } from '@inertiajs/inertia-vue3';
 import AppLayout from '../../Layouts/AppLayout.vue';
 import JetValidationErrors from '@/Jetstream/ValidationErrors.vue';
 
@@ -65,11 +71,17 @@ export default {
         errors: Object,
         categories: Object,
     },
+    data() {
+        return {
+            url: null,
+        };
+    },
     setup() {
         const form = useForm({
             title: '',
             description: '',
             price: '',
+            images: [],
             category_id: '',
         });
 
@@ -79,6 +91,18 @@ export default {
         AppLayout,
         JetValidationErrors,
     },
+    methods: {
+        submit() {
+            if (this.$refs.images) {
+                this.form.images = this.$refs.images.files;
+            }
+            this.form.post(route('announcement.store'));
+        },
+        previewImage(e) {
+            const file = e.target.files[0];
+            this.url = URL.createObjectURL(file);
+        },
+    }
 }
 
 </script>

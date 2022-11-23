@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\User;
+use App\Models\Image;
 use App\Models\Category;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -16,7 +17,6 @@ class Announcement extends Model
         'description',
         'price',
         'category_id',
-        'user_id',
     ];
 
     public function category()
@@ -28,4 +28,10 @@ class Announcement extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function images()
+    {
+        return $this->hasMany(Image::class);
+    }
+
 }

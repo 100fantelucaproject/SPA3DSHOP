@@ -5,10 +5,12 @@ namespace App\Http\Controllers;
 use Inertia\Inertia;
 use App\Models\Category;
 use App\Models\Announcement;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Request;
 use App\Http\Resources\CategoryResource;
+use Illuminate\Support\Facades\Validator;
 use App\Http\Resources\AnnouncementResource;
+use Illuminate\Support\Facades\Request as ù;
 use App\Http\Requests\AnnouncementStoreRequest;
 
 class AnnouncementController extends Controller
@@ -101,8 +103,15 @@ class AnnouncementController extends Controller
      */
     public function store(AnnouncementStoreRequest $request)
     {
-
+        
         $announcement = Category::find($request->category_id)->announcements()->create($request->validated());
+
+        if ($request->hasFile('images')) {
+            foreach ($request->file('images') as $image) {
+                $newFilename = "announcements/{$announcement->id}";
+                $announcement->images()->create(['path' => $image->store($newFilename, 'public')]);
+            }
+        }
 
         Auth::user()->announcements()->save($announcement);
 

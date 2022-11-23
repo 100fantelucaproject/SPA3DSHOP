@@ -20,7 +20,9 @@ class AnnouncementFactory extends Factory
             'title' => $this->faker->text(10),
             'description' => $this->faker->text(30),
             'price' => $this->faker->randomNumber(5, false),
+            'path' => null,
             'category_id' => $this->faker->numberBetween(1,6),
+            'user_id' => $this->faker->numberBetween(1,20),
         ];
     }
 }
