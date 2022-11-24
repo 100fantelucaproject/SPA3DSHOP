@@ -33,14 +33,23 @@
                                         <div class="mb-3">
                                             <select class="form-select" aria-label="Default select example"
                                                 v-model="form.category_id">
-                                                <!-- <option selected :value="announcement.category_id"></option> -->
                                                 <option v-for="category in categories" :value="category.id">
                                                     {{ category.name }}</option>
                                             </select>
                                         </div>
+                                        <div class="mb-3">
+                                            <div v-if="form.images.length > 0">
+                                                <div v-for="(image, key) in form.images" :key="key">
+                                                    <img :src="'/storage/' + image.path" class="img-fluid p-2">
+                                                    <button class="btn btn-danger" >
+                                                        elimina
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
                                         <div class="text-center mb-3">
                                             <button :disabled="form.processing" class="btn btn-danger" type="submit">
-                                                submit
+                                                modifica
                                             </button>
                                         </div>
                                     </form>
@@ -59,6 +68,7 @@
 import { useForm } from '@inertiajs/inertia-vue3';
 import AppLayout from '../../Layouts/AppLayout.vue';
 import JetValidationErrors from '@/Jetstream/ValidationErrors.vue';
+import { Inertia } from '@inertiajs/inertia';
 
 export default {
     props: {
@@ -68,15 +78,16 @@ export default {
     },
     setup(props) {
         const form = useForm(props.announcement);
+        console.log(props.announcement);
 
-        return { form };
-    },
-    components: {
-        AppLayout,
-        JetValidationErrors,
-    },
+            return { form };
+        },
+            components: {
+                AppLayout,
+                JetValidationErrors,
+            },
 
 
-}
+    }
 
 </script>

@@ -103,7 +103,7 @@ class AnnouncementController extends Controller
      */
     public function store(AnnouncementStoreRequest $request)
     {
-        
+
         $announcement = Category::find($request->category_id)->announcements()->create($request->validated());
 
         if ($request->hasFile('images')) {
@@ -141,7 +141,10 @@ class AnnouncementController extends Controller
 
         $categories = CategoryResource::collection(Category::all());
 
-        return inertia('Announcements/Edit', compact('announcement', 'categories'));
+
+        $images = $announcement->images;
+
+        return inertia('Announcements/Edit', compact('announcement', 'categories', 'images'));
     }
 
     /**
