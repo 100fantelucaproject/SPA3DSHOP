@@ -29,7 +29,7 @@ class AnnouncementStoreRequest extends FormRequest
             'price' => 'required|numeric',
             'category_id' => 'required',
             'images' => 'required',
-            'images.*' => 'required|image|distinct',
+            'images.*' => 'required|image|distinct|max:2048',
         ];
     }
 }

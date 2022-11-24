@@ -41,9 +41,16 @@
                                         </div>
                                         <div class="mb-3">
                                             <label for="file">Carica qui le tua immagini di presentazione</label>
-                                            <input type="file" multiple @change="previewImage" ref="images" />
+                                            <input type="file" multiple @change="previewImage" ref="images"/>
                                         </div>
-                                        <img v-if="url" :src="url" />
+                                        <div v-if="urls.length > 0">
+                                            <div v-for="(url, key) in urls" :key="url">
+                                                <img :src="url" class="img-fluid">
+                                                <button class="btn btn-danger" @click="deleteImage(key)">
+                                                    Elimina
+                                                </button>
+                                            </div>
+                                        </div>
                                         <div class="text-center mb-3">
                                             <button :disabled="form.processing" class="btn btn-danger" type="submit">
                                                 submit
@@ -62,18 +69,23 @@
 </template>
 
 <script>
-import { ref, refs, useForm } from '@inertiajs/inertia-vue3';
+import { useForm } from '@inertiajs/inertia-vue3';
 import AppLayout from '../../Layouts/AppLayout.vue';
 import JetValidationErrors from '@/Jetstream/ValidationErrors.vue';
 
 export default {
+    components: {
+        AppLayout,
+        JetValidationErrors,
+    },
     props: {
         errors: Object,
         categories: Object,
     },
     data() {
         return {
-            url: null,
+            files: [],
+            urls: [],
         };
     },
     setup() {
@@ -87,21 +99,25 @@ export default {
 
         return { form };
     },
-    components: {
-        AppLayout,
-        JetValidationErrors,
-    },
+
     methods: {
         submit() {
             if (this.$refs.images) {
-                this.form.images = this.$refs.images.files;
+                this.form.images = this.files;
             }
             this.form.post(route('announcement.store'));
         },
         previewImage(e) {
-            const file = e.target.files[0];
-            this.url = URL.createObjectURL(file);
+            this.files = Array.from(e.target.files);
+            this.files.forEach((item) => {
+                this.urls.push(URL.createObjectURL(item));
+            });
         },
+        deleteImage(number) {
+            this.urls.splice(number, 1);
+            this.files.splice(number, 1);
+        },
+
     }
 }
 
