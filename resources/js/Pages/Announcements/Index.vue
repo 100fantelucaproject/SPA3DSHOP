@@ -115,7 +115,6 @@ export default {
         };
 
         watch(searched, _.debounce((current, previous) => {
-            console.log(current);
             Inertia.get(route('announcement.index',
                 {
                     orderColumn: props.researchData.orderColumn,

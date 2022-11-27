@@ -7,11 +7,13 @@ use App\Models\Category;
 use App\Models\Announcement;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Request;
+use Illuminate\Support\Facades\Storage;
 use App\Http\Resources\CategoryResource;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Resources\AnnouncementResource;
 use Illuminate\Support\Facades\Request as ù;
 use App\Http\Requests\AnnouncementStoreRequest;
+use App\Http\Requests\AnnouncementUpdateRequest;
 
 class AnnouncementController extends Controller
 {
@@ -141,7 +143,6 @@ class AnnouncementController extends Controller
 
         $categories = CategoryResource::collection(Category::all());
 
-
         $images = $announcement->images;
 
         return inertia('Announcements/Edit', compact('announcement', 'categories', 'images'));
@@ -154,7 +155,7 @@ class AnnouncementController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Announcement $announcement, AnnouncementStoreRequest $request)
+    public function update(Announcement $announcement, AnnouncementUpdateRequest $request)
     {
         $this->authorize('update', $announcement);
 
@@ -167,7 +168,7 @@ class AnnouncementController extends Controller
             'category_id' => $request->category_id,
         ]);
 
-        return redirect(route('announcement.index'));
+        return redirect(route('user.announcements'));
     }
 
     /**
@@ -179,6 +180,12 @@ class AnnouncementController extends Controller
     public function destroy(Announcement $announcement)
     {
         $this->authorize('delete', $announcement);
+
+        if (count($announcement->images) > 0) {
+            if (Storage::disk('public')->exists('announcements/' . $announcement->images[0]->announcement_id)) {
+                Storage::deleteDirectory('public/announcements/' . basename($announcement->images[0]->announcement_id));
+            }
+        }
 
         $announcement->delete();
 

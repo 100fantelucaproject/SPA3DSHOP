@@ -15,7 +15,8 @@
                             <div class="col-12 col-lg-6 ">
                                 <div class="card-body">
                                     <h5 class="card-title text-center text-uppercase fw-bold">INSERISCI IL TUP POST</h5>
-                                    <form class="mb-3" @submit.prevent="form.put(route('announcement.update', form))">
+                                    {{ errors }}
+                                    <form class="mb-3" @submit.prevent="submit">
                                         <div class="mb-3">
                                             <label for="title" class="form-label fw-bold">Titolo</label>
                                             <input v-model="form.title" type="text" class="form-control" id="title" />
@@ -37,22 +38,41 @@
                                                     {{ category.name }}</option>
                                             </select>
                                         </div>
-                                        <div class="mb-3">
-                                            <div v-if="form.images.length > 0">
-                                                <div v-for="(image, key) in form.images" :key="key">
-                                                    <img :src="'/storage/' + image.path" class="img-fluid p-2">
-                                                    <button class="btn btn-danger" >
-                                                        elimina
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        </div>
                                         <div class="text-center mb-3">
                                             <button :disabled="form.processing" class="btn btn-danger" type="submit">
                                                 modifica
                                             </button>
                                         </div>
                                     </form>
+                                    <form class="mb-3" @submit.prevent="submitImage">
+                                        <div class="mb-3">
+                                            <label for="file">Carica qui le tua immagini di presentazione</label>
+                                            <input type="file" multiple @change="previewImage" ref="images" />
+                                        </div>
+                                        <button class="btn btn-danger" type="submit">
+                                            aggiungi
+                                        </button>
+                                    </form>
+                                    <div v-if="urls.length > 0">
+                                        <h2>Immagini nuove</h2>
+                                        <div v-for="(url, key) in urls" :key="url">
+                                            <img :src="url" class="img-fluid">
+                                            <button :disabled="form.processing" class="btn btn-danger"
+                                                @click="deleteImage(key)">
+                                                Elimina
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <h2>Immagini già caricate</h2>
+                                        <div v-if="form.oldImages.length > 0">
+                                            <div v-for="image in form.oldImages">
+                                                <img :src="'/storage/' + image.path" class="img-fluid" alt="">
+                                                <button class="btn btn-warning"
+                                                    @click="destroyImage(image)">elimina</button>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -65,29 +85,92 @@
 </template>
 
 <script>
+import { ref, watch } from 'vue';
 import { useForm } from '@inertiajs/inertia-vue3';
 import AppLayout from '../../Layouts/AppLayout.vue';
 import JetValidationErrors from '@/Jetstream/ValidationErrors.vue';
 import { Inertia } from '@inertiajs/inertia';
 
+
 export default {
+    data() {
+        return {
+            files: [],
+            urls: [],
+        };
+    },
+    components: {
+        AppLayout,
+        JetValidationErrors,
+    },
     props: {
         announcement: Object,
         errors: Object,
         categories: Object,
     },
     setup(props) {
-        const form = useForm(props.announcement);
-        console.log(props.announcement);
 
-            return { form };
+        const changed = ref(false);
+
+        const form = useForm({
+            id: props.announcement.id,
+            title: props.announcement.title,
+            description: props.announcement.description,
+            price: props.announcement.price,
+            oldImages: props.announcement.images,
+            category_id: props.announcement.category_id,
+        });
+
+        const newImages = useForm({
+            images: [],
+            announcement_id: props.announcement.id,
+        });
+
+        const destroyImage = (id) => {
+            if (confirm('Ne sei sicuro?')) {
+                Inertia.delete(route('image.delete', id),
+                    {
+                        onSuccess: () => {
+                            changed.value = true;
+                        }
+                    });
+            }
+        }
+        
+        watch(changed, (current, previous) => {
+            Inertia.get(route('announcement.edit', props.announcement.id));
+        });
+
+
+        return { form, newImages, destroyImage, changed };
+    },
+    methods: {
+        submit() {
+            this.form.put(route('announcement.update', this.form));
         },
-            components: {
-                AppLayout,
-                JetValidationErrors,
-            },
-
+        submitImage() {
+            this.newImages.images = this.files;
+            this.newImages.post(route('image.update'),
+                {
+                    onSuccess: () => {
+                        this.newImages.images = [];
+                        this.changed = true;
+                    }
+                });
+        },
+        previewImage(e) {
+            this.files = Array.from(e.target.files);
+            this.files.forEach((item) => {
+                this.urls.push(URL.createObjectURL(item));
+            });
+        },
+        deleteImage(number) {
+            this.urls.splice(number, 1);
+            this.files.splice(number, 1);
+        },
 
     }
+
+}
 
 </script>

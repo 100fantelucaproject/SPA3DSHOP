@@ -50,6 +50,13 @@ Route::get('/user/announcements', [UserController::class, 'UserAnnouncements'])-
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+//Image routes
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------
+Route::delete('/announcement/update/image/{image}', [ImageController::class, 'destroy'])->name('image.delete');
+
+Route::post('/announcement/update/image/', [ImageController::class, 'update'])->name('image.update');
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })
