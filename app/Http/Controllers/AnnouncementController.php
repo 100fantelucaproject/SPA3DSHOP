@@ -6,12 +6,10 @@ use Inertia\Inertia;
 use App\Models\Category;
 use App\Models\Announcement;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Resources\CategoryResource;
-use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Redirect;
 use App\Http\Resources\AnnouncementResource;
-use Illuminate\Support\Facades\Request as ù;
 use App\Http\Requests\AnnouncementStoreRequest;
 use App\Http\Requests\AnnouncementUpdateRequest;
 
@@ -20,20 +18,17 @@ class AnnouncementController extends Controller
 
 
     protected $maximum = 1000000000;
-    public $textSearch;
-    public $orderColumn;
-    public $order;
+    public $textSearch;   //Text search
+    public $orderColumn;  //Order by price or date
+    public $order;        //Order asc or desc
     public $priceMin;
     public $priceMax;
     public $category;
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    //Display all announcement with selected filter by user
     public function index()
     {
+        //Check requests 
         $this->textSearch = !empty(request('search_global')) ? request('search_global') : '';
         $this->orderColumn = request('orderColumn') ? request('orderColumn') : 'created_at';
         $this->order = request('order') ? request('order') : 'desc';
@@ -41,10 +36,11 @@ class AnnouncementController extends Controller
         $this->priceMax = !empty(request('priceMax')) ? intval(request('priceMax')) : $this->maximum;
         $this->category =  request('category') ? request('category') : "";
 
-        $categories = CategoryResource::collection(Category::all());
+        $categories = CategoryResource::collection(Category::get());
 
         $announcements = AnnouncementResource::collection(
             Announcement::with('category')
+                ->with('user')
                 ->orderBy($this->orderColumn, $this->order)
                 ->where(function ($subQuery) {
                     if ($this->textSearch) {
@@ -65,48 +61,35 @@ class AnnouncementController extends Controller
                 ->paginate(10)
         );
 
-        return Inertia::render(
-            'Announcements/Index',
-            [
-                'announcements' => $announcements,
-                'researchData' => [
-                    'textSearch' => $this->textSearch,
-                    'orderColumn' => $this->orderColumn,
-                    'order' => $this->order,
-                    'rangePrice' => [
-                        'priceMin' => $this->priceMin,
-                        'priceMax' => $this->priceMax,
-                    ],
-                    'category' => $this->category,
-                ],
-                'categories' => $categories,
-            ]
-        );
+        //Research data to send 
+        $researchData =  [
+            'textSearch' => $this->textSearch,
+            'orderColumn' => $this->orderColumn,
+            'order' => $this->order,
+            'rangePrice' => [
+                'priceMin' => $this->priceMin,
+                'priceMax' => $this->priceMax,
+            ],
+            'category' => $this->category
+        ];
+
+        return Inertia::render('Announcements/Index', compact('announcements', 'researchData', 'categories'));
     }
 
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    //Create announcement view
     public function create()
     {
-        $categories = CategoryResource::collection(Category::all());
+        $categories = CategoryResource::collection(Category::get());
 
         return Inertia::render('Announcements/Create', compact('categories'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+    //Store the announcement inserted in create view
     public function store(AnnouncementStoreRequest $request)
     {
-
-        $announcement = Category::find($request->category_id)->announcements()->create($request->validated());
+        $announcement = Category::find($request->category_id)
+            ->announcements()
+            ->create($request->validated());
 
         if ($request->hasFile('images')) {
             foreach ($request->file('images') as $image) {
@@ -117,44 +100,28 @@ class AnnouncementController extends Controller
 
         Auth::user()->announcements()->save($announcement);
 
-        return redirect()->route('announcement.index')->with('message', 'Post creato');
+        return Redirect::route('user.announcements')->with('message', 'Post creato');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    //To show the selected announcement
     public function show(Announcement $announcement)
     {
         return Inertia::render('Announcements/Show', compact('announcement'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    //View to update announcement (only announcement's user)
     public function edit(Announcement $announcement)
     {
         $this->authorize('view', $announcement);
 
-        $categories = CategoryResource::collection(Category::all());
+        $categories = CategoryResource::collection(Category::get());
 
         $images = $announcement->images;
 
-        return inertia('Announcements/Edit', compact('announcement', 'categories', 'images'));
+        return Inertia::render('Announcements/Edit', compact('announcement', 'categories', 'images'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    //Update text announcement
     public function update(Announcement $announcement, AnnouncementUpdateRequest $request)
     {
         $this->authorize('update', $announcement);
@@ -168,15 +135,10 @@ class AnnouncementController extends Controller
             'category_id' => $request->category_id,
         ]);
 
-        return redirect(route('user.announcements'));
+        return Redirect::route('user.announcements')->with('message', 'Annuncio modificato correttamente');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    //To delete announcement and announcement's images
     public function destroy(Announcement $announcement)
     {
         $this->authorize('delete', $announcement);
@@ -189,6 +151,6 @@ class AnnouncementController extends Controller
 
         $announcement->delete();
 
-        return redirect()->back()->with('message', 'Announcement deleted successfully');
+        return Redirect::route('user.announcements')->with('message', 'Announcement deleted successfully');
     }
 }

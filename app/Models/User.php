@@ -60,6 +60,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'profile_photo_url',
     ];
     
+    //One to many with announcements
     public function announcements()
     {
         return $this->hasMany(Announcement::class);

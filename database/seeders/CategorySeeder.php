@@ -21,7 +21,7 @@ class CategorySeeder extends Seeder
             'Characters',
             'Vehicles',
             'Architecture',
-            'furniture',
+            'Forniture',
         ];
 
         foreach($categories as $category){

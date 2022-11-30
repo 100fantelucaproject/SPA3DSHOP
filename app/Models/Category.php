@@ -13,6 +13,7 @@ class Category extends Model
         'name'
     ];
 
+    //One to many with announcements
     public function announcements()
     {
         return $this->hasMany(Announcement::class);

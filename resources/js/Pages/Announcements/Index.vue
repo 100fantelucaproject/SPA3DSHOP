@@ -64,19 +64,17 @@
                 </div>
             </div>
         </div>
-
     </AppLayout>
 </template>
 
 <script>
+
 import { ref, watch } from 'vue';
 import { Link } from '@inertiajs/inertia-vue3';
 import AppLayout from '../../Layouts/AppLayout.vue';
 import Card from '../../Components/CustomComponents/CardAnnouncement.vue';
 import { Inertia } from '@inertiajs/inertia';
 import Pagination from '../../Components/CustomComponents/Pagination.vue';
-
-
 
 export default {
     components: {

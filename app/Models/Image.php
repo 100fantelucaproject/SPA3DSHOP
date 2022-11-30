@@ -14,10 +14,7 @@ class Image extends Model
         'path',
     ];
 
-    protected $casts = [
-        'labels' => 'array',
-    ];
-
+    //One to many with announcement
     public function announcement()
     {
         return $this->belongsTo(Announcement::class);

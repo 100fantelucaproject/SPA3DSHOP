@@ -44,29 +44,14 @@
                                             </button>
                                         </div>
                                     </form>
-                                    <form class="mb-3" @submit.prevent="submitImage">
-                                        <div class="mb-3">
-                                            <label for="file">Carica qui le tua immagini di presentazione</label>
-                                            <input type="file" multiple @change="previewImage" ref="images" />
-                                        </div>
-                                        <button class="btn btn-danger" type="submit">
-                                            aggiungi
-                                        </button>
-                                    </form>
-                                    <div v-if="urls.length > 0">
-                                        <h2>Immagini nuove</h2>
-                                        <div v-for="(url, key) in urls" :key="url">
-                                            <img :src="url" class="img-fluid">
-                                            <button :disabled="form.processing" class="btn btn-danger"
-                                                @click="deleteImage(key)">
-                                                Elimina
-                                            </button>
-                                        </div>
-                                    </div>
+
+                                    <UploadImage :announcement_id="announcement.id" :user_id="announcement.user_id"
+                                        @value="() => changed = true" />
+
                                     <div class="mb-3">
                                         <h2>Immagini già caricate</h2>
                                         <div v-if="form.oldImages.length > 0">
-                                            <div v-for="image in form.oldImages">
+                                            <div v-for="image in form.oldImages" :key="image.id">
                                                 <img :src="'/storage/' + image.path" class="img-fluid" alt="">
                                                 <button class="btn btn-warning"
                                                     @click="destroyImage(image)">elimina</button>
@@ -85,23 +70,20 @@
 </template>
 
 <script>
+
 import { ref, watch } from 'vue';
 import { useForm } from '@inertiajs/inertia-vue3';
 import AppLayout from '../../Layouts/AppLayout.vue';
 import JetValidationErrors from '@/Jetstream/ValidationErrors.vue';
 import { Inertia } from '@inertiajs/inertia';
+import UploadImage from '../../Components/CustomComponents/UploadImage.vue';
 
 
 export default {
-    data() {
-        return {
-            files: [],
-            urls: [],
-        };
-    },
     components: {
         AppLayout,
         JetValidationErrors,
+        UploadImage,
     },
     props: {
         announcement: Object,
@@ -121,14 +103,9 @@ export default {
             category_id: props.announcement.category_id,
         });
 
-        const newImages = useForm({
-            images: [],
-            announcement_id: props.announcement.id,
-        });
-
-        const destroyImage = (id) => {
+        const destroyImage = (image) => {
             if (confirm('Ne sei sicuro?')) {
-                Inertia.delete(route('image.delete', id),
+                Inertia.delete(route('image.delete', image),
                     {
                         onSuccess: () => {
                             changed.value = true;
@@ -136,39 +113,18 @@ export default {
                     });
             }
         }
-        
+
         watch(changed, (current, previous) => {
             Inertia.get(route('announcement.edit', props.announcement.id));
         });
 
 
-        return { form, newImages, destroyImage, changed };
+        return { form, destroyImage, changed };
     },
     methods: {
         submit() {
             this.form.put(route('announcement.update', this.form));
         },
-        submitImage() {
-            this.newImages.images = this.files;
-            this.newImages.post(route('image.update'),
-                {
-                    onSuccess: () => {
-                        this.newImages.images = [];
-                        this.changed = true;
-                    }
-                });
-        },
-        previewImage(e) {
-            this.files = Array.from(e.target.files);
-            this.files.forEach((item) => {
-                this.urls.push(URL.createObjectURL(item));
-            });
-        },
-        deleteImage(number) {
-            this.urls.splice(number, 1);
-            this.files.splice(number, 1);
-        },
-
     }
 
 }

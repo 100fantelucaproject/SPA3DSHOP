@@ -19,16 +19,19 @@ class Announcement extends Model
         'category_id',
     ];
 
+    //One to many with category
     public function category()
     {
         return $this->belongsTo(Category::class);
     }
 
+    //One to many with user
     public function user()
     {
         return $this->belongsTo(User::class);
     }
 
+    //One to many with images
     public function images()
     {
         return $this->hasMany(Image::class);

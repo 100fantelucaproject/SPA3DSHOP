@@ -10,6 +10,9 @@ export default defineConfig({
         }),
         vue({
             template: {
+                compilerOptions: {
+                    isCustomElement: (tag) => ['model-viewer'].includes(tag),
+                },
                 transformAssetUrls: {
                     base: null,
                     includeAbsolute: false,

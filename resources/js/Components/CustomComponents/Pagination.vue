@@ -7,8 +7,7 @@
         '&search_global=' + researchData.textSearch +
         '&priceMin=' + researchData.rangePrice.priceMin +
         '&priceMax=' + researchData.rangePrice.priceMax +
-        '&category=' + researchData.category
-        " 
+        '&category=' + researchData.category" 
         v-html="link.label"
             class="p-2 text-decoration-none text-light fw-bold border border-dark" 
             :class="SetPaginationClasses(link.active, announcements.meta.current_page, announcements.meta.last_page)" />
