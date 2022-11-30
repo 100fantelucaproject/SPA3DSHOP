@@ -1,6 +1,8 @@
 <template>
   <AppLayout title="Welcome">
-    <MainCarousel />
+    <div class="30-vh">
+      <MainCarousel />
+    </div>
     <MainCategory />
   </AppLayout>
 

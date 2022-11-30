@@ -1,5 +1,5 @@
 <template>
-    <nav class="navbar navbar-expand-lg text-uppercase">
+    <nav class="navbar navbar-expand-lg text-uppercase bg-warning">
         <div class="container-fluid">
             <Link :href="route('welcome')" class="navbar-brand px-2">logo</Link>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
