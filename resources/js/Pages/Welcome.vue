@@ -1,26 +1,23 @@
 <template>
   <AppLayout title="Welcome">
-    <div class="30-vh">
-      <MainCarousel />
-    </div>
+    <WelcomeImage />
     <MainCategory />
   </AppLayout>
 
 </template>
 
 <script>
-
 import { Head } from '@inertiajs/inertia-vue3';
 import AppLayout from '../Layouts/AppLayout.vue';
 import MainCategory from '../Layouts/MainCategory.vue';
-import MainCarousel from '../Layouts/MainCarousel.vue';
+import WelcomeImage from '../Layouts/WelcomeImage.vue';
 
 export default {
-  components:{
+  components: {
     Head,
     AppLayout,
-    MainCarousel,
     MainCategory,
+    WelcomeImage,
   }
 }
 </script>

@@ -15,20 +15,23 @@
                             aria-expanded="false">
                             modelli
                         </a>
-                        <ul class="dropdown-menu m-0">
+                        <ul class="dropdown-menu m-0 w-50 text-center">
                             <li>
-                                <Link class="dropdown-item" :href="route('announcement.index')">Tutti i modelli</Link>
+                                <Link class="dropdown-item px-2 py-0" :href="route('announcement.index')">Tutti i
+                                modelli</Link>
                             </li>
-                            <li><a class="dropdown-item" href="#">Per categoria</a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li>
+                                <a class="dropdown-item px-2 py-0" href="#">Per categoria:</a>
+                            </li>
+                            <li v-for="category in categories">
+                                <Link class="dropdown-item" :href="route('announcement.index', { category: category.id })">
+                                {{ category.name }}
+                            </Link>
+                            </li>
                         </ul>
-                    </li>
-                    <li class="nav-item px-3 w-100">
-                        <form class="d-flex " role="search">
-                            <input class="form-control me-2 rounded-5" type="search" placeholder="Search"
-                                aria-label="Search">
-                            <button class="border-0 bg-transparent search-button p-0" type="submit"><i
-                                    class="fa-solid fa-magnifying-glass"></i></button>
-                        </form>
                     </li>
                     <ul v-if="!logged" class="navbar-nav px-4 d-flex align-items-center">
                         <li class="nav-item p-2">
@@ -46,24 +49,26 @@
                     </ul>
                     <ul v-if="logged" class="navbar-nav px-4 d-flex align-items-center">
                         <li class="nav-item dropdown px-4">
-                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                            <a class="nav-link dropdown-toggle"  role="button" data-bs-toggle="dropdown"
                                 aria-expanded="false">
                                 <i class="fa-solid fa-user"></i>
                             </a>
                             <ul class="dropdown-menu m-0">
                                 <li>
                                     <h6 class="dropdown-header small text-muted">
-                                        Annucni
+                                        Annunci
                                     </h6>
                                 </li>
                                 <li>
                                     <hr class="dropdown-divider">
                                 </li>
                                 <li>
-                                    <Link :href="route('user.announcements')"  class="dropdown-item">I tuoi annunci </Link>
+                                    <Link :href="route('user.announcements')" class="dropdown-item">I tuoi annunci
+                                    </Link>
                                 </li>
                                 <li>
-                                    <Link :href="route('announcement.create')" class="dropdown-item">Crea un annuncio</Link>
+                                    <Link :href="route('announcement.create')" class="dropdown-item">Crea un annuncio
+                                    </Link>
                                 </li>
                                 <li>
                                     <hr class="dropdown-divider">
@@ -106,6 +111,7 @@ import { computed } from 'vue';
 import { usePage } from '@inertiajs/inertia-vue3';
 import JetDropdownLink from '@/Jetstream/DropdownLink.vue'
 
+
 export default {
     components: {
         Head,
@@ -115,7 +121,9 @@ export default {
     setup() {
         const user = computed(() => usePage().props.value.auth.user);
         const logged = computed(() => usePage().props.value.logged);
-        return { user, logged };
+        const categories = computed(() => usePage().props.value.categories);
+        
+        return { user, logged, categories };
     },
     methods: {
         logout() {

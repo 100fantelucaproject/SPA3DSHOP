@@ -77,7 +77,8 @@ import AppLayout from '../../Layouts/AppLayout.vue';
 import JetValidationErrors from '@/Jetstream/ValidationErrors.vue';
 import { Inertia } from '@inertiajs/inertia';
 import UploadImage from '../../Components/CustomComponents/UploadImage.vue';
-
+import { computed } from 'vue';
+import { usePage } from '@inertiajs/inertia-vue3';
 
 export default {
     components: {
@@ -88,9 +89,10 @@ export default {
     props: {
         announcement: Object,
         errors: Object,
-        categories: Object,
     },
     setup(props) {
+
+        const categories = computed(() => usePage().props.value.categories);
 
         const changed = ref(false);
 
@@ -119,7 +121,7 @@ export default {
         });
 
 
-        return { form, destroyImage, changed };
+        return { form, destroyImage, changed, categories };
     },
     methods: {
         submit() {

@@ -29,5 +29,10 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         JsonResource::withoutWrapping();
+
+        if(Schema::hasTable('categories')){
+            View::share('categories', CategoryResource::collection(Category::get()));
+        }
+
     }
 }

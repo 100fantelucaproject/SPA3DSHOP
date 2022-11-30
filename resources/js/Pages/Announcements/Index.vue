@@ -75,6 +75,8 @@ import AppLayout from '../../Layouts/AppLayout.vue';
 import Card from '../../Components/CustomComponents/CardAnnouncement.vue';
 import { Inertia } from '@inertiajs/inertia';
 import Pagination from '../../Components/CustomComponents/Pagination.vue';
+import { computed } from 'vue';
+import { usePage } from '@inertiajs/inertia-vue3';
 
 export default {
     components: {
@@ -86,7 +88,6 @@ export default {
     props: {
         announcements: Object,
         researchData: Object,
-        categories: Object,
     },
     data() {
         return {
@@ -99,6 +100,8 @@ export default {
         const Max = ref(props.researchData.rangePrice.priceMax);
         const Min = ref(props.researchData.rangePrice.PriceMin);
         const selectedCategory = ref(props.researchData.category);
+
+        const categories = computed(() => usePage().props.value.categories);
 
         const changeOrder = (column, order) => {
             Inertia.get(route('announcement.index',
@@ -161,7 +164,7 @@ export default {
         });
 
 
-        return { searched, changeOrder, Min, Max, selectedCategory };
+        return { searched, changeOrder, Min, Max, selectedCategory, categories };
     },
 }
 </script>

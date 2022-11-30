@@ -16,7 +16,7 @@
                                     </div>
                                     <hr class="my-1">
                                     <div class="text-center py-2">
-                                        <p class="card-text">Categoria</p>
+                                        <p class="card-text">{{ announcement.category }}</p>
                                     </div>
                                     <hr class="my-1">
                                     <div class="py-2 text-start">
@@ -24,7 +24,7 @@
                                     </div>
                                     <div class="row d-flex justify-content-around p-2">
                                         <div class="col-12 col-md-6 p-1 text-center">
-                                            Data: {{ announcement.date }}
+                                            Data: {{ announcement.created_at }}
                                         </div>
                                         <div class="col-12 col-md-6 p-1 text-center">
                                             Prezzo: {{ announcement.price }} €

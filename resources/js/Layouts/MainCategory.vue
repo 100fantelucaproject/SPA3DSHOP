@@ -1,5 +1,5 @@
 <template>
-    <div class="container-fluid bg-warning text-center text-uppercase fw-bold">
+    <div class="container-fluid bg-warning text-center text-uppercase fw-bold py-3">
         <div class="container">
             <div class="row d-flex justify-content-center align-content-center mx-2">
                 <div class="col-12 col-md-4 col-lg-3 p-1 d-flex justify-content-center">

@@ -8,7 +8,6 @@
     <div class="container-fluid p-0">
       <slot></slot>
     </div>
-
     <Footer />
   </div>
 </template>
@@ -21,8 +20,8 @@ import Footer from './Footer.vue';
 export default {
   props: {
     title: String,
+    categories: Object,
   },
-
   components: {
     Head,
     Link,
@@ -31,3 +30,4 @@ export default {
   },
 }
 </script>
+

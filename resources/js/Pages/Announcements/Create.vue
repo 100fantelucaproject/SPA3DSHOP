@@ -72,6 +72,8 @@
 import { useForm } from '@inertiajs/inertia-vue3';
 import AppLayout from '../../Layouts/AppLayout.vue';
 import JetValidationErrors from '@/Jetstream/ValidationErrors.vue';
+import { computed } from 'vue';
+import { usePage } from '@inertiajs/inertia-vue3';
 
 export default {
     components: {
@@ -80,7 +82,6 @@ export default {
     },
     props: {
         errors: Object,
-        categories: Object,
     },
     data() {
         return {
@@ -89,6 +90,8 @@ export default {
         };
     },
     setup() {
+        const categories = computed(() => usePage().props.value.categories);
+
         const form = useForm({
             title: '',
             description: '',
@@ -97,7 +100,7 @@ export default {
             category_id: '',
         });
 
-        return { form };
+        return { form, categories };
     },
 
     methods: {

@@ -36,8 +36,6 @@ class AnnouncementController extends Controller
         $this->priceMax = !empty(request('priceMax')) ? intval(request('priceMax')) : $this->maximum;
         $this->category =  request('category') ? request('category') : "";
 
-        $categories = CategoryResource::collection(Category::get());
-
         $announcements = AnnouncementResource::collection(
             Announcement::with('category')
                 ->with('user')
@@ -73,15 +71,13 @@ class AnnouncementController extends Controller
             'category' => $this->category
         ];
 
-        return Inertia::render('Announcements/Index', compact('announcements', 'researchData', 'categories'));
+        return Inertia::render('Announcements/Index', compact('announcements', 'researchData'));
     }
 
     //Create announcement view
     public function create()
     {
-        $categories = CategoryResource::collection(Category::get());
-
-        return Inertia::render('Announcements/Create', compact('categories'));
+        return Inertia::render('Announcements/Create');
     }
 
     //Store the announcement inserted in create view
@@ -114,11 +110,9 @@ class AnnouncementController extends Controller
     {
         $this->authorize('view', $announcement);
 
-        $categories = CategoryResource::collection(Category::get());
-
         $images = $announcement->images;
 
-        return Inertia::render('Announcements/Edit', compact('announcement', 'categories', 'images'));
+        return Inertia::render('Announcements/Edit', compact('announcement', 'images'));
     }
 
     //Update text announcement
