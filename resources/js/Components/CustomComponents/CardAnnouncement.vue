@@ -1,7 +1,7 @@
 <template>
     <div class="card shadow-lg bg-body rounded-4 my-4">
         <div class="card-body p-2">
-            <Link class="p-0 m-0 text-decoration-none text-dark" :href="route('announcement.show', announcement.id)">
+            <Link class="p-0 m-0 text-decoration-none text-dark" :href="route('announcement.show', announcement)">
             <div class="py-1">
                 <h6 class="fs-6 fw-bold card-title text-center">{{ announcement.title }}</h6>
             </div>
@@ -10,7 +10,7 @@
             </div>
             <hr class="my-1">
             <div class="text-center fst-italic">
-                <p class="card-text">{{ announcement.category }}</p>
+                <p class="card-text">{{ announcement.category }} </p>
             </div>
             <hr class="my-1">
             <div class="py-1 text-center">
