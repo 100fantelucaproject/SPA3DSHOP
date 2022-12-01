@@ -37,4 +37,9 @@ class Announcement extends Model
         return $this->hasMany(Image::class);
     }
 
+    public function file()
+    {
+        return $this->hasOne(File::class);
+    }
+
 }
