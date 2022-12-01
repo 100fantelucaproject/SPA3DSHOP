@@ -10,6 +10,8 @@
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Nunito:400,600,700" rel="stylesheet">
 
+        <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script> 
+
         <!-- Scripts -->
         @routes
 
@@ -21,6 +23,5 @@
 
         @inertia
 
-        {{-- <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script> --}}
     </body>
 </html>
