@@ -14,6 +14,7 @@ class File extends Model
         'path',
     ];
 
+    //One to one with announcement
     public function announcement()
     {
         return $this->belongsTo(Announcement::class);

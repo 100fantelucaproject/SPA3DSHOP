@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\File;
 use App\Models\User;
 use App\Models\Image;
 use App\Models\Category;
@@ -37,6 +38,7 @@ class Announcement extends Model
         return $this->hasMany(Image::class);
     }
 
+    //One to one with 3d file
     public function file()
     {
         return $this->hasOne(File::class);

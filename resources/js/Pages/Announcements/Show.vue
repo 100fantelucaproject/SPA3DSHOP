@@ -24,13 +24,15 @@
                                     </div>
                                     <div class="row d-flex justify-content-around p-2">
                                         <div class="col-12 col-md-6 p-1 text-center">
-                                            Data: {{ announcement.created_at.slice(0,7) }}
+                                            Data: {{ announcement.created_at.slice(0, 7) }}
                                         </div>
                                         <div class="col-12 col-md-6 p-1 text-center">
                                             Prezzo: {{ announcement.price }} €
                                         </div>
                                     </div>
+                                    <model-viewer :src="path" camera-controls auto-rotate loading="lazy"> </model-viewer>
                                 </div>
+                                
                                 <div class="col-1"></div>
                             </div>
                         </div>
@@ -51,6 +53,7 @@ export default {
     data() {
         return {
             category: '',
+            path: '/storage/' + this.pathFile.path,
         };
     },
     components: {
@@ -59,10 +62,11 @@ export default {
     },
     props: {
         announcement: Object,
+        pathFile: Object,
     },
-    setup() {
+    setup(props) {
         const categories = computed(() => usePage().props.value.categories);
-
+        console.log(props.pathFile);
         return { categories };
     },
     mounted() {
@@ -77,3 +81,12 @@ export default {
 }
 
 </script>
+
+<style>
+model-viewer{
+    width:400px;
+    height: 500px;
+    margin: 0 auto;
+}
+
+</style>

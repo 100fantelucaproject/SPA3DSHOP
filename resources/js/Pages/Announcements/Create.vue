@@ -43,6 +43,10 @@
                                             <label for="file">Carica qui le tua immagini di presentazione</label>
                                             <input type="file" multiple @change="previewImage" ref="images"/>
                                         </div>
+                                        <div class="mb-3">
+                                            <label for="file">Carica qui il tuo file 3d</label>
+                                            <input type="file" ref="file"/>
+                                        </div>
                                         <div v-if="urls.length > 0">
                                             <div v-for="(url, key) in urls" :key="url">
                                                 <img :src="url" class="img-fluid">
@@ -85,8 +89,9 @@ export default {
     },
     data() {
         return {
-            files: [],
+            filesImages: [],
             urls: [],
+
         };
     },
     setup() {
@@ -97,6 +102,7 @@ export default {
             description: '',
             price: '',
             images: [],
+            file: [],
             category_id: '',
         });
 
@@ -106,19 +112,22 @@ export default {
     methods: {
         submit() {
             if (this.$refs.images) {
-                this.form.images = this.files;
+                this.form.images = this.filesImages;
+            }
+            if(this.$refs.file){
+                this.form.file = this.$refs.file.files;
             }
             this.form.post(route('announcement.store'));
         },
         previewImage(e) {
-            this.files = Array.from(e.target.files);
-            this.files.forEach((item) => {
+            this.filesImages = Array.from(e.target.files);
+            this.filesImages.forEach((item) => {
                 this.urls.push(URL.createObjectURL(item));
             });
         },
         deleteImage(number) {
             this.urls.splice(number, 1);
-            this.files.splice(number, 1);
+            this.filesImages.splice(number, 1);
         },
 
     }

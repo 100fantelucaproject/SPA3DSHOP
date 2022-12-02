@@ -21,7 +21,7 @@ class UserController extends Controller
                 ->orderBy('created_at', 'desc')
                 ->paginate(10)
             );
-    
+
             return Inertia::render('User/UserAnnouncements', compact('announcements'));
         }
         return redirect()->back();

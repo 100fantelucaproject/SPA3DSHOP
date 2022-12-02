@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\File;
 use Inertia\Inertia;
 use App\Models\Category;
+use Illuminate\Support\Str;
 use App\Models\Announcement;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
-use App\Http\Resources\CategoryResource;
 use Illuminate\Support\Facades\Redirect;
 use App\Http\Resources\AnnouncementResource;
 use App\Http\Requests\AnnouncementStoreRequest;
@@ -83,6 +84,7 @@ class AnnouncementController extends Controller
     //Store the announcement inserted in create view
     public function store(AnnouncementStoreRequest $request)
     {
+
         $announcement = Category::find($request->category_id)
             ->announcements()
             ->create($request->validated());
@@ -94,6 +96,15 @@ class AnnouncementController extends Controller
             }
         }
 
+        if ($request->hasFile('file')) {
+            $hash = Str::random(40);
+            foreach ($request->file('file') as $file) {
+                $extension = $file->getClientOriginalExtension();
+                $newFilename = "announcements/{$announcement->id}/model3d";
+                $announcement->file()->create(['path' => $file->storeAs($newFilename, $hash . '.' . $extension, 'public')]);
+            }
+        }
+
         Auth::user()->announcements()->save($announcement);
 
         return Redirect::route('user.announcements')->with('message', 'Post creato');
@@ -102,7 +113,10 @@ class AnnouncementController extends Controller
     //To show the selected announcement
     public function show(Announcement $announcement)
     {
-        return Inertia::render('Announcements/Show', compact('announcement'));
+
+        $pathFile = Announcement::find($announcement->id)->file;
+
+        return Inertia::render('Announcements/Show', compact('announcement', 'pathFile'));
     }
 
     //View to update announcement (only announcement's user)
