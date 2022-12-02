@@ -4,7 +4,6 @@ namespace App\Http\Middleware;
 
 use App\Http\Resources\CategoryResource;
 use App\Models\Category;
-use App\Models\User;
 use Inertia\Middleware;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -49,7 +48,10 @@ class HandleInertiaRequests extends Middleware
             'auth.user' => fn () => $request->user()
                 ? $request->user()->only('id', 'name', 'email') : false,
 
+            //Control if user is logged in
             'logged' => boolval(Auth::user()),
+
+            //Categories for all pages
             'categories' => CategoryResource::collection(Category::get()),
         ]);
     }

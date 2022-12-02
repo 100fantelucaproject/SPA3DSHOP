@@ -28,6 +28,8 @@ class AnnouncementUpdateRequest extends FormRequest
             'description' => 'required|string|min:5|max:20',
             'price' => 'required|numeric',
             'category_id' => 'required',
+            'images' => 'required',
+            'images.*.path.*' => 'required|image|distinct|max:2048',
         ];
     }
 }

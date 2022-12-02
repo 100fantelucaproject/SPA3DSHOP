@@ -30,9 +30,11 @@
                                             Prezzo: {{ announcement.price }} €
                                         </div>
                                     </div>
-                                    <model-viewer :src="path" camera-controls auto-rotate loading="lazy"> </model-viewer>
+                                    <div v-if="true">
+                                        <model-viewer :src="path" camera-controls auto-rotate>
+                                        </model-viewer>
+                                    </div>
                                 </div>
-                                
                                 <div class="col-1"></div>
                             </div>
                         </div>
@@ -83,10 +85,9 @@ export default {
 </script>
 
 <style>
-model-viewer{
-    width:400px;
+model-viewer {
+    width: 400px;
     height: 500px;
     margin: 0 auto;
 }
-
 </style>

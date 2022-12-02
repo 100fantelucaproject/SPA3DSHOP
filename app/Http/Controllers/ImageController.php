@@ -14,14 +14,15 @@ class ImageController extends Controller
     public function update(ImageRequest $request)
     {
 
-        $announcement = Announcement::find($request->announcement_id);
+        $announcement = Announcement::select(['id', 'user_id'])
+            ->find($request->announcement_id);
 
         $this->authorize('update', $announcement);
 
         if ($request->hasFile('images')) {
             foreach ($request->file('images') as $image) {
-                $newFilename = "announcements/{$request->announcement_id}";
-                $announcement->images()->create(['path' => $image->store($newFilename, 'public')]);
+                $pathFile = "announcements/{$announcement->id}";
+                $announcement->images()->create(['path' => $image->store($pathFile, 'public')]);
             }
         }
 
@@ -31,12 +32,13 @@ class ImageController extends Controller
     //To destroy single announcement's image
     public function destroy(Image $image)
     {
-        $announcement = Announcement::find($image->announcement_id);
+        $announcement = Announcement::select(['id', 'user_id'])
+            ->find($image->announcement_id);
 
         $this->authorize('delete', $announcement);
 
         if (!empty($image)) {
-            if (Storage::disk('public')->exists('announcements/' . $image->announcement_id)) {
+            if (Storage::disk('public')->exists('announcements/' . $announcement->id)) {
                 Storage::delete('public/' . $image->path);
             }
         }

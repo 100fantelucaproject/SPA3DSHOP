@@ -91,7 +91,6 @@ export default {
         return {
             filesImages: [],
             urls: [],
-
         };
     },
     setup() {
@@ -102,7 +101,7 @@ export default {
             description: '',
             price: '',
             images: [],
-            file: [],
+            file: null,
             category_id: '',
         });
 
@@ -115,7 +114,7 @@ export default {
                 this.form.images = this.filesImages;
             }
             if(this.$refs.file){
-                this.form.file = this.$refs.file.files;
+                this.form.file = this.$refs.file.files[0];
             }
             this.form.post(route('announcement.store'));
         },

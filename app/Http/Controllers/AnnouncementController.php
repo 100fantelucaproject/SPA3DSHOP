@@ -40,7 +40,6 @@ class AnnouncementController extends Controller
         $announcements = AnnouncementResource::collection(
             Announcement::with('category')
                 ->with('user')
-                ->orderBy($this->orderColumn, $this->order)
                 ->where(function ($subQuery) {
                     if ($this->textSearch) {
                         $subQuery->where('title', 'like', '%' . $this->textSearch . '%')
@@ -57,6 +56,7 @@ class AnnouncementController extends Controller
                         $subQuery->where('category_id', $this->category);
                     }
                 })
+                ->orderBy($this->orderColumn, $this->order)
                 ->paginate(10)
         );
 
@@ -84,37 +84,33 @@ class AnnouncementController extends Controller
     //Store the announcement inserted in create view
     public function store(AnnouncementStoreRequest $request)
     {
-
         $announcement = Category::find($request->category_id)
             ->announcements()
             ->create($request->validated());
 
         if ($request->hasFile('images')) {
             foreach ($request->file('images') as $image) {
-                $newFilename = "announcements/{$announcement->id}";
-                $announcement->images()->create(['path' => $image->store($newFilename, 'public')]);
+                $newPathFile = "announcements/{$announcement->id}";
+                $announcement->images()->create(['path' => $image->store($newPathFile, 'public')]);
             }
         }
 
         if ($request->hasFile('file')) {
             $hash = Str::random(40);
-            foreach ($request->file('file') as $file) {
-                $extension = $file->getClientOriginalExtension();
-                $newFilename = "announcements/{$announcement->id}/model3d";
-                $announcement->file()->create(['path' => $file->storeAs($newFilename, $hash . '.' . $extension, 'public')]);
-            }
+            $extension = $request->file->getClientOriginalExtension();
+            $newPathFile = "announcements/{$announcement->id}/model3d";
+            $announcement->file()->create(['path' => $request->file->storeAs($newPathFile, $hash . '.' . $extension, 'public')]);
         }
 
         Auth::user()->announcements()->save($announcement);
 
-        return Redirect::route('user.announcements')->with('message', 'Post creato');
+        return Redirect::route('user.announcements')->with('message', 'Announcement created successfully');
     }
 
     //To show the selected announcement
     public function show(Announcement $announcement)
     {
-
-        $pathFile = Announcement::find($announcement->id)->file;
+        $pathFile = $announcement->file;
 
         return Inertia::render('Announcements/Show', compact('announcement', 'pathFile'));
     }
@@ -134,16 +130,9 @@ class AnnouncementController extends Controller
     {
         $this->authorize('update', $announcement);
 
-        $request->validated();
+        $announcement->update($request->validated());
 
-        $announcement->update([
-            'title' => $request->title,
-            'description' => $request->description,
-            'price' => $request->price,
-            'category_id' => $request->category_id,
-        ]);
-
-        return Redirect::route('user.announcements')->with('message', 'Annuncio modificato correttamente');
+        return Redirect::route('user.announcements')->with('message', 'Announcement updated successfully');
     }
 
     //To delete announcement and announcement's images

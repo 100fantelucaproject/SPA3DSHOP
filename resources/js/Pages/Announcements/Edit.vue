@@ -50,8 +50,8 @@
 
                                     <div class="mb-3">
                                         <h2>Immagini già caricate</h2>
-                                        <div v-if="form.oldImages.length > 0">
-                                            <div v-for="image in form.oldImages" :key="image.id">
+                                        <div v-if="form.images.length > 0">
+                                            <div v-for="image in form.images" :key="image.id">
                                                 <img :src="'/storage/' + image.path" class="img-fluid" alt="">
                                                 <button class="btn btn-warning"
                                                     @click="destroyImage(image)">elimina</button>
@@ -101,10 +101,10 @@ export default {
             title: props.announcement.title,
             description: props.announcement.description,
             price: props.announcement.price,
-            oldImages: props.announcement.images,
+            images: props.announcement.images,
             category_id: props.announcement.category_id,
         });
-
+        
         const destroyImage = (image) => {
             if (confirm('Ne sei sicuro?')) {
                 Inertia.delete(route('image.delete', image),

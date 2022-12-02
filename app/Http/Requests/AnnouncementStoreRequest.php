@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Rules\Uploadfile3d;
 use Illuminate\Foundation\Http\FormRequest;
 
 class AnnouncementStoreRequest extends FormRequest
@@ -30,6 +31,7 @@ class AnnouncementStoreRequest extends FormRequest
             'category_id' => 'required',
             'images' => 'required',
             'images.*' => 'required|image|distinct|max:2048',
+            'file' => ['required', 'file', 'max:1000000', new Uploadfile3d],
         ];
     }
 }
