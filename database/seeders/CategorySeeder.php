@@ -22,13 +22,18 @@ class CategorySeeder extends Seeder
             'Vehicles',
             'Architecture',
             'Forniture',
+            'Culture',
+            'Art',
+            'Music',
+            'Science',
+            'Weapons',
+            'Sport',
         ];
 
-        foreach($categories as $category){
+        foreach ($categories as   $category) {
             DB::table('categories')->insert([
                 'name' => $category,
             ]);
         }
-
     }
 }

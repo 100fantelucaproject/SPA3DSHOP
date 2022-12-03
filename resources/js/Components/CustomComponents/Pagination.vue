@@ -1,18 +1,26 @@
 <template>
-    <span v-for="link in announcements.meta.links">
-        <Link v-if="link.url" 
-        :href="link.url + 
-        '&orderColumn=' + researchData.orderColumn +
-        '&order=' + researchData.order +
-        '&search_global=' + researchData.textSearch +
-        '&priceMin=' + researchData.rangePrice.priceMin +
-        '&priceMax=' + researchData.rangePrice.priceMax +
-        '&category=' + researchData.category" 
-        v-html="link.label"
-            class="p-2 text-decoration-none text-light fw-bold border border-dark" 
-            :class="SetPaginationClasses(link.active, announcements.meta.current_page, announcements.meta.last_page)" />
-        <span class="p-2" v-else v-html="link.label"></span>
-    </span>
+    <div v-if="dataSearch == false">
+        <span v-for="link in announcements.meta.links">
+            <Link v-if="link.url" :href="link.url" v-html="link.label"
+                class="p-2 text-decoration-none text-light fw-bold border border-dark"
+                :class="SetPaginationClasses(link.active, announcements.meta.current_page, announcements.meta.last_page)" />
+            <span class="p-2" v-else v-html="link.label"></span>
+        </span>
+    </div>
+    <div v-else-if="dataSearch == true">
+        <span v-for="link in announcements.meta.links">
+            <Link v-if="link.url" :href="link.url +
+            '&orderColumn=' + researchData.orderColumn +
+            '&order=' + researchData.order +
+            '&search_global=' + researchData.textSearch +
+            '&priceMin=' + researchData.rangePrice.priceMin +
+            '&priceMax=' + researchData.rangePrice.priceMax +
+            '&category=' + researchData.category" v-html="link.label"
+                class="p-2 text-decoration-none text-light fw-bold border border-dark"
+                :class="SetPaginationClasses(link.active, announcements.meta.current_page, announcements.meta.last_page)" />
+            <span class="p-2" v-else v-html="link.label"></span>
+        </span>
+    </div>
 </template>
 
 <script>
@@ -22,22 +30,23 @@ export default {
     props: {
         elements: Object,
         researchData: Object,
+        dataSearch: Boolean,
     },
-    data(){
-        return{
+    data() {
+        return {
             stylePagination: false,
         };
     },
-    setup(props){
+    setup(props) {
         const announcements = props.elements;
         return { announcements };
     },
     components: {
         Link,
     },
-    methods:{
-        SetPaginationClasses(activeLink, currentPage, lastPage){
-            return { 
+    methods: {
+        SetPaginationClasses(activeLink, currentPage, lastPage) {
+            return {
                 'bg-dark': activeLink,
                 'bg-light': !activeLink,
                 'text-dark': !activeLink,

@@ -3,10 +3,13 @@
         <div v-if="announcements.data.length != 0">
             <div class="container-fluid">
                 <div class="row d-flex justify-content-around">
-                    <div class="col-6 col-md-4 col-lg-3 m-1" v-for="announcement in announcements.data"
+                    <div class="col-12 col-md-4 col-lg-3 m-1" v-for="announcement in announcements.data"
                         :key="announcement.id">
                         <Card :announcement="announcement" />
                     </div>
+                </div>
+                <div class="my-4">
+                    <Pagination :elements="announcements" :researchData="null" :dataSearch="false"></Pagination>
                 </div>
             </div>
         </div>
@@ -26,11 +29,13 @@
 <script>
 import AppLayout from '../../Layouts/AppLayout.vue';
 import Card from '../../Components/CustomComponents/CardAnnouncement.vue';
+import Pagination from '../../Components/CustomComponents/Pagination.vue';
 
 export default {
     components: {
         AppLayout,
         Card,
+        Pagination,
     },
     props: {
         announcements: Object,

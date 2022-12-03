@@ -68,7 +68,6 @@ export default {
     },
     setup(props) {
         const categories = computed(() => usePage().props.value.categories);
-        console.log(props.pathFile);
         return { categories };
     },
     mounted() {

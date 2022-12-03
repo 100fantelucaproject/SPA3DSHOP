@@ -1,39 +1,29 @@
 <template>
-    <div class="card shadow-lg bg-body rounded-4 my-4">
-        <div class="card-body p-2">
-            <Link class="p-0 m-0 text-decoration-none text-dark" :href="route('announcement.show', announcement)">
-            <div class="py-1">
-                <h6 class="fs-6 fw-bold card-title text-center">{{ announcement.title }}</h6>
-            </div>
-            <div class="py-1 d-flex justify-content-center">
-                <img src="../../../css/Media/Smile_bentornato.jpeg" class="img-fluid rounded-2 " alt="image card">
-            </div>
-            <hr class="my-1">
-            <div class="text-center fst-italic">
-                <p class="card-text">{{ announcement.category }} </p>
-            </div>
-            <hr class="my-1">
-            <div class="py-1 text-center">
-                <p class="card-text">{{ announcement.description }}</p>
-            </div>
-            <div class="row d-flex justify-content-around p-2">
-                <div class="col-12 col-md-6 p-1 text-center">
-                    Data: {{ announcement.created_at }}
+    <div class="card shadow-lg bg-body rounded-4 my-2 border border-secondary">
+        <Link class="p-0 m-0 text-decoration-none text-dark" :href="route('announcement.show', announcement)">
+        <img src="../../../css/Media/Forniture.jpg" class="card-img-top img-round" alt="image card">
+        <div class="card-body p-0">
+            <hr class="my-0">
+            <div class="row d-flex justify-content-around m-0 p-0 py-2">
+                <div class="col-9 d-flex align-items-center">
+                    <h6 class="fs-6 fw-bold card-title text-start m-0 px-1">{{ announcement.title.substring(0, 18) + '...' }}</h6>
                 </div>
-                <div class="col-12 col-md-6 p-1 text-center">
-                    Prezzo: {{ announcement.price }} €
+                <div class="col-3 text-start px-2 d-flex align-items-center  justify-content-end">
+                    <p class="m-0 fw-bold">{{ announcement.price }} €</p>
                 </div>
             </div>
-            </Link>
-            <div v-if="route().current('user.announcements')">
-                <div class="row d-flex justify-content-around">
-                    <div class="col-6 text-center px-4">
-                        <button @click="destroy(announcement.id)" class="btn btn-danger px-2 rounded rounded-3 w-100">Delete</button>
-                    </div>
-                    <div class="col-6 text-center px-4">
-                        <Link class="px-2 btn btn-success rounded rounded-3 w-100" :href="route('announcement.edit', announcement.id)"> Edit
-                        </Link>
-                    </div>
+        </div>
+        </Link>
+        <div v-if="route().current('user.announcements')">
+            <div class="row d-flex justify-content-around pb-1">
+                <div class="col-6 text-center px-4">
+                    <button @click="destroy(announcement.id)"
+                        class="btn btn-danger px-2 rounded rounded-3 w-100">Delete</button>
+                </div>
+                <div class="col-6 text-center px-4">
+                    <Link class="px-2 btn btn-success rounded rounded-3 w-100"
+                        :href="route('announcement.edit', announcement.id)"> Edit
+                    </Link>
                 </div>
             </div>
         </div>
@@ -66,3 +56,19 @@ export default {
 
 }
 </script>
+
+<style scoped>
+.img-round {
+    border-top-right-radius: 12px;
+    border-top-left-radius: 12px;
+}
+
+.category-round {
+    border-bottom-right-radius: 12px;
+    border-bottom-left-radius: 12px;
+}
+
+.date-size {
+    font-size: x-small;
+}
+</style>

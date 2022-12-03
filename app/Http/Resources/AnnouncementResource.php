@@ -21,7 +21,7 @@ class AnnouncementResource extends JsonResource
             'price' => $this->price,
             'category_id' => $this->category_id,
             'category' => $this->category->name,
-            'created_at' => $this->created_at->format('Y-m'),
+            'created_at' => $this->created_at->format('F-Y'),
         ];
 
     }

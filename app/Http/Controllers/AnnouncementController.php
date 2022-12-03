@@ -57,7 +57,7 @@ class AnnouncementController extends Controller
                     }
                 })
                 ->orderBy($this->orderColumn, $this->order)
-                ->paginate(10)
+                ->paginate(12)
         );
 
         //Research data to send 

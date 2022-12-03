@@ -1,6 +1,5 @@
 <template>
   <AppLayout title="Welcome">
-    <WelcomeImage />
     <MainCategory />
   </AppLayout>
 
