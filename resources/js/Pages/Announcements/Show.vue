@@ -12,7 +12,7 @@
                                         {{ announcement.title }}
                                     </h4>
                                     <div class="d-flex justify-content-center">
-                                        <CarouselAnnouncement />
+                                        <CarouselAnnouncement :images="images"/>
                                     </div>
                                     <hr class="my-1">
                                     <div class="text-center py-2">
@@ -65,6 +65,7 @@ export default {
     props: {
         announcement: Object,
         pathFile: Object,
+        images:Object,
     },
     setup(props) {
         const categories = computed(() => usePage().props.value.categories);

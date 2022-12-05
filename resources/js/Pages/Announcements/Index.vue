@@ -70,10 +70,10 @@
             <div class="row d-flex justify-content-center">
                 <div class="col-12 bg-success py-4">
                     <div v-if="researchData.textSearch">Risultati relativi a: {{ researchData.textSearch }}</div>
-                    <div class="row justify-content-around">
-                        <div v-for="announcement in announcements.data" :key="announcement.id"
+                    <div class="row">
+                        <div v-for="(announcement, index) in announcements.data" :key="announcement.id"
                             class="col-12 col-md-6 col-lg-3">
-                            <Card :announcement="announcement" />
+                            <Card :announcement="announcement" :images="images[index]"/>
                         </div>
                     </div>
                     <div class="my-4">
@@ -107,6 +107,7 @@ export default {
     props: {
         announcements: Object,
         researchData: Object,
+        images: Object,
     },
     data() {
         return {

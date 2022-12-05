@@ -3,9 +3,9 @@
         <div v-if="announcements.data.length != 0">
             <div class="container-fluid">
                 <div class="row d-flex justify-content-around">
-                    <div class="col-12 col-md-4 col-lg-3 m-1" v-for="announcement in announcements.data"
+                    <div class="col-12 col-md-4 col-lg-3 m-1" v-for="(announcement, index) in announcements.data"
                         :key="announcement.id">
-                        <Card :announcement="announcement" />
+                        <Card :announcement="announcement" :image="images[index]" />
                     </div>
                 </div>
                 <div class="my-4">
@@ -39,6 +39,7 @@ export default {
     },
     props: {
         announcements: Object,
+        images: Object,
     },
 }
 

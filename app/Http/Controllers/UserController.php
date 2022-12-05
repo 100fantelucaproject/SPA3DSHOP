@@ -21,7 +21,13 @@ class UserController extends Controller
                 ->paginate(10)
             );
 
-            return Inertia::render('User/UserAnnouncements', compact('announcements'));
+            $images = [];
+
+            foreach($announcements as $key => $announcement){
+                array_push($images, $announcement->images->first()->path);
+            }
+
+            return Inertia::render('User/UserAnnouncements', compact('announcements', 'images'));
         }
         return redirect()->back();
     }

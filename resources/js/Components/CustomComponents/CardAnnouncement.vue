@@ -1,7 +1,7 @@
 <template>
-    <div class="card shadow-lg bg-body rounded-4 my-2 border border-secondary">
+    <div class="card shadow-lg bg-body rounded-2 my-2 border border-secondary">
         <Link class="p-0 m-0 text-decoration-none text-dark" :href="route('announcement.show', announcement)">
-        <img src="../../../css/Media/Forniture.jpg" class="card-img-top img-round" alt="image card">
+        <img :src="'/storage/' + images[0]['path']" class="card-img-top" alt="image card">
         <div class="card-body p-0">
             <hr class="my-0">
             <div class="row d-flex justify-content-around m-0 p-0 py-2">
@@ -42,6 +42,7 @@ export default {
     },
     props: {
         announcement: Object,
+        images: Object,
     },
     setup() {
 
@@ -56,19 +57,3 @@ export default {
 
 }
 </script>
-
-<style scoped>
-.img-round {
-    border-top-right-radius: 12px;
-    border-top-left-radius: 12px;
-}
-
-.category-round {
-    border-bottom-right-radius: 12px;
-    border-bottom-left-radius: 12px;
-}
-
-.date-size {
-    font-size: x-small;
-}
-</style>

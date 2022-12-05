@@ -60,6 +60,12 @@ class AnnouncementController extends Controller
                 ->paginate(12)
         );
 
+        $images = [];
+        
+        foreach($announcements as $announcement){
+            array_push($images, $announcement->images);
+        }
+        
         //Research data to send 
         $researchData =  [
             'textSearch' => $this->textSearch,
@@ -72,7 +78,7 @@ class AnnouncementController extends Controller
             'category' => $this->category
         ];
 
-        return Inertia::render('Announcements/Index', compact('announcements', 'researchData'));
+        return Inertia::render('Announcements/Index', compact('announcements', 'researchData', 'images'));
     }
 
     //Create announcement view
@@ -112,7 +118,9 @@ class AnnouncementController extends Controller
     {
         $pathFile = $announcement->file;
 
-        return Inertia::render('Announcements/Show', compact('announcement', 'pathFile'));
+        $images = $announcement->images;
+
+        return Inertia::render('Announcements/Show', compact('announcement', 'pathFile', 'images'));
     }
 
     //View to update announcement (only announcement's user)
