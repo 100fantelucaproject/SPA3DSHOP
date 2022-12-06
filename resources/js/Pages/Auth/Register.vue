@@ -8,7 +8,8 @@
                         <div class="row m-0 p-0 justify-content-center">
                             <div class="col-12 col-lg-6 text-center welcome-view d-none d-lg-block">
                                 <div class="row d-flex justify-content-center align-content-center align-items-center">
-                                    <div class="col-12 text-uppercase ">
+                                    <div class="col-12 text-uppercase">
+
                                     </div>
                                 </div>
                             </div>
@@ -134,7 +135,7 @@ export default defineComponent({
 <style scoped>
 .welcome-view {
     background-color: black;
-    background-image: url('../../../css/Media/Smile_bentornato.jpeg');
+    background-image: url('../../../Media/background.jpg');
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;

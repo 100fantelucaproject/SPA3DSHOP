@@ -1,7 +1,11 @@
 <template>
-    <div class="container-fluid bg-light text-center text-uppercase fw-bold py-3">
+    <div class="text-center pt-4 bg-warning">
+        <h1 class="fw-bold fs-1 text-uppercase m-0"> Benvenuto</h1>
+        <h3 class="fs-3 m-0">Cosa stavi cercando di preciso?</h3>
+    </div>
+    <div class="container-fluid bg-warning text-center text-uppercase fw-bold py-5">
         <div class="container">
-            <div class="row d-flex align-content-center mx-1">
+            <div class="row d-flex align-content-center">
                 <div v-for="category in categories" :key="category.id"
                     class="col-12 col-md-4 col-lg-3 p-2 d-flex justify-content-center">
                     <div class="rounded-2 shadow-lg img-category">

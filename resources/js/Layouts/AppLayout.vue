@@ -8,6 +8,7 @@
     <div class="container-fluid p-0">
       <slot></slot>
     </div>
+
     <Footer />
   </div>
 </template>

@@ -1,5 +1,5 @@
 <template>
-    <nav class="navbar navbar-expand-lg text-uppercase bg-light shadow-bottom">
+    <nav class="navbar navbar-expand-lg text-uppercase bg-light" :class="{ 'shadow-bottom': !route().current('announcement.index') }" >
         <div class="container-fluid">
             <Link :href="route('welcome')" class="navbar-brand px-2 m-0"><img src="../../Media/logo.png" alt="logo"
                 class="logo rounded-2 border"></Link>
@@ -23,31 +23,32 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <div class="container-fluid navbar-nav me-auto mb-2 mb-lg-0 px-0
              d-flex justify-content-between align-items-start align-items-center">
-                    <div v-if="sizeScreen >= 576" class="dropdown px-4">
+                    <div v-if="sizeScreen >= 576 && !route().current('announcement.index')" class="btn-group px-4">
                         <a class="nav-link dropdown-toggle text-dark fw-bold" type="a" data-bs-toggle="dropdown">
                             modelli
                         </a>
-                        <ul class="dropdown-menu m-0 w-50 text-center">
+                        <ul class="dropdown-menu dropdown-menu-start m-0 w-50">
                             <li>
                                 <Link class="dropdown-item px-2 py-0" :href="route('announcement.index')">Tutti i
                                 modelli</Link>
                             </li>
                             <li>
-                                <hr class="dropdown-divider">
-                            </li>
-                            <li>
-                                <a class="dropdown-item px-2 py-0" href="#">Per categoria:</a>
+                                <hr class="dropdown-divider mb-0">
                             </li>
                             <li v-for="category in categories">
                                 <Link class="dropdown-item"
                                     :href="route('announcement.index', { category: category.id })">
                                 {{ category.name }}
                                 </Link>
+                                <hr class="m-0 bg-dark">
                             </li>
                         </ul>
                     </div>
+                    <div v-else class="p-2">
+
+                    </div>
                     <div class="row m-0 p-0">
-                        <div v-if="sizeScreen >= 576" class="col-6">
+                        <div v-if="sizeScreen >= 576" class="col-6 d-flex align-items-center" :class="{ 'col-9' : logged }">
                             <div class="input-group w-100">
                                 <span class="input-group-text search-item-rounded"><i
                                         class="fa-brands fa-searchengin fa-2x"></i></span>
@@ -56,28 +57,28 @@
                                     @keydown.enter="search(textSearch)" />
                             </div>
                         </div>
-                        <ul v-if="!logged" class="navbar-nav px-4 d-flex align-items-center col-6">
+                        <ul v-if="!logged" class="navbar-nav px-4 d-flex align-items-center col-12 col-md-6">
                             <li class="nav-item p-2 w-100">
                                 <button class="btn btn-warning rounded-2 text-uppercase shadow p-0 w-100">
-                                    <Link :href="route('login')" class="nav-link active p-1" aria-current="page">
+                                    <Link :href="route('login')" class="nav-link active p-1 fw-bold" aria-current="page">
                                     accedi
                                     </Link>
                                 </button>
                             </li>
                             <li class="nav-item p-2">
                                 <button class="btn btn-danger rounded-2 text-uppercase shadow p-0">
-                                    <Link :href="route('register')" class="nav-link active p-1" aria-current="page">
+                                    <Link :href="route('register')" class="nav-link active p-1 fw-bold" aria-current="page">
                                     registrati</Link>
                                 </button>
                             </li>
                         </ul>
-                        <div v-if="logged" class="navbar-nav px-4 d-flex align-items-center col-6">
-                            <li class="nav-item dropdown px-4">
+                        <div v-if="logged" class="navbar-nav px-4 d-flex align-items-center justify-content-center col-12 col-md-3">
+                            <li class="nav-item btn-group px-4">
                                 <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"
                                     aria-expanded="false">
                                     <i class="fa-solid fa-user"></i>
                                 </a>
-                                <ul class="dropdown-menu m-0">
+                                <ul class="dropdown-menu dropdown-menu-end m-0">
                                     <li>
                                         <h6 class="dropdown-header small text-muted">
                                             Annunci
@@ -131,7 +132,7 @@
             </div>
         </div>
     </nav>
-    <div v-if="sizeScreen < 576" class="phone-section shadow-bottom border-top border-dark">
+    <div v-if="sizeScreen < 576" class="phone-section border-top border-dark" :class="{ 'shadow-bottom' : !route().current('announcement.index')}">
         <div class="col-12 text-center text-uppercase">
             <div class="dropdown w-100">
                 <button class="btn btn-light dropdown-toggle text-dark text-uppercase fw-bold p-2 w-100" type="a"

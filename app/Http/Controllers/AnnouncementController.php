@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\File;
 use Inertia\Inertia;
 use App\Models\Category;
 use Illuminate\Support\Str;

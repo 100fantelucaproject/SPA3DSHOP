@@ -1,10 +1,7 @@
 <template>
   <AppLayout title="Welcome">
-    <div class="text-center mt-4 mb-3">
-      <h1 class="fw-bold fs-1 text-uppercase"> Benvenuto</h1>
-      <h3 class="fs-3">Cosa stavi cercando di preciso?</h3>
-    </div>
-    <MainCategory :categories="categories"/>
+
+    <MainCategory :categories="categories" />
   </AppLayout>
 </template>
 
@@ -20,11 +17,11 @@ export default {
     Head,
     AppLayout,
     MainCategory,
-  }, 
-  setup(){
-        const categories = computed(() => usePage().props.value.categories);
+  },
+  setup() {
+    const categories = computed(() => usePage().props.value.categories);
 
-        return { categories };
+    return { categories };
   }
 
 }

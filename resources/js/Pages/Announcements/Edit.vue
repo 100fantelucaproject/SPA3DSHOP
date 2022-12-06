@@ -6,13 +6,7 @@
                 <div class="col-12 col-lg-8">
                     <div class="card rounded-4 border-dark border border-1 shadow-lg">
                         <div class="row m-0 p-0 justify-content-center">
-                            <div class="col-12 col-lg-6 text-center welcome-view d-none d-lg-block">
-                                <div class="row d-flex justify-content-center align-content-center align-items-center">
-                                    <div class="col-12 text-uppercase ">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-12 col-lg-6 ">
+                            <div class="col-12">
                                 <div class="card-body">
                                     <h5 class="card-title text-center text-uppercase fw-bold">INSERISCI IL TUP POST</h5>
                                     {{ errors }}

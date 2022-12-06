@@ -1,45 +1,56 @@
 <template>
     <AppLayout>
-        <div class="container">
-            <div class="container-fluid py-4 bg-warning">
-                <div class="row d-flex justify-content-center">
-                    <div class="col-12">
-                        <div class="container">
-                            <div class="d-flex justify-content-center">
-                                <div class="col-1"></div>
-                                <div class="col-10">
-                                    <h4 class="m-0 text-center text-uppercase fw-bold">
-                                        {{ announcement.title }}
-                                    </h4>
-                                    <div class="d-flex justify-content-center">
-                                        <CarouselAnnouncement :images="images"/>
+        <div class="container-fluid py-2 my-3">
+            <div class="row d-flex justify-content-center">
+                <div class="col-0 col-lg-2"></div>
+                <div class="col-12 col-lg-8">
+                    <div class="container rounded-2 shadow-lg border bg-warning py-2">
+                        <div class="d-flex justify-content-center">
+                            <div class="col-10">
+                                <h1 class="m-0 text-center text-uppercase fw-bold py-2">
+                                    {{ announcement.title }}
+                                </h1>
+                                <div>
+                                    <CarouselAnnouncement :images="images" />
+                                </div>
+                                <div class="text-center py-2">
+                                    <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal"
+                                        @click="View3D">Visualizza 3D</button>
+                                </div>
+                                <div class="text-center py-2">
+                                    <p class="card-text">{{ category }}</p>
+                                </div>
+                                <div class="py-2 text-start">
+                                    <p class="card-text">{{ announcement.description }}</p>
+                                </div>
+                                <div class="row d-flex justify-content-around p-2">
+                                    <div class="col-12 col-md-6 p-1 text-center">
+                                        Data: {{ announcement.created_at.slice(0, 7) }}
                                     </div>
-                                    <hr class="my-1">
-                                    <div class="text-center py-2">
-                                        <p class="card-text">{{ category }}</p>
-                                    </div>
-                                    <hr class="my-1">
-                                    <div class="py-2 text-start">
-                                        <p class="card-text">{{ announcement.description }}</p>
-                                    </div>
-                                    <div class="row d-flex justify-content-around p-2">
-                                        <div class="col-12 col-md-6 p-1 text-center">
-                                            Data: {{ announcement.created_at.slice(0, 7) }}
-                                        </div>
-                                        <div class="col-12 col-md-6 p-1 text-center">
-                                            Prezzo: {{ announcement.price }} €
-                                        </div>
-                                    </div>
-                                    <div v-if="true">
-                                        <model-viewer :src="path" camera-controls auto-rotate>
-                                        </model-viewer>
+                                    <div class="col-12 col-md-6 p-1 text-center">
+                                        Prezzo: {{ announcement.price }} €
                                     </div>
                                 </div>
-                                <div class="col-1"></div>
+                                <div class="modal fade" id="exampleModal" tabindex="-1"
+                                    aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered modal-lg">
+                                        <div class="modal-content">
+                                            <div class="d-flex justify-content-end">
+                                                <button type="button" class="btn-close p-2" data-bs-dismiss="modal"
+                                                    aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body p-3">
+                                                <model-viewer :src="path" camera-controls auto-rotate>
+                                                </model-viewer>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
+                <div class="col-0 col-lg-2"></div>
             </div>
         </div>
     </AppLayout>
@@ -56,6 +67,7 @@ export default {
         return {
             category: '',
             path: '/storage/' + this.pathFile.path,
+            visualize3d: false,
         };
     },
     components: {
@@ -65,7 +77,7 @@ export default {
     props: {
         announcement: Object,
         pathFile: Object,
-        images:Object,
+        images: Object,
     },
     setup(props) {
         const categories = computed(() => usePage().props.value.categories);
@@ -78,16 +90,23 @@ export default {
                 return true;
             }
         });
+    },
+    methods: {
+        View3D() {
+            this.visualize3d = !this.visualize3d;
+        }
     }
 
 }
 
 </script>
 
-<style>
+<style scoped>
 model-viewer {
-    width: 400px;
+    width: 100%;
     height: 500px;
     margin: 0 auto;
 }
+
+
 </style>

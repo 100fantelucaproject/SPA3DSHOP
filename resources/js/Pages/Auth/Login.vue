@@ -123,7 +123,7 @@ export default defineComponent({
 <style scoped>
 .welcome-view {
     background-color: black;
-    background-image: url('../../../css/Media/Smile_bentornato.jpeg');
+    background-image: url('../../../Media/background.jpg');
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
