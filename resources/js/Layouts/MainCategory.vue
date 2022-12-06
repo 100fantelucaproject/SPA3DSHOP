@@ -37,12 +37,13 @@ export default {
 
 <style scoped>
 .img-category {
-    height: 250px;
+    height: 200px;
     width: 300px;
 }
 
 img {
     object-fit: cover;
+    opacity: 0.5;
 }
 
 .bg-img {
@@ -54,20 +55,20 @@ img {
 
 .img-container>.bg-img:hover>img {
     object-fit: cover;
-    opacity: 0.5;
+    opacity: 0.3;
 }
 
 .category-name {
     position: relative;
-    bottom: 50%;
-    color: rgba(0, 0, 0, 0);
+    bottom: 110px;
+    color: rgba(255, 255, 255, 1);
     pointer-events: none;
 }
 
 .img-container:hover+.category-name {
     position: relative;
-    bottom: 50%;
     color: rgba(255, 255, 255, 1);
+    font-weight: bold;
     pointer-events: none;
 }
 </style>
