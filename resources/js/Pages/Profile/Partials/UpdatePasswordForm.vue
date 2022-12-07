@@ -13,7 +13,7 @@
         Saved.
       </jet-action-message>
 
-      <div class="w-75">
+      <div class="w-100">
         <div class="mb-3">
           <jet-label for="current_password" value="Current Password" />
           <jet-input id="current_password" type="password"
@@ -38,13 +38,15 @@
     </template>
 
     <template #actions>
-      <jet-button :class="{ 'text-white-50': form.processing }" :disabled="form.processing">
-        <div v-show="form.processing" class="spinner-border spinner-border-sm" role="status">
-          <span class="visually-hidden">Loading...</span>
-        </div>
-
-        Save
-      </jet-button>
+      <div class="col-12 d-flex justify-content-center">
+        <jet-button :class="{ 'text-white-50': form.processing }" :disabled="form.processing">
+          <div v-show="form.processing" class="spinner-border spinner-border-sm" role="status">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+  
+          Save
+        </jet-button>
+      </div>
     </template>
   </jet-form-section>
 </template>

@@ -1,11 +1,6 @@
 <template>
   <App-layout title="Dashboard">
-    <template #header>
-      <h2 class="h4 font-weight-bold">
-        Dashboard
-      </h2>
-    </template>
-    <welcome />
+
   </App-layout>
 </template>
 

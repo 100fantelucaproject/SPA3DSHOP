@@ -8,8 +8,7 @@
                         <div class="row m-0 p-0 justify-content-center">
                             <div class="col-12">
                                 <div class="card-body">
-                                    <h5 class="card-title text-center text-uppercase fw-bold">INSERISCI IL TUP POST</h5>
-                                    {{ errors }}
+                                    <h4 class="card-title text-center text-uppercase fw-bold">modifica IL TUo POST</h4>
                                     <form class="mb-3" @submit.prevent="submit">
                                         <div class="mb-3">
                                             <label for="title" class="form-label fw-bold">Titolo</label>
@@ -34,6 +33,10 @@
                                         </div>
                                         <div class="text-center mb-3">
                                             <button :disabled="form.processing" class="btn btn-danger" type="submit">
+                                                <div v-show="form.processing" class="spinner-border spinner-border-sm"
+                                                    role="status">
+                                                    <span class="visually-hidden">Loading...</span>
+                                                </div>
                                                 modifica
                                             </button>
                                         </div>
@@ -98,7 +101,7 @@ export default {
             images: props.announcement.images,
             category_id: props.announcement.category_id,
         });
-        
+
         const destroyImage = (image) => {
             if (confirm('Ne sei sicuro?')) {
                 Inertia.delete(route('image.delete', image),

@@ -79,48 +79,43 @@
                                     <i class="fa-solid fa-user"></i>
                                 </a>
                                 <ul class="dropdown-menu dropdown-menu-end m-0">
-                                    <li>
-                                        <h6 class="dropdown-header small text-muted">
+                                    <li class="mb-1">
+                                        <h6 class="dropdown-header small fw-bold">
                                             Annunci
                                         </h6>
                                     </li>
                                     <li>
-                                        <hr class="dropdown-divider">
+                                        <hr class="my-0 dropdown-divider">
                                     </li>
                                     <li>
                                         <Link :href="route('user.announcements')" class="dropdown-item">I tuoi
                                         annunci
                                         </Link>
                                     </li>
-                                    <li>
+                                    <li class="mb-1">
                                         <Link :href="route('announcement.create')" class="dropdown-item">Crea un
                                         annuncio
                                         </Link>
                                     </li>
                                     <li>
-                                        <hr class="dropdown-divider">
+                                        <hr class="my-0 dropdown-divider">
                                     </li>
                                     <li>
-                                        <h6 class="dropdown-header small text-muted">
+                                        <h6 class="dropdown-header small fw-bold">
                                             Manage Account
                                         </h6>
                                     </li>
-                                    <li>
-                                        <hr class="dropdown-divider">
+                                    <li class="mb-1">
+                                        <hr class="my-0 dropdown-divider">
                                     </li>
                                     <li>
                                         <Link :href="route('profile.show')" class="dropdown-item">Profilo
                                         </Link>
                                     </li>
-                                    <li>
-                                        <Link :href="route('api-tokens.index')"
-                                            v-if="$page.props.jetstream.hasApiFeatures" class="dropdown-item" href="#">
-                                        API Tokens</Link>
-                                    </li>
                                     <li class="dropdown-item">
                                         <form @submit.prevent="logout">
                                             <jet-dropdown-link as="button">
-                                                Log out
+                                                <i class="fa-solid fa-right-from-bracket"></i>
                                             </jet-dropdown-link>
                                         </form>
                                     </li>

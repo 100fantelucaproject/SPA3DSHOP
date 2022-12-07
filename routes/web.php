@@ -30,7 +30,7 @@ Route::get('/announcement/index/', [AnnouncementController::class, 'index'])->na
 
 Route::get('/announcement/show/{announcement}', [AnnouncementController::class, 'show'])->name('announcement.show');
 
-Route::middleware(['auth', 'verified'])->group(function () {
+Route::middleware(['auth:sanctum', 'verified', config('jetstream.auth_session')])->group(function () {
 
     Route::get('/announcement/create', [AnnouncementController::class, 'create'])->name('announcement.create');
 
@@ -59,12 +59,12 @@ Route::post('/announcement/update/image/', [ImageController::class, 'update'])->
 
 
 
-Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
-})
-->middleware([
-        'auth:sanctum',
-        config('jetstream.auth_session'),
-        'verified',
-    ])
-->name('dashboard');
+// Route::get('/dashboard', function () {
+//     return Inertia::render('Dashboard');
+// })
+// ->middleware([
+//         'auth:sanctum',
+//         config('jetstream.auth_session'),
+//         'verified',
+//     ])
+// ->name('dashboard');

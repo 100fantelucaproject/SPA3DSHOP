@@ -2,7 +2,7 @@
     <AppLayout>
         <div v-if="announcements.data.length != 0">
             <div class="container-fluid">
-                <div class="row d-flex justify-content-around">
+                <div class="row d-flex ">
                     <div class="col-12 col-md-4 col-lg-3 m-1" v-for="(announcement, index) in announcements.data"
                         :key="announcement.id">
                         <Card :announcement="announcement" :images="images[index]" />

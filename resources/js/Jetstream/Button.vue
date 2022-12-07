@@ -1,5 +1,5 @@
 <template>
-  <button :type="type" class="btn btn-success fw-bold">
+  <button :type="type" class="btn btn-warning fw-bold">
     <slot></slot>
   </button>
 </template>
