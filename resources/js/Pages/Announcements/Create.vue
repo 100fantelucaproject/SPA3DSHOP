@@ -28,7 +28,7 @@
                                             <label for="price" class="form-label fw-bold">Prezzo</label>
                                             <input v-model="form.price" type="number" class="form-control"
                                                 :class="{ 'is-invalid': errors.price }" id="price" />
-                                            <div v-if="errors.title" class="text-danger"> {{ errors.price }}</div>
+                                            <div v-if="errors.price" class="text-danger"> {{ errors.price }}</div>
                                         </div>
                                         <div class="mb-3">
                                             <select class="form-select" :class="{ 'is-invalid': errors.category_id }"
@@ -37,21 +37,21 @@
                                                 <option v-for="category in categories" :value="category.id">
                                                     {{ category.name }}</option>
                                             </select>
-                                            <div v-if="errors.title" class="text-danger"> {{ errors.category_id }}</div>
+                                            <div v-if="errors.category_id" class="text-danger"> {{ errors.category_id }}</div>
                                         </div>
                                         <div class="mb-3">
                                             <label for="file" class="fw-bold">Carica qui il tuo file 3d</label>
                                             <input class="form-control" :class="{ 'is-invalid': errors.file }"
                                                 type="file" ref="file" @change="handleSelected" />
                                             <div v-if="currentProgress !== '0%'" class="text-center fw-bold py-2">Progress: {{ currentProgress }}</div>
-                                            <div v-if="errors.title" class="text-danger"> {{ errors.file }}</div>
+                                            <div v-if="errors.file" class="text-danger"> {{ errors.file }}</div>
                                         </div>
                                         <div class="mb-3">
                                             <label for="file" class="fw-bold">Carica qui le tue immagini di
                                                 presentazione</label>
                                             <input class="form-control" :class="{ 'is-invalid': errors.images }"
-                                                type="file" multiple @change="previewImage" ref="images" />
-                                            <div v-if="errors.title" class="text-danger"> {{ errors.images }}</div>
+                                                type="file" id="inputImages" multiple @change="previewImage" ref="images" />
+                                            <div v-if="errors.images" class="text-danger"> {{ errors.images }}</div>
                                         </div>
                                         <div v-if="urls.length > 0">
                                             <h6 class="text-center text-uppercase fw-bold">Preview Immagini</h6>
