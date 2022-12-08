@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Image;
+use App\Jobs\ResizeImage;
 use App\Models\Announcement;
 use App\Http\Requests\ImageRequest;
 use Illuminate\Support\Facades\Storage;
@@ -22,7 +23,10 @@ class ImageController extends Controller
         if ($request->hasFile('images')) {
             foreach ($request->file('images') as $image) {
                 $pathFile = "announcements/{$announcement->id}";
-                $announcement->images()->create(['path' => $image->store($pathFile, 'public')]);
+                $newImage = $announcement->images()->create(['path' => $image->store($pathFile, 'public')]);
+
+                dispatch(new ResizeImage($newImage->path, 300, 200));
+                dispatch(new ResizeImage($newImage->path, 1200, 500));
             }
         }
 
@@ -40,6 +44,8 @@ class ImageController extends Controller
         if (!empty($image)) {
             if (Storage::disk('public')->exists('announcements/' . $announcement->id)) {
                 Storage::delete('public/' . $image->path);
+                Storage::delete('public/' . $image->getUrl(1200,500));
+                Storage::delete('public/' . $image->getUrl(300,200));
             }
         }
 

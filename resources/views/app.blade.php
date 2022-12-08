@@ -10,6 +10,7 @@
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Nunito:400,600,700" rel="stylesheet">
 
+        <!-- CDN for 3D images -->
         <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script> 
 
         <!-- Scripts -->

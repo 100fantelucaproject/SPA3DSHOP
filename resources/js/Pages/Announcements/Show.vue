@@ -3,7 +3,7 @@
         <div class="container-fluid py-2 my-3">
             <div class="row d-flex justify-content-center">
                 <div class="col-0 col-lg-2"></div>
-                <div class="col-12 col-lg-8">
+                <div class="col-12">
                     <div class="container rounded-2 shadow-lg border bg-warning py-2">
                         <div class="d-flex justify-content-center">
                             <div class="col-10">
@@ -11,7 +11,7 @@
                                     {{ announcement.title }}
                                 </h1>
                                 <div>
-                                    <CarouselAnnouncement :images="images" />
+                                    <CarouselAnnouncement :images="images[0].images1200x500" />
                                 </div>
                                 <div class="text-center py-2">
                                     <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal"
@@ -81,6 +81,7 @@ export default {
     },
     setup(props) {
         const categories = computed(() => usePage().props.value.categories);
+        console.log(props.images);
         return { categories };
     },
     mounted() {
@@ -107,6 +108,8 @@ model-viewer {
     height: 500px;
     margin: 0 auto;
 }
+
+
 
 
 </style>

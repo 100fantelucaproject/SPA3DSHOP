@@ -22,9 +22,21 @@ class UserController extends Controller
             );
 
             $images = [];
+
         
             foreach($announcements as $announcement){
-                array_push($images, $announcement->images);
+    
+                $images300x200 = [];
+    
+                foreach($announcement->images as $image){
+                    array_push($images300x200, $image->getUrl(300, 200));
+                }
+    
+                $allImages = [
+                    'images300x200' => $images300x200,
+                ];
+    
+                array_push($images, $allImages);
             }
 
             return Inertia::render('User/UserAnnouncements', compact('announcements', 'images'));

@@ -45,12 +45,12 @@ class CategorySeeder extends Seeder
             [
                 'name' => 'Forniture',
                 'path' => 'resources/Media/Forniture.jpg',
-                'image' => '/Forniture.jpg',
+                'image' => 'Forniture.jpg',
             ],
             [
                 'name' => 'Culture',
-                'path' => 'resources/Media/Forniture.jpg',
-                'image' => 'Forniture.jpg',
+                'path' => 'resources/Media/culture.webp',
+                'image' => 'culture.webp',
             ],
             [
                 'name' => 'Art',
@@ -79,12 +79,17 @@ class CategorySeeder extends Seeder
             ],
         ];
 
+        $path = "storage/app/public/categoryImages/";
+
+        if(!File::isDirectory($path)){
+            File::makeDirectory($path, 077, true, true);
+        }
+
         foreach ($categories as  $category) {
-            File::copy($category['path'], "storage/app/public/categoryImages/". $category['image'] );
+            File::copy($category['path'], $path . $category['image'] );
             DB::table('categories')->insert([
                 'name' => $category['name'],
                 'path' =>  "categoryImages/". $category['image'],
-
             ]);
         }
     }

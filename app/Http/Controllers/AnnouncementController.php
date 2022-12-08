@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Redirect;
 use App\Http\Resources\AnnouncementResource;
 use App\Http\Requests\AnnouncementStoreRequest;
 use App\Http\Requests\AnnouncementUpdateRequest;
+use App\Jobs\ResizeImage;
 
 class AnnouncementController extends Controller
 {
@@ -60,11 +61,28 @@ class AnnouncementController extends Controller
         );
 
         $images = [];
+
         
         foreach($announcements as $announcement){
-            array_push($images, $announcement->images);
+
+            $images300x200 = [];
+            $images800x400 = [];
+
+            foreach($announcement->images as $image){
+                array_push($images300x200, $image->getUrl(300, 200));
+                array_push($images800x400, $image->getUrl(800, 400));
+            }
+
+            $allImages = [
+                'images' => $announcement->images,
+                'images300x200' => $images300x200,
+                'images800x400' => $images800x400,
+            ];
+
+            array_push($images, $allImages);
         }
-        
+
+
         //Research data to send 
         $researchData =  [
             'textSearch' => $this->textSearch,
@@ -96,7 +114,10 @@ class AnnouncementController extends Controller
         if ($request->hasFile('images')) {
             foreach ($request->file('images') as $image) {
                 $newPathFile = "announcements/{$announcement->id}";
-                $announcement->images()->create(['path' => $image->store($newPathFile, 'public')]);
+                $newImage = $announcement->images()->create(['path' => $image->store($newPathFile, 'public')]);
+
+                dispatch(new ResizeImage($newImage->path, 300, 200));
+                dispatch(new ResizeImage($newImage->path, 1200, 500));
             }
         }
 
@@ -117,7 +138,19 @@ class AnnouncementController extends Controller
     {
         $pathFile = $announcement->file;
 
-        $images = $announcement->images;
+        $images = [];
+        $images1200x500 = [];
+
+            foreach($announcement->images as $image){
+                array_push($images1200x500, $image->getUrl(1200, 500));
+            }
+
+            $allImages = [
+                'images1200x500' => $images1200x500,
+            ];
+
+            array_push($images, $allImages);
+        
 
         return Inertia::render('Announcements/Show', compact('announcement', 'pathFile', 'images'));
     }
