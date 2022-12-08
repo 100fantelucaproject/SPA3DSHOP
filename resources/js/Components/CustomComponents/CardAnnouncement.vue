@@ -1,7 +1,7 @@
 <template>
     <div class="card shadow-lg bg-body rounded-2 my-2 border border-secondary">
         <Link class="p-0 m-0 text-decoration-none text-dark" :href="route('announcement.show', announcement)">
-        <img :src="'/storage/' + images[0]" class="card-img-top" alt="image card">
+        <img :src="'/storage/' + images" class="card-img-top" alt="image card">
         <div class="card-body p-0">
             <hr class="my-0">
             <div class="row d-flex justify-content-around m-0 p-0 py-2">

@@ -5,7 +5,7 @@
                 <div class="row d-flex ">
                     <div class="col-12 col-md-3 col-lg-3 p-2" v-for="(announcement, index) in announcements.data"
                         :key="announcement.id">
-                        <Card :announcement="announcement" :images="images[index].images300x200" />
+                        <Card :announcement="announcement" :images="images[index]" />
                     </div>
                 </div>
                 <div class="my-4">
@@ -18,7 +18,9 @@
                 <div class="row d-flex justify-content-center">
                     <h3 class="fw-bold">Non hai ancora creato nessun annuncio, creane uno: </h3>
                     <div>
-                        <button class="btn btn-danger">Crea un annuncio</button>
+                        <Link :href="route('announcement.create')" class="btn btn-danger">Crea un
+                        annuncio
+                        </Link>
                     </div>
                 </div>
             </div>
@@ -29,10 +31,12 @@
 <script>
 import AppLayout from '../../Layouts/AppLayout.vue';
 import Card from '../../Components/CustomComponents/CardAnnouncement.vue';
-import Pagination from '../../Components/CustomComponents/Pagination.vue';
+import Pagination from '../../Components/CustomComponents/Pagination.vue'; 
+import { Link } from '@inertiajs/inertia-vue3';
 
 export default {
     components: {
+        Link,
         AppLayout,
         Card,
         Pagination,

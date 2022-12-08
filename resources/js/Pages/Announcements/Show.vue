@@ -11,7 +11,7 @@
                                     {{ announcement.title }}
                                 </h1>
                                 <div>
-                                    <CarouselAnnouncement :images="images[0].images1200x500" />
+                                    <CarouselAnnouncement :images="images" />
                                 </div>
                                 <div class="text-center py-2">
                                     <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal"

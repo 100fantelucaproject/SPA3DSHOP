@@ -153,7 +153,7 @@
                         <div class="row">
                             <div v-for="(announcement, index) in announcements.data" :key="announcement.id"
                                 class="col-12 col-md-6 col-lg-3">
-                                <Card :announcement="announcement" :images="images[index].images300x200" />
+                                <Card :announcement="announcement" :images="images[index]" />
                             </div>
                         </div>
                         <div class="my-4">

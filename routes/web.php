@@ -46,7 +46,7 @@ Route::delete('/announcement/destroy({announcement}', [AnnouncementController::c
 
 //User Routes
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------
-Route::get('/user/announcements', [UserController::class, 'UserAnnouncements'])->name('user.announcements');
+Route::get('/user/announcements', [UserController::class, 'UserAnnouncements'])->middleware('verified')->name('user.announcements');
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------
 
