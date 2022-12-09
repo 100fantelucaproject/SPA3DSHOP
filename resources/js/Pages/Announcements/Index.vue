@@ -2,8 +2,8 @@
     <AppLayout title="Announcements">
         <div class="container-fluid p-0 border-top border-dark">
             <div class="container-fluid shadow-bottom">
-                <div v-if="sizeScreen >= 576" class="row justify-content-start align-items-center py-2 ">
-                    <div class="col-2 ">
+                <div v-if="(sizeScreen >= screenBreakPoint)" class="row justify-content-start align-items-center py-2 ">
+                    <div class="col-3 ">
                         <div class="row d-flex justify-content-start align-items-center text-center">
                             <div class="btn-group">
                                 <a class="nav-link fw-bold text-uppercase dropdown-toggle" type="a"
@@ -28,7 +28,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-2 px-1">
+                    <div class="col-3 px-1">
                         <div class="btn-group">
                             <a class="nav-link dropdown-toggle text-uppercase fw-bold" type="a"
                                 data-bs-toggle="dropdown" aria-expanded="false">
@@ -51,7 +51,7 @@
                             </ul>
                         </div>
                     </div>
-                    <div class="col-2 px-1">
+                    <div class="col-3 px-1">
                         <div class="btn-group">
                             <a class="nav-link fw-bold text-uppercase dropdown-toggle" type="a"
                                 data-bs-toggle="dropdown" aria-expanded="false">
@@ -74,7 +74,7 @@
                             </ul>
                         </div>
                     </div>
-                    <div class="col-2">
+                    <div class="col-3">
                         <select class="form-select nav-link text-uppercase fw-bold p-1"
                             aria-label="Default select example" v-model="selectedCategory">
                             <option value="" selected>Tutte le categorie</option>
@@ -83,7 +83,8 @@
                         </select>
                     </div>
                 </div>
-                <div v-else-if="sizeScreen < 576" class="row justify-content-around align-items-center py-2 ">
+                <div v-else-if="(sizeScreen < screenBreakPoint)"
+                    class="row justify-content-around align-items-center py-2 ">
                     <div class="row d-flex justify-content-start align-items-center text-center py-1">
                         <div class="col-4 text-uppercase fw-bold">Prezzo:</div>
                         <div class="col-4">
@@ -141,12 +142,13 @@
                     </div>
                 </div>
             </div>
+            {{ windowResize }}
             <div class="container-fluid">
                 <div class="row d-flex justify-content-center">
                     <div class="col-12  py-4">
                         <div v-for="category in categories">
                             <div v-if="selectedCategory == category.id">
-                             Categoria selezionata: {{ category.name }}
+                                Categoria selezionata: {{ category.name }}
                             </div>
                         </div>
                         <div v-if="researchData.textSearch">Risultati relativi a: {{ researchData.textSearch }}</div>
@@ -190,9 +192,11 @@ export default {
         researchData: Object,
         images: Object,
     },
-    data(){
-        return{
-            name:'',
+    data() {
+        return {
+            name: '',
+            screenBreakPoint: 992,
+            sizeScreen: window.innerWidth,
         };
     },
     setup(props) {
@@ -201,8 +205,6 @@ export default {
         const Max = ref(props.researchData.rangePrice.priceMax);
         const Min = ref(props.researchData.rangePrice.PriceMin);
         const selectedCategory = ref(props.researchData.category);
-
-        const sizeScreen = window.screen.width;
 
         const categories = computed(() => usePage().props.value.categories);
 
@@ -266,8 +268,20 @@ export default {
                 }));
         });
 
-        return { searched, changeOrder, Min, Max, selectedCategory, categories, sizeScreen };
+        return { searched, changeOrder, Min, Max, selectedCategory, categories };
     },
+    created() {
+        window.addEventListener("resize", this.myEventHandler);
+    },
+    destroyed() {
+        window.removeEventListener("resize", this.myEventHandler);
+    },
+    methods: {
+        myEventHandler(e) {
+            this.sizeScreen =  window.innerWidth;
+        }
+
+    }
 
 }
 </script>

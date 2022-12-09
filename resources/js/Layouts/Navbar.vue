@@ -4,8 +4,8 @@
         <div class="container-fluid">
             <Link :href="route('welcome')" class="navbar-brand px-2 m-0"><img src="../../Media/logo.png" alt="logo"
                 class="logo rounded-2 border"></Link>
-                <!-- User on phone -->
-            <div v-if="sizeScreen < 576">
+            <!-- User on phone -->
+            <div v-if="(sizeScreen < screenBreakPoint)">
                 <div class="row d-flex justify-content-center">
                     <div class="input-group w-100">
                         <span class="input-group-text search-item-rounded"><i
@@ -24,8 +24,9 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <div class="container-fluid navbar-nav me-auto mb-2 mb-lg-0 px-0
              d-flex justify-content-between align-items-start align-items-center">
-             <!-- User on Desktop -->
-                    <div v-if="sizeScreen >= 576 && !route().current('announcement.index')" class="btn-group px-4">
+                    <!-- User on Desktop -->
+                    <div v-if="sizeScreen >= screenBreakPoint && !route().current('announcement.index')"
+                        class="btn-group px-4">
                         <a class="nav-link dropdown-toggle text-dark fw-bold" type="a" data-bs-toggle="dropdown">
                             modelli
                         </a>
@@ -50,7 +51,7 @@
                     </div>
                     <div class="row m-0 p-0">
                         <!-- User on desktop -->
-                        <div v-if="sizeScreen >= 576" class="col-6 d-flex align-items-center"
+                        <div v-if="(sizeScreen >= screenBreakPoint)" class="col-6 d-flex align-items-center"
                             :class="{ 'col-9': logged }">
                             <div class="input-group w-100">
                                 <span class="input-group-text search-item-rounded"><i
@@ -80,7 +81,7 @@
                         </ul>
                         <!-- User logged in -->
                         <div v-if="logged"
-                            class="navbar-nav px-4 d-flex align-items-center justify-content-center col-12 col-md-3">
+                            class="navbar-nav px-4 d-flex align-items-start align-content-start justify-content-end col-12 col-md-3">
                             <li class="nav-item btn-group px-4">
                                 <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"
                                     aria-expanded="false">
@@ -136,7 +137,7 @@
         </div>
     </nav>
     <!-- User on phone category research -->
-    <div v-if="sizeScreen < 576" class="phone-section border-top border-dark"
+    <div v-if="(sizeScreen < screenBreakPoint)" class="phone-section border-top border-dark"
         :class="{ 'shadow-bottom': !route().current('announcement.index') }">
         <div class="col-12 text-center text-uppercase">
             <div class="dropdown w-100">
@@ -181,6 +182,13 @@ export default {
     data() {
         return {
             textSearch: '',
+            screenBreakPoint: 992,
+            sizeScreen: window.innerWidth,
+        }
+    },
+    mounted() {
+        window.onresize = () => {
+            this.sizeScreen = window.innerWidth
         }
     },
     setup() {
@@ -188,9 +196,7 @@ export default {
         const logged = computed(() => usePage().props.value.logged);
         const categories = computed(() => usePage().props.value.categories);
 
-        const sizeScreen = window.screen.width;
-
-        return { user, logged, categories, sizeScreen };
+        return { user, logged, categories };
     },
     methods: {
         logout() {
@@ -201,6 +207,18 @@ export default {
             this.textSearch = '';
         }
     },
+    created() {
+        window.addEventListener("resize", this.myEventHandler);
+    },
+    destroyed() {
+        window.removeEventListener("resize", this.myEventHandler);
+    },
+    methods: {
+        myEventHandler(e) {
+            this.sizeScreen =  window.innerWidth;
+        }
+
+    }
 }
 </script>
 
