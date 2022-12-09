@@ -1,35 +1,36 @@
 <template>
     <AppLayout>
-        <div class="container-fluid py-2 my-3">
+        <div class="container-fluid my-4">
             <div class="row d-flex justify-content-center">
                 <div class="col-0 col-lg-2"></div>
                 <div class="col-12">
-                    <div class="container rounded-2 shadow-lg border bg-warning py-2">
+                    <div class="container shadow-lg rounded-2 bg-light py-5 ">
                         <div class="d-flex justify-content-center">
                             <div class="col-10">
-                                <h1 class="m-0 text-center text-uppercase fw-bold py-2">
-                                    {{ announcement.title }}
-                                </h1>
                                 <div>
                                     <CarouselAnnouncement :images="images" />
                                 </div>
-                                <div class="text-center py-2">
-                                    <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal"
-                                        @click="View3D">Visualizza 3D</button>
+                                <h1 class="m-0 text-center text-uppercase fw-bold py-2">
+                                    {{ announcement.title }}
+                                </h1>
+                                <hr class="my-1">
+                                <div class="text-start py-2">
+                                    <h3 class="card-text">{{ category }}</h3>
                                 </div>
-                                <div class="text-center py-2">
-                                    <p class="card-text">{{ category }}</p>
-                                </div>
+                                <hr class="my-1">
                                 <div class="py-2 text-start">
                                     <p class="card-text">{{ announcement.description }}</p>
                                 </div>
-                                <div class="row d-flex justify-content-around p-2">
-                                    <div class="col-12 col-md-6 p-1 text-center">
-                                        Data: {{ announcement.created_at.slice(0, 7) }}
-                                    </div>
-                                    <div class="col-12 col-md-6 p-1 text-center">
-                                        Prezzo: {{ announcement.price }} €
-                                    </div>
+                                <hr class="my-1">
+                                <div class="col-12 p-1 text-center text-md-start">
+                                    <h5> Prezzo: {{ announcement.price }} € </h5>
+                                </div>
+                                <div class="col-12 p-1 text-center text-md-start">
+                                    <h5> Data: {{ announcement.created_at.slice(0, 7) }}</h5>
+                                </div>
+                                <div class="text-center py-2">
+                                    <button class="btn btn-primary shadow" data-bs-toggle="modal"
+                                        data-bs-target="#exampleModal" @click="View3D">Visualizza 3D</button>
                                 </div>
                                 <div class="modal fade" id="exampleModal" tabindex="-1"
                                     aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -39,9 +40,12 @@
                                                 <button type="button" class="btn-close p-2" data-bs-dismiss="modal"
                                                     aria-label="Close"></button>
                                             </div>
-                                            <div class="modal-body p-3">
-                                                <model-viewer :src="path" camera-controls auto-rotate>
-                                                </model-viewer>
+                                            <div class="modal-body p-3 modal-background rounded-bottom">
+                                                    <model-viewer id="model-viewer" :src="path" camera-controls
+                                                        touch-action="pan-y" auto-rotate ar alt="3D model"
+                                                        class="rounded-2 shadow-lg">
+                                                    </model-viewer>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -49,10 +53,9 @@
                             </div>
                         </div>
                     </div>
+                    <div class="col-0 col-lg-2"></div>
                 </div>
-                <div class="col-0 col-lg-2"></div>
             </div>
-        </div>
     </AppLayout>
 </template>
 
@@ -79,9 +82,8 @@ export default {
         pathFile: Object,
         images: Object,
     },
-    setup(props) {
+    setup() {
         const categories = computed(() => usePage().props.value.categories);
-        console.log(props.images);
         return { categories };
     },
     mounted() {
@@ -109,7 +111,18 @@ model-viewer {
     margin: 0 auto;
 }
 
+.announcement {
+    z-index: -20;
+}
 
+#model-viewer {
+    background-image: url('../../../Media/background3d.webp');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-repeat: no-repeat;
+}
 
-
+.modal-background {
+    background-color: black;
+}
 </style>

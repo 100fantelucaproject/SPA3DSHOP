@@ -1,9 +1,10 @@
 <template>
-    <nav class="navbar navbar-expand-lg text-uppercase bg-light" :class="{ 'shadow-bottom': !route().current('announcement.index') }" >
+    <nav class="navbar navbar-expand-lg text-uppercase bg-light"
+        :class="{ 'shadow-bottom': !route().current('announcement.index') }">
         <div class="container-fluid">
             <Link :href="route('welcome')" class="navbar-brand px-2 m-0"><img src="../../Media/logo.png" alt="logo"
                 class="logo rounded-2 border"></Link>
-            <!-- If user is on hone  -->
+                <!-- User on phone -->
             <div v-if="sizeScreen < 576">
                 <div class="row d-flex justify-content-center">
                     <div class="input-group w-100">
@@ -23,6 +24,7 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <div class="container-fluid navbar-nav me-auto mb-2 mb-lg-0 px-0
              d-flex justify-content-between align-items-start align-items-center">
+             <!-- User on Desktop -->
                     <div v-if="sizeScreen >= 576 && !route().current('announcement.index')" class="btn-group px-4">
                         <a class="nav-link dropdown-toggle text-dark fw-bold" type="a" data-bs-toggle="dropdown">
                             modelli
@@ -45,10 +47,11 @@
                         </ul>
                     </div>
                     <div v-else class="p-2">
-
                     </div>
                     <div class="row m-0 p-0">
-                        <div v-if="sizeScreen >= 576" class="col-6 d-flex align-items-center" :class="{ 'col-9' : logged }">
+                        <!-- User on desktop -->
+                        <div v-if="sizeScreen >= 576" class="col-6 d-flex align-items-center"
+                            :class="{ 'col-9': logged }">
                             <div class="input-group w-100">
                                 <span class="input-group-text search-item-rounded"><i
                                         class="fa-brands fa-searchengin fa-2x"></i></span>
@@ -57,22 +60,27 @@
                                     @keydown.enter="search(textSearch)" />
                             </div>
                         </div>
+                        <!-- User not logged in -->
                         <ul v-if="!logged" class="navbar-nav px-4 d-flex align-items-center col-12 col-md-6">
                             <li class="nav-item p-2 w-100">
-                                <button class="btn btn-warning rounded-2 text-uppercase shadow p-0 w-100">
-                                    <Link :href="route('login')" class="nav-link active p-1 fw-bold" aria-current="page">
+                                <button class="btn btn-primary rounded-2 text-uppercase shadow p-0 w-100">
+                                    <Link :href="route('login')" class="nav-link active p-1 fw-bold"
+                                        aria-current="page">
                                     accedi
                                     </Link>
                                 </button>
                             </li>
                             <li class="nav-item p-2">
-                                <button class="btn btn-danger rounded-2 text-uppercase shadow p-0">
-                                    <Link :href="route('register')" class="nav-link active p-1 fw-bold" aria-current="page">
+                                <button class="btn btn-register rounded-2 text-uppercase shadow p-0">
+                                    <Link :href="route('register')" class="nav-link active p-1 fw-bold"
+                                        aria-current="page">
                                     registrati</Link>
                                 </button>
                             </li>
                         </ul>
-                        <div v-if="logged" class="navbar-nav px-4 d-flex align-items-center justify-content-center col-12 col-md-3">
+                        <!-- User logged in -->
+                        <div v-if="logged"
+                            class="navbar-nav px-4 d-flex align-items-center justify-content-center col-12 col-md-3">
                             <li class="nav-item btn-group px-4">
                                 <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"
                                     aria-expanded="false">
@@ -127,7 +135,9 @@
             </div>
         </div>
     </nav>
-    <div v-if="sizeScreen < 576" class="phone-section border-top border-dark" :class="{ 'shadow-bottom' : !route().current('announcement.index')}">
+    <!-- User on phone category research -->
+    <div v-if="sizeScreen < 576" class="phone-section border-top border-dark"
+        :class="{ 'shadow-bottom': !route().current('announcement.index') }">
         <div class="col-12 text-center text-uppercase">
             <div class="dropdown w-100">
                 <button class="btn btn-light dropdown-toggle text-dark text-uppercase fw-bold p-2 w-100" type="a"
@@ -152,10 +162,7 @@
                 </ul>
             </div>
         </div>
-
-
     </div>
-
 </template>
 
 <script>
@@ -215,5 +222,9 @@ export default {
 
 .shadow-bottom {
     box-shadow: 0px 2px 16px 1px rgba(0, 0, 0, .2);
+}
+
+.btn-register {
+    background-color: #FF7F11;
 }
 </style>

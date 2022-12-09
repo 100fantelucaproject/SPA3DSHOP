@@ -56,7 +56,7 @@
                                         </div>
                                         <div class="text-center">
                                             <div class="mb-3">
-                                                <jet-button :class="{ 'text-light': form.processing }"
+                                                <jet-button class="btn-primary shadow" :class="{ 'text-light': form.processing }"
                                                     :disabled="form.processing">
                                                     Registrati
                                                     <div v-show="form.processing"

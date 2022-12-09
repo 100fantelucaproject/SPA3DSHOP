@@ -26,7 +26,7 @@ class AnnouncementStoreRequest extends FormRequest
     {
         return [
             'title' => 'required|string|min:5|max:20',
-            'description' => 'required|string|min:5|max:20',
+            'description' => 'required|string|min:5|max:1000',
             'price' => 'required|numeric',
             'category_id' => 'required',
             'images' => 'required',

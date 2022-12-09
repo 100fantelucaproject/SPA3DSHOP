@@ -143,7 +143,7 @@
             </div>
             <div class="container-fluid">
                 <div class="row d-flex justify-content-center">
-                    <div class="col-12 bg-success py-4">
+                    <div class="col-12  py-4">
                         <div v-for="category in categories">
                             <div v-if="selectedCategory == category.id">
                              Categoria selezionata: {{ category.name }}
@@ -156,7 +156,7 @@
                                 <Card :announcement="announcement" :images="images[index]" />
                             </div>
                         </div>
-                        <div class="my-4">
+                        <div class="my-4 d-flex justify-content-center">
                             <Pagination :elements="announcements" :researchData="researchData" :dataSearch="true">
                             </Pagination>
                         </div>

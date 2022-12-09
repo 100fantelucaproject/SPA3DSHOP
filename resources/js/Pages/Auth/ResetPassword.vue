@@ -2,9 +2,6 @@
   <AppLayout title="Reset Password">
 
     <jet-authentication-card>
-      <template #logo>
-        <jet-authentication-card-logo />
-      </template>
 
 
       <div class="card-body">

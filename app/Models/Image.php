@@ -21,6 +21,7 @@ class Image extends Model
         return $this->belongsTo(Announcement::class);
     }
 
+    //To get url for resized image
     public static function getUrlByFilePath($filePath, $w = null, $h = null)
     {
         if(!$w && !$h){
@@ -34,9 +35,9 @@ class Image extends Model
         return $file;
     }
 
+    //Get url
     public function getUrl($w = null, $h = null)
     {
-    
         return Image::getUrlByFilePath($this->path, $w, $h);
     }
 }

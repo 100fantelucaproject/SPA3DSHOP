@@ -89,7 +89,6 @@
             © 2022 Copyright:
             <a class="text-reset fw-bold">3D GLOBAL.com</a>
         </div>
-        <!-- Copyright -->
     </footer>
     <!-- Footer -->
 </template>

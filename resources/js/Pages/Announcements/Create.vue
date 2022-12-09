@@ -19,8 +19,9 @@
                                         </div>
                                         <div class="mb-3">
                                             <label for="description" class="form-label fw-bold">Descrizione</label>
-                                            <input v-model="form.description" type="text" class="form-control"
-                                                :class="{ 'is-invalid': errors.description }" id="description" />
+                                            <textarea v-model="form.description" type="text" class="form-control"
+                                                :class="{ 'is-invalid': errors.description }" id="description"
+                                                rows="4"></textarea>
                                             <div v-if="errors.description" class="text-danger"> {{ errors.description }}
                                             </div>
                                         </div>
@@ -37,20 +38,23 @@
                                                 <option v-for="category in categories" :value="category.id">
                                                     {{ category.name }}</option>
                                             </select>
-                                            <div v-if="errors.category_id" class="text-danger"> {{ errors.category_id }}</div>
+                                            <div v-if="errors.category_id" class="text-danger"> {{ errors.category_id }}
+                                            </div>
                                         </div>
                                         <div class="mb-3">
                                             <label for="file" class="fw-bold">Carica qui il tuo file 3d</label>
                                             <input class="form-control" :class="{ 'is-invalid': errors.file }"
                                                 type="file" ref="file" @change="handleSelected" />
-                                            <div v-if="currentProgress !== '0%'" class="text-center fw-bold py-2">Progress: {{ currentProgress }}</div>
+                                            <div v-if="currentProgress !== '0%'" class="text-center fw-bold py-2">
+                                                Progress: {{ currentProgress }}</div>
                                             <div v-if="errors.file" class="text-danger"> {{ errors.file }}</div>
                                         </div>
                                         <div class="mb-3">
                                             <label for="file" class="fw-bold">Carica qui le tue immagini di
                                                 presentazione</label>
                                             <input class="form-control" :class="{ 'is-invalid': errors.images }"
-                                                type="file" id="inputImages" multiple @change="previewImage" ref="images" />
+                                                type="file" id="inputImages" multiple @change="previewImage"
+                                                ref="images" />
                                             <div v-if="errors.images" class="text-danger"> {{ errors.images }}</div>
                                         </div>
                                         <div v-if="urls.length > 0">
@@ -76,10 +80,10 @@
                                         </div>
                                         <div class="text-center mb-3">
                                             <button :disabled="form.processing"
-                                                class="btn btn-danger text-uppercase fw-bold" type="submit">
-                                                <div v-show="form.processing" class="spinner-border spinner-border-sm"
+                                                class="btn btn-danger text-uppercase fw-bold fs-4" type="submit">
+                                                <span v-show="form.processing" class="spinner-border spinner-border-sm"
                                                     role="status">
-                                                </div>
+                                                </span>
                                                 submit
                                             </button>
                                             <div class="p-2 text-uppercase fw-bold" v-show="form.processing">Please

@@ -126,7 +126,9 @@ class AnnouncementController extends Controller
         $images = [];
 
         foreach($announcement->images as $image){
+
             array_push($images, $image->getUrl(1200, 500));
+            
         }
 
         return Inertia::render('Announcements/Show', compact('announcement', 'pathFile', 'images'));

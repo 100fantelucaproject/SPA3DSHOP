@@ -3,12 +3,12 @@
         <div id="carousel-announcement" class="carousel slide" data-bs-ride="true">
             <button class="carousel-control-prev" type="button" data-bs-target="#carousel-announcement"
                 data-bs-slide="prev">
-                <span class="text-dark" aria-hidden="true"><i class="fa-solid fa-square-caret-left fa-2x"></i></span>
+                <span class="text-dark" aria-hidden="true"><i class="fa-solid fa-angle-left fa-3x"></i></span>
                 <span class="visually-hidden">Previous</span>
             </button>
             <button class="carousel-control-next" type="button" data-bs-target="#carousel-announcement"
                 data-bs-slide="next">
-                <span class="text-dark" aria-hidden="true"><i class="fa-solid fa-square-caret-right fa-2x"></i></span>
+                <span class="text-dark" aria-hidden="true"><i class="fa-solid fa-angle-right fa-3x"></i></span>
                 <span class="visually-hidden">Next</span>
             </button>
             <div class="carousel-indicators m-0">

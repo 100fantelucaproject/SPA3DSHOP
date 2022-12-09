@@ -18,8 +18,8 @@
                                         </div>
                                         <div class="mb-3">
                                             <label for="description" class="form-label fw-bold">Descrizione</label>
-                                            <input v-model="form.description" type="text" class="form-control"
-                                                :class="{ 'is-invalid': errors.description }" id="description" />
+                                            <textarea v-model="form.description" type="text" class="form-control"
+                                                :class="{ 'is-invalid': errors.description }" id="description" rows="5"></textarea> 
                                             <div v-if="errors.description" class="text-danger"> {{ errors.description }}
                                             </div>
                                         </div>

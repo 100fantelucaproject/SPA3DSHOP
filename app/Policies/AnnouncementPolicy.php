@@ -12,17 +12,6 @@ class AnnouncementPolicy
     use HandlesAuthorization;
 
     /**
-     * Determine whether the user can view any models.
-     *
-     * @param  \App\Models\User  $user
-     * @return \Illuminate\Auth\Access\Response|bool
-     */
-    public function viewAny(User $user)
-    {
-        //
-    }
-
-    /**
      * Determine whether the user can view the model.
      *
      * @param  \App\Models\User  $user
@@ -34,16 +23,6 @@ class AnnouncementPolicy
         return $user->id === $announcement->user_id
         ? Response::allow()
         : Response::deny('You can\'t do it');
-    }
-
-    /**
-     * Determine whether the user can create models.
-     *
-     * @param  \App\Models\User  $user
-     * @return \Illuminate\Auth\Access\Response|bool
-     */
-    public function create(User $user)
-    {
     }
 
     /**
@@ -74,27 +53,4 @@ class AnnouncementPolicy
             : Response::deny('You can\'t do it');
     }
 
-    /**
-     * Determine whether the user can restore the model.
-     *
-     * @param  \App\Models\User  $user
-     * @param  \App\Models\Announcement  $announcement
-     * @return \Illuminate\Auth\Access\Response|bool
-     */
-    public function restore(User $user, Announcement $announcement)
-    {
-        //
-    }
-
-    /**
-     * Determine whether the user can permanently delete the model.
-     *
-     * @param  \App\Models\User  $user
-     * @param  \App\Models\Announcement  $announcement
-     * @return \Illuminate\Auth\Access\Response|bool
-     */
-    public function forceDelete(User $user, Announcement $announcement)
-    {
-        //
-    }
 }

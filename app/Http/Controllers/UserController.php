@@ -23,13 +23,10 @@ class UserController extends Controller
 
             $images = [];
 
-            foreach($announcements as $announcement){
+            foreach ($announcements as $announcement) {
     
-                $images300x200 = [];
-                
-                array_push($images300x200, $announcement->images()->first()->getUrl(300, 200));
-
-                array_push($images, $images300x200);
+                array_push($images, $announcement->images()->first()->getUrl(300, 200));
+    
             }
     
 

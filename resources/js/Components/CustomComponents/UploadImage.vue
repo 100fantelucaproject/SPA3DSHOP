@@ -40,16 +40,16 @@
 import { useForm } from '@inertiajs/inertia-vue3';
 
 export default {
+    emits: ['value'],
+    props: {
+        announcement_id: Number,
+        user_id: Number,
+    },
     data() {
         return {
             files: [],
             urls: [],
         };
-    },
-    emits: ['value'],
-    props: {
-        announcement_id: Number,
-        user_id: Number,
     },
     setup(props) {
 
