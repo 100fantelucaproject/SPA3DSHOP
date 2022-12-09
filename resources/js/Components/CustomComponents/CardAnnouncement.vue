@@ -18,10 +18,10 @@
         </Link>
         <div v-if="route().current('user.announcements')">
             <div class="row d-flex justify-content-center mb-2">
-                <div class="col-12 col-md-6 text-center text-md-end d-flex align-items-center align-content-center justify-content-center p-2">
+                <div class="col-12 col-lg-6 text-md-end d-flex align-items-center align-content-center justify-content-center p-2">
                     <p class="fs-small m-0">Opzioni disponibili:</p>
                 </div>
-                <div class="col-12 col-md-6 text-center">
+                <div class="col-12 col-lg-6 text-center">
                     <div class="row d-flex justify-content-center">
                         <div class="col-1"></div>
                         <div class="col-5 text-center px-3">

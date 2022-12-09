@@ -121,13 +121,11 @@
                                         <Link :href="route('profile.show')" class="dropdown-item">Profilo
                                         </Link>
                                     </li>
+                                    <Link :href="route('logout')" method="post" as="button" class="w-100 p-0 text-start btn btn-link">
                                     <li class="dropdown-item">
-                                        <form @submit.prevent="logout">
-                                            <jet-dropdown-link as="button">
-                                                <i class="fa-solid fa-right-from-bracket"></i>
-                                            </jet-dropdown-link>
-                                        </form>
+                                        <i class="fa-solid fa-right-from-bracket"></i>
                                     </li>
+                                    </Link>
                                 </ul>
                             </li>
                         </div>
@@ -200,7 +198,7 @@ export default {
     },
     methods: {
         logout() {
-            this.$inertia.post(route('logout'));
+            Inertia.post(route('logout'));
         },
         search(text) {
             Inertia.get(route('announcement.index', { search_global: text }));
@@ -215,7 +213,7 @@ export default {
     },
     methods: {
         myEventHandler(e) {
-            this.sizeScreen =  window.innerWidth;
+            this.sizeScreen = window.innerWidth;
         }
 
     }

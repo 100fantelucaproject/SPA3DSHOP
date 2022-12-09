@@ -3,7 +3,7 @@
         <div v-if="announcements.data.length != 0">
             <div class="container-fluid">
                 <div class="row d-flex ">
-                    <div class="col-12 col-md-3 col-lg-3 p-2" v-for="(announcement, index) in announcements.data"
+                    <div class="col-12 col-lg-4 p-2" v-for="(announcement, index) in announcements.data"
                         :key="announcement.id">
                         <Card :announcement="announcement" :images="images[index]" />
                     </div>
