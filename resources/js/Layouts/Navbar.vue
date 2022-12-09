@@ -194,16 +194,11 @@ export default {
         const logged = computed(() => usePage().props.value.logged);
         const categories = computed(() => usePage().props.value.categories);
 
-        return { user, logged, categories };
-    },
-    methods: {
-        logout() {
-            Inertia.post(route('logout'));
-        },
-        search(text) {
+        const search = (text) => {
             Inertia.get(route('announcement.index', { search_global: text }));
-            this.textSearch = '';
         }
+        
+        return { user, logged, categories, search };
     },
     created() {
         window.addEventListener("resize", this.myEventHandler);
