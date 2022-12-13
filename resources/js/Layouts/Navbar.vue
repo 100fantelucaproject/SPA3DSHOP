@@ -168,14 +168,12 @@
 import { Head, Link } from '@inertiajs/inertia-vue3';
 import { computed } from 'vue';
 import { usePage } from '@inertiajs/inertia-vue3';
-import JetDropdownLink from '@/Jetstream/DropdownLink.vue';
 import { Inertia } from '@inertiajs/inertia';
 
 export default {
     components: {
         Head,
         Link,
-        JetDropdownLink,
     },
     data() {
         return {
@@ -201,13 +199,13 @@ export default {
         return { user, logged, categories, search };
     },
     created() {
-        window.addEventListener("resize", this.myEventHandler);
+        window.addEventListener("resize", this.windowsResize);
     },
     destroyed() {
-        window.removeEventListener("resize", this.myEventHandler);
+        window.removeEventListener("resize", this.windowsResize);
     },
     methods: {
-        myEventHandler(e) {
+        windowsResize(e) {
             this.sizeScreen = window.innerWidth;
         }
 

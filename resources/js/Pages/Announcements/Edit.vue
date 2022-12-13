@@ -73,7 +73,6 @@
                                             </div>
                                         </div>
                                     </div>
-                                    
                                     <UploadImage :announcement_id="announcement.id" :user_id="announcement.user_id"
                                         @value="() => changed = true" />
                                 </div>
@@ -92,7 +91,6 @@
 import { ref, watch } from 'vue';
 import { useForm } from '@inertiajs/inertia-vue3';
 import AppLayout from '../../Layouts/AppLayout.vue';
-import JetValidationErrors from '@/Jetstream/ValidationErrors.vue';
 import { Inertia } from '@inertiajs/inertia';
 import UploadImage from '../../Components/CustomComponents/UploadImage.vue';
 import { computed } from 'vue';
@@ -101,7 +99,6 @@ import { usePage } from '@inertiajs/inertia-vue3';
 export default {
     components: {
         AppLayout,
-        JetValidationErrors,
         UploadImage,
     },
     props: {

@@ -60,12 +60,12 @@ class AnnouncementController extends Controller
                 ->paginate(12)
         );
 
+        //Get only images we need for announcements's card
         $images = [];
 
         foreach ($announcements as $announcement) {
 
             array_push($images, $announcement->images()->first()->getUrl(300, 200));
-
         }
 
         //Research data to send 
@@ -96,6 +96,7 @@ class AnnouncementController extends Controller
             ->announcements()
             ->create($request->validated());
 
+        //Store multiple images
         if ($request->hasFile('images')) {
             foreach ($request->file('images') as $image) {
                 $newPathFile = "announcements/{$announcement->id}";
@@ -106,6 +107,7 @@ class AnnouncementController extends Controller
             }
         }
 
+        //Store a single file .glb
         if ($request->hasFile('file')) {
             $hash = Str::random(40);
             $extension = $request->file->getClientOriginalExtension();
@@ -123,12 +125,12 @@ class AnnouncementController extends Controller
     {
         $pathFile = $announcement->file;
 
+        //Images for carousel
         $images = [];
 
-        foreach($announcement->images as $image){
+        foreach ($announcement->images as $image) {
 
             array_push($images, $image->getUrl(1200, 500));
-            
         }
 
         return Inertia::render('Announcements/Show', compact('announcement', 'pathFile', 'images'));

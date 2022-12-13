@@ -17,10 +17,10 @@
                 '&priceMin=' + researchData.rangePrice.priceMin +
                 '&priceMax=' + researchData.rangePrice.priceMax +
                 '&category=' + researchData.category" v-html="link.label"
-                    class="px-2 py-1 m-1 text-decoration-none text-light fw-bold fs-5 border border-dark rounded"
-                    :class="SetPaginationClasses(link.active )" />
+                class="px-2 py-1 m-1 text-decoration-none text-light fw-bold fs-5 border border-dark rounded"
+                :class="SetPaginationClasses(link.active)" />
             </span>
-            <span class="p-0 m-0" v-else >
+            <span class="p-0 m-0" v-else>
             </span>
         </span>
     </div>

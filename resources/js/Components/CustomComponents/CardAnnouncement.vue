@@ -6,8 +6,8 @@
             <hr class="my-0">
             <div class="row d-flex justify-content-around m-0 p-0 py-2">
                 <div class="col-9 d-flex align-items-center">
-                    <h6 class="fs-6 fw-bold card-title text-start m-0 px-1">{{ announcement.title.substring(0, 18) +
-                            '...'
+                    <h6 class="fs-6 fw-bold card-title text-start m-0 px-1">{{ 
+                    announcement.title.substring(0, 18) + '...'
                     }}</h6>
                 </div>
                 <div class="col-3 text-start px-2 d-flex align-items-center  justify-content-end">
@@ -18,7 +18,8 @@
         </Link>
         <div v-if="route().current('user.announcements')">
             <div class="row d-flex justify-content-center mb-2">
-                <div class="col-12 col-lg-6 text-md-end d-flex align-items-center align-content-center justify-content-center p-2">
+                <div
+                    class="col-12 col-lg-6 text-md-end d-flex align-items-center align-content-center justify-content-center p-2">
                     <p class="fs-small m-0">Opzioni disponibili:</p>
                 </div>
                 <div class="col-12 col-lg-6 text-center">

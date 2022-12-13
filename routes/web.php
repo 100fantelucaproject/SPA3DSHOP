@@ -3,10 +3,8 @@
 use App\Http\Controllers\AnnouncementController;
 use App\Http\Controllers\ImageController;
 use App\Http\Controllers\UserController;
-use GuzzleHttp\Middleware;
-use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
-use Inertia\Inertia;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -37,34 +35,28 @@ Route::middleware(['auth:sanctum', 'verified', config('jetstream.auth_session')]
     Route::get('/announcement/edit/{announcement}', [AnnouncementController::class, 'edit'])->name('announcement.edit');
 
     Route::put('/annoucement/update/{announcement}', [AnnouncementController::class, 'update'])->name('announcement.update');
+
+    Route::post('/announcement/store', [AnnouncementController::class, 'store'])->name('announcement.store');
+
+    Route::delete('/announcement/destroy/{announcement}', [AnnouncementController::class, 'destroy'])->name('announcement.destroy');
 });
-
-Route::post('/announcement/store', [AnnouncementController::class, 'store'])->name('announcement.store');
-
-Route::delete('/announcement/destroy({announcement}', [AnnouncementController::class, 'destroy'])->name('announcement.destroy');
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 //User Routes
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------
-Route::get('/user/announcements', [UserController::class, 'UserAnnouncements'])->middleware('verified')->name('user.announcements');
-
+Route::get('/user/announcements', [UserController::class, 'UserAnnouncements'])
+->middleware(['auth:sanctum', 'verified', config('jetstream.auth_session')])
+->name('user.announcements');
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 //Image routes
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------
-Route::delete('/announcement/update/image/{image}', [ImageController::class, 'destroy'])->name('image.delete');
+Route::middleware(['auth:sanctum', 'verified', config('jetstream.auth_session')])->group(function () {
+
+Route::delete('/announcement/delete/image/{image}', [ImageController::class, 'destroy'])->name('image.delete');
 
 Route::post('/announcement/update/image/', [ImageController::class, 'update'])->name('image.update');
+
+});
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-
-
-// Route::get('/dashboard', function () {
-//     return Inertia::render('Dashboard');
-// })
-// ->middleware([
-//         'auth:sanctum',
-//         config('jetstream.auth_session'),
-//         'verified',
-//     ])
-// ->name('dashboard');

@@ -13,22 +13,20 @@ class UserController extends Controller
     //To get User's announcements
     public function UserAnnouncements()
     {
-        if(Auth::user()){
+        if (Auth::user()) {
             $announcements = AnnouncementResource::collection(
                 Announcement::with('category')
-                ->where('user_id', Auth::id())
-                ->orderBy('created_at', 'desc')
-                ->paginate(10)
+                    ->where('user_id', Auth::id())
+                    ->orderBy('created_at', 'desc')
+                    ->paginate(10)
             );
 
             $images = [];
 
             foreach ($announcements as $announcement) {
-    
+
                 array_push($images, $announcement->images()->first()->getUrl(300, 200));
-    
             }
-    
 
             return Inertia::render('User/UserAnnouncements', compact('announcements', 'images'));
         }

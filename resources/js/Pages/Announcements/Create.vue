@@ -46,7 +46,7 @@
                                             <input class="form-control" :class="{ 'is-invalid': errors.file }"
                                                 type="file" ref="file" @change="handleSelected" />
                                             <div v-if="currentProgress !== '0%'" class="text-center fw-bold py-2">
-                                                Progress: {{ currentProgress }}</div>
+                                                {{ currentProgress }}</div>
                                             <div v-if="errors.file" class="text-danger"> {{ errors.file }}</div>
                                         </div>
                                         <div class="mb-3">
@@ -104,7 +104,6 @@
 <script>
 import { useForm } from '@inertiajs/inertia-vue3';
 import AppLayout from '../../Layouts/AppLayout.vue';
-import JetValidationErrors from '@/Jetstream/ValidationErrors.vue';
 import { computed } from 'vue';
 import { usePage } from '@inertiajs/inertia-vue3';
 import { ref } from 'vue';
@@ -112,7 +111,6 @@ import { ref } from 'vue';
 export default {
     components: {
         AppLayout,
-        JetValidationErrors,
     },
     props: {
         errors: Object,
@@ -142,14 +140,11 @@ export default {
 
         function handleEvent(event) {
             if (['loadend', 'load'].includes(event.type)) {
-                console.log('finished loading file');
                 currentProgress.value = 'Finished loading file';
                 fileUrl.value = reader.result;
             }
             if (event.type === 'progress') {
-                currentProgress.value = `${(event.loaded / totalSize.value).toFixed(2) * 100}%`;
-                console.log('Progress: ', currentProgress.value);
-                console.log('Bytes transferred: ', event.loaded, 'bytes');
+                currentProgress.value = 'Loading: ' + `${(event.loaded / totalSize.value).toFixed(2) * 100}%`;
             }
             if (event.type === 'loadstart') {
                 totalSize.value = event.total;
@@ -166,7 +161,6 @@ export default {
         }
 
         function handleSelected(e) {
-            console.log(e);
             const selectedFile = e.target.files[0];
             if (selectedFile) {
                 addListeners(reader);
