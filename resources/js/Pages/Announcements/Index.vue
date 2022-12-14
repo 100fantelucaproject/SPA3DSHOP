@@ -12,17 +12,18 @@
                                 </a>
                                 <ul class="dropdown-menu dropdown-menu-start rounded-2 p-1">
                                     <li>
-                                        <label for="exampleFormControlInput1" class="form-label">Min:
+                                        <label for="exampleFormControlInput1" class="form-label pt-2 m-0">Min:
                                             {{ researchData.rangePrice.priceMin }}</label>
                                         <input type="number" class="form-control" placeholder="Prezzo min"
                                             v-model="Min">
                                     </li>
-
                                     <li>
-                                        <label for="exampleFormControlInput1" class="form-label">Max:
-                                            {{ researchData.rangePrice.priceMax }}</label>
-                                        <input type="number" class="form-control" placeholder="Prezzo max"
-                                            v-model="Max">
+                                        <label for="exampleFormControlInput1" class="form-label pt-2 m-0">Max:
+                                            <span v-if="researchData.rangePrice.priceMax != 1000000000">
+                                                {{ researchData.rangePrice.priceMax }}
+                                            </span>
+                                        </label>
+                                        <input type="number" class="form-control" placeholder="Prezzo max" v-model="Max">
                                     </li>
                                 </ul>
                             </div>
@@ -32,7 +33,7 @@
                         <div class="btn-group">
                             <a class="nav-link dropdown-toggle text-uppercase fw-bold" type="a"
                                 data-bs-toggle="dropdown" aria-expanded="false">
-                                Sort by data
+                                Sort by date
                             </a>
                             <ul class="dropdown-menu dropdown-menu-start rounded-2 p-0">
                                 <li>
@@ -98,20 +99,20 @@
                         <div class="btn-group">
                             <a class="nav-link dropdown-toggle text-uppercase fw-bold" type="a"
                                 data-bs-toggle="dropdown" aria-expanded="false">
-                                Data
+                                Date
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end rounded-2 p-0">
                                 <li>
                                     <button class="btn btn-light rounded-0 rounded-top w-100
                                     text-uppercase" @click="changeOrder('created_at', 'asc')">
-                                        Dal più vecchio
+                                        Older
                                     </button>
                                 </li>
                                 <hr class="m-0">
                                 <li>
                                     <button class="btn btn-light rounded-0 rounded-bottom w-100
                                     text-uppercase" @click="changeOrder('created_at', 'desc')">
-                                        Dal più nuovo
+                                        Younger
                                     </button>
                                 </li>
                             </ul>
@@ -121,20 +122,20 @@
                         <div class="btn-group">
                             <a class="nav-link fw-bold text-uppercase dropdown-toggle" type="a"
                                 data-bs-toggle="dropdown" aria-expanded="false">
-                                Prezzo
+                                Price
                             </a>
                             <ul class="dropdown-menu dropdown-menu-center rounded-2 p-0">
                                 <li>
                                     <button class="btn btn-light rounded-0 rounded-top w-100 p-1
                                     text-uppercase" @click="changeOrder('price', 'desc')">
-                                        Dal più costoso
+                                        More expensive
                                     </button>
                                 </li>
                                 <hr class="m-0">
                                 <li>
                                     <button class="btn btn-light rounded-0 rounded-bottom w-100 p-1
                                     text-uppercase" @click="changeOrder('price', 'asc')">
-                                        Dal meno costoso
+                                        Cheapiest
                                     </button>
                                 </li>
                             </ul>
@@ -201,7 +202,7 @@ export default {
     setup(props) {
 
         const searched = ref(props.researchData.textSearch);
-        const Max = ref(props.researchData.rangePrice.priceMax);
+        const Max = ref(props.researchData.rangePrice.PriceMax);
         const Min = ref(props.researchData.rangePrice.PriceMin);
         const selectedCategory = ref(props.researchData.category);
 
@@ -277,7 +278,7 @@ export default {
     },
     methods: {
         myEventHandler(e) {
-            this.sizeScreen =  window.innerWidth;
+            this.sizeScreen = window.innerWidth;
         }
 
     }

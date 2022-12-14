@@ -31,7 +31,6 @@
                         </p>
                     </div>
                     <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
-                        <!-- Links -->
                         <h5 class="text-uppercase fw-bold mb-4">
                             Useful links
                         </h5>
