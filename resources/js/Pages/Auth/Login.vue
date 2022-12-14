@@ -14,7 +14,7 @@
                             </div>
                             <div class="col-12 col-lg-6 ">
                                 <div class="card-body">
-                                    <h5 class="card-title text-center text-uppercase fw-bold">BENTORNATO !</h5>
+                                    <h5 class="card-title text-center text-uppercase fw-bold">Welcome back !</h5>
                                     <jet-validation-errors class="mb-3" />
                                     <div v-if="status" class="alert alert-success mb-3 rounded-0" role="alert">
                                         {{ status }}
@@ -33,7 +33,7 @@
                                         <div class="mb-3 form-check">
                                             <jet-checkbox id="remember_me" name="remember"
                                                 v-model:checked="form.remember" />
-                                            <label class="form-check-label" for="remember_me">Ricordati di me</label>
+                                            <label class="form-check-label" for="remember_me">Remember me</label>
                                         </div>
                                         <div class="text-center mb-3">
                                             <jet-button type="submit" class="btn btn-success fw-bold"
@@ -49,7 +49,7 @@
                                         <div class="text-center">
                                             <Link v-if="canResetPassword" :href="route('password.request')"
                                                 class="text-muted me-3">
-                                            <p class="fw-small fst-italic text-center">Password dimenticata?</p>
+                                            <p class="fw-small fst-italic text-center">Forgot password?</p>
                                             </Link>
                                         </div>
                                     </form>

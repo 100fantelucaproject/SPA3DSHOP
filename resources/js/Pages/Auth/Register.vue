@@ -15,7 +15,7 @@
                             </div>
                             <div class="col-12 col-lg-6 ">
                                 <div class="card-body">
-                                    <h5 class="card-title text-center text-uppercase fw-bold">BENVENUTO !</h5>
+                                    <h5 class="card-title text-center text-uppercase fw-bold">Welcome !</h5>
                                     <jet-validation-errors class="mb-3" />
                                     <form class="mb-3" @submit.prevent="submit">
                                         <div class="mb-3">
@@ -34,7 +34,7 @@
                                                 id="password" required autocomplete="new-password">
                                         </div>
                                         <div class="mb-3">
-                                            <label for="password_confirmation" class="form-label fw-bold">Conferma
+                                            <label for="password_confirmation" class="form-label fw-bold">confirm
                                                 password</label>
                                             <input v-model="form.password_confirmation" type="password"
                                                 class="form-control" id="password_confirmation" required
@@ -45,8 +45,7 @@
                                                 <div class="custom-control custom-checkbox">
                                                     <jet-checkbox name="terms" id="terms"
                                                         v-model:checked="form.terms" />
-                                                    <label class="form-check-label" for="policy_accepted">Accetto
-                                                        la
+                                                    <label class="form-check-label" for="policy_accepted">I accept
                                                         <a target="_blank" :href="route('terms.show')">Terms of
                                                             Service</a>
                                                         e <a target="_blank" :href="route('policy.show')">Privacy
@@ -58,7 +57,7 @@
                                             <div class="mb-3">
                                                 <jet-button class="btn-primary shadow" :class="{ 'text-light': form.processing }"
                                                     :disabled="form.processing">
-                                                    Registrati
+                                                    Register
                                                     <div v-show="form.processing"
                                                         class="spinner-border spinner-border-sm" role="status">
                                                         <span class="visually-hidden">Loading...</span>
@@ -68,7 +67,7 @@
                                             </div>
                                             <div>
                                                 <Link :href="route('login')" class="text-muted  text-decoration-none">
-                                                Già registrato?
+                                                Already registered?
                                                 </Link>
                                             </div>
                                         </div>

@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\File;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\Response;
 
 class FileController extends Controller
 {
@@ -13,6 +12,7 @@ class FileController extends Controller
     {
     	$filePath = 'public/' . $file->path;
     	$fileName = time().'.glb';
+
         return Storage::download($filePath, $fileName);
     }
 }

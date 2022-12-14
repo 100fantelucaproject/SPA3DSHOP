@@ -25,8 +25,8 @@ class ImageController extends Controller
                 $pathFile = "announcements/{$announcement->id}";
                 $newImage = $announcement->images()->create(['path' => $image->store($pathFile, 'public')]);
 
-                dispatch(new ResizeImage($newImage->path, 300, 200));
                 dispatch(new ResizeImage($newImage->path, 1200, 500));
+                dispatch(new ResizeImage($newImage->path, 300, 200));
             }
         }
 
@@ -41,11 +41,11 @@ class ImageController extends Controller
 
         $this->authorize('delete', $announcement);
 
-        if (!empty($image)) {
+        if (!empty($image) && !empty($image->getUrl(300,200)) && !empty($image->getUrl(1500, 500))) {
             if (Storage::disk('public')->exists('announcements/' . $announcement->id)) {
                 Storage::delete('public/' . $image->path);
-                Storage::delete('public/' . $image->getUrl(1200,500));
-                Storage::delete('public/' . $image->getUrl(300,200));
+                Storage::delete('public/' . $image->getUrl(300, 200));
+                Storage::delete('public/' . $image->getUrl(1200, 500));
             }
         }
 

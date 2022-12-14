@@ -21,15 +21,16 @@ class UserController extends Controller
                     ->paginate(10)
             );
 
+            //Retrieve announcements's images
             $images = [];
 
             foreach ($announcements as $announcement) {
-
                 array_push($images, $announcement->images()->first()->getUrl(300, 200));
             }
 
             return Inertia::render('User/UserAnnouncements', compact('announcements', 'images'));
         }
-        return redirect()->back();
+
+        return redirect()->back()->with('message', 'You can\'t access here');
     }
 }

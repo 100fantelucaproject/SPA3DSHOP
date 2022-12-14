@@ -1,7 +1,7 @@
 <template>
     <div class="text-center pt-4 bg-warning">
-        <h1 class="fw-bold fs-1 text-uppercase m-0"> Benvenuto</h1>
-        <h3 class="fs-3 m-0">Cosa stavi cercando di preciso?</h3>
+        <h1 class="fw-bold fs-1 text-uppercase m-0">Welcome</h1>
+        <h3 class="fs-3 m-0">Which 3D model are you searching for?</h3>
     </div>
     <div class="container-fluid bg-warning text-center text-uppercase fw-bold py-5">
         <div class="container">
@@ -13,7 +13,7 @@
                             class="text-decoration-none text-light img-container">
                         <div class="bg-img rounded-2 btn btn-warning p-0 w-100 h-100">
                             <img :src="'/storage/' + category.path" class="img-fluid border-0 rounded-2 h-100 w-100"
-                                alt="Image auto" />
+                                alt="Category image" />
                         </div>
                         </Link>
                         <h4 class="category-name m-0">{{ category.name }}</h4>

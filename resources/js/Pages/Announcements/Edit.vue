@@ -8,23 +8,24 @@
                         <div class="row m-0 p-0 justify-content-center">
                             <div class="col-12">
                                 <div class="card-body">
-                                    <h4 class="card-title text-center text-uppercase fw-bold">modifica IL TUo POST</h4>
+                                    <h1 class="card-title text-center text-uppercase fw-bold">modifica IL TUo POST</h1>
                                     <form class="mb-3" @submit.prevent="submit">
                                         <div class="mb-3">
-                                            <label for="title" class="form-label fw-bold">Titolo</label>
+                                            <label for="title" class="form-label fw-bold">Title</label>
                                             <input v-model="form.title" type="text" class="form-control"
                                                 :class="{ 'is-invalid': errors.title }" id="title" />
                                             <div v-if="errors.title" class="text-danger"> {{ errors.title }}</div>
                                         </div>
                                         <div class="mb-3">
-                                            <label for="description" class="form-label fw-bold">Descrizione</label>
+                                            <label for="description" class="form-label fw-bold">Description</label>
                                             <textarea v-model="form.description" type="text" class="form-control"
-                                                :class="{ 'is-invalid': errors.description }" id="description" rows="5"></textarea> 
+                                                :class="{ 'is-invalid': errors.description }" id="description"
+                                                rows="5"></textarea>
                                             <div v-if="errors.description" class="text-danger"> {{ errors.description }}
                                             </div>
                                         </div>
                                         <div class="mb-3">
-                                            <label for="price" class="form-label fw-bold">Prezzo</label>
+                                            <label for="price" class="form-label fw-bold">Price</label>
                                             <input v-model="form.price" type="number" class="form-control"
                                                 :class="{ 'is-invalid': errors.price }" id="price" />
                                             <div v-if="errors.price" class="text-danger"> {{ errors.price }}</div>
@@ -44,7 +45,7 @@
                                                 <div v-show="form.processing" class="spinner-border spinner-border-sm"
                                                     role="status">
                                                 </div>
-                                                modifica
+                                                upload
                                             </button>
                                             <div class="p-2 text-uppercase fw-bold" v-show="form.processing">Please
                                                 wait, we are uploading your file !!!</div>
@@ -52,7 +53,7 @@
                                     </form>
                                     <div class="mb-3">
                                         <div class="text-center fw-bold">
-                                            <h2>Immagini già caricate</h2>
+                                            <h2>Images uploaded for your announcement</h2>
                                         </div>
                                         <div v-if="form.images.length > 0">
                                             <div class="container border border-dark rounded-2 shadow my-4">
@@ -65,7 +66,7 @@
                                                             <div class="card-body p-0 border-top border-dark">
                                                                 <button
                                                                     class="col-12 fw-bold btn btn-danger rounded-0 rounded-bottom p-0 m-0"
-                                                                    @click="destroyImage(image)">elimina</button>
+                                                                    @click="destroyImage(image)">delete</button>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -120,6 +121,7 @@ export default {
             category_id: props.announcement.category_id,
         });
 
+        //Destroy old image
         const destroyImage = (image) => {
             if (confirm('Ne sei sicuro?')) {
                 Inertia.delete(route('image.delete', image),
@@ -131,6 +133,7 @@ export default {
             }
         }
 
+        //Upload announcement
         watch(changed, (current, previous) => {
             Inertia.get(route('announcement.edit', props.announcement.id));
         });

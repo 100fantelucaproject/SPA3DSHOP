@@ -4,7 +4,8 @@
         <div class="container-fluid">
             <Link :href="route('welcome')" class="navbar-brand px-2 m-0"><img src="../../Media/logo.png" alt="logo"
                 class="logo rounded-2 border"></Link>
-            <!-- User on phone -->
+
+            <!-- User on phone text search-->
             <div v-if="(sizeScreen < screenBreakPoint)">
                 <div class="row d-flex justify-content-center">
                     <div class="input-group w-100">
@@ -16,6 +17,7 @@
                     </div>
                 </div>
             </div>
+
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                 data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
                 aria-label="Toggle navigation">
@@ -24,16 +26,17 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <div class="container-fluid navbar-nav me-auto mb-2 mb-lg-0 px-0
              d-flex justify-content-between align-items-start align-items-center">
-                    <!-- User on Desktop -->
+
+                    <!-- User on Desktop category models-->
                     <div v-if="sizeScreen >= screenBreakPoint && !route().current('announcement.index')"
                         class="btn-group px-4">
                         <a class="nav-link dropdown-toggle text-dark fw-bold" type="a" data-bs-toggle="dropdown">
-                            modelli
+                            Models
                         </a>
                         <ul class="dropdown-menu dropdown-menu-start m-0 w-50">
                             <li>
-                                <Link class="dropdown-item px-2 py-0" :href="route('announcement.index')">Tutti i
-                                modelli</Link>
+                                <Link class="dropdown-item px-2 py-0" :href="route('announcement.index')">All models
+                                </Link>
                             </li>
                             <li>
                                 <hr class="dropdown-divider mb-0">
@@ -50,7 +53,8 @@
                     <div v-else class="p-2">
                     </div>
                     <div class="row m-0 p-0">
-                        <!-- User on desktop -->
+
+                        <!-- User on desktop text search-->
                         <div v-if="(sizeScreen >= screenBreakPoint)" class="col-6 d-flex align-items-center"
                             :class="{ 'col-9': logged }">
                             <div class="input-group w-100">
@@ -61,24 +65,26 @@
                                     @keydown.enter="search(textSearch)" />
                             </div>
                         </div>
+
                         <!-- User not logged in -->
                         <ul v-if="!logged" class="navbar-nav px-4 d-flex align-items-center col-12 col-md-6">
                             <li class="nav-item p-2 w-100">
                                 <button class="btn btn-primary rounded-2 text-uppercase shadow p-0 w-100">
                                     <Link :href="route('login')" class="nav-link active p-1 fw-bold"
                                         aria-current="page">
-                                    accedi
+                                    Login
                                     </Link>
                                 </button>
                             </li>
                             <li class="nav-item p-2">
-                                <button class="btn btn-register rounded-2 text-uppercase shadow p-0">
+                                <button class="btn btn-register rounded-2 text-uppercase shadow p-0 px-1">
                                     <Link :href="route('register')" class="nav-link active p-1 fw-bold"
                                         aria-current="page">
-                                    registrati</Link>
+                                    Register</Link>
                                 </button>
                             </li>
                         </ul>
+
                         <!-- User logged in -->
                         <div v-if="logged"
                             class="navbar-nav px-4 d-flex align-items-start align-content-start justify-content-end col-12 col-md-3">
@@ -90,20 +96,20 @@
                                 <ul class="dropdown-menu dropdown-menu-end m-0">
                                     <li class="mb-1">
                                         <h6 class="dropdown-header small fw-bold">
-                                            Annunci
+                                            announcement
                                         </h6>
                                     </li>
                                     <li>
                                         <hr class="my-0 dropdown-divider">
                                     </li>
                                     <li>
-                                        <Link :href="route('user.announcements')" class="dropdown-item">I tuoi
-                                        annunci
+                                        <Link :href="route('user.announcements')" class="dropdown-item">Your
+                                        announcement
                                         </Link>
                                     </li>
                                     <li class="mb-1">
-                                        <Link :href="route('announcement.create')" class="dropdown-item">Crea un
-                                        annuncio
+                                        <Link :href="route('announcement.create')" class="dropdown-item">Create an
+                                        announcement
                                         </Link>
                                     </li>
                                     <li>
@@ -118,10 +124,11 @@
                                         <hr class="my-0 dropdown-divider">
                                     </li>
                                     <li>
-                                        <Link :href="route('profile.show')" class="dropdown-item">Profilo
+                                        <Link :href="route('profile.show')" class="dropdown-item">Profile
                                         </Link>
                                     </li>
-                                    <Link :href="route('logout')" method="post" as="button" class="w-100 p-0 text-start btn btn-link">
+                                    <Link :href="route('logout')" method="post" as="button"
+                                        class="w-100 p-0 text-start btn btn-link">
                                     <li class="dropdown-item">
                                         <i class="fa-solid fa-right-from-bracket"></i>
                                     </li>
@@ -134,6 +141,7 @@
             </div>
         </div>
     </nav>
+
     <!-- User on phone category research -->
     <div v-if="(sizeScreen < screenBreakPoint)" class="phone-section border-top border-dark"
         :class="{ 'shadow-bottom': !route().current('announcement.index') }">
@@ -141,12 +149,12 @@
             <div class="dropdown w-100">
                 <button class="btn btn-light dropdown-toggle text-dark text-uppercase fw-bold p-2 w-100" type="a"
                     data-bs-toggle="dropdown">
-                    modelli
+                    Models
                 </button>
                 <ul class="dropdown-menu m-0 w-50 text-center w-100 fw-bold">
                     <li>
-                        <Link class="dropdown-item px-2 py-0 fw-bold" :href="route('announcement.index')">Tutti i
-                        modelli</Link>
+                        <Link class="dropdown-item px-2 py-0 fw-bold" :href="route('announcement.index')">All models
+                        </Link>
                     </li>
                     <li>
                         <hr class="dropdown-divider bg-warning">
@@ -162,6 +170,7 @@
             </div>
         </div>
     </div>
+    
 </template>
 
 <script>
@@ -192,10 +201,11 @@ export default {
         const logged = computed(() => usePage().props.value.logged);
         const categories = computed(() => usePage().props.value.categories);
 
+        //Upload page with research's result
         const search = (text) => {
             Inertia.get(route('announcement.index', { search_global: text }));
         }
-        
+
         return { user, logged, categories, search };
     },
     created() {

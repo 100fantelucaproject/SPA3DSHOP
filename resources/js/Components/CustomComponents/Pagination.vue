@@ -27,6 +27,7 @@
 </template>
 
 <script>
+
 import { Link } from '@inertiajs/inertia-vue3';
 
 export default {
@@ -45,6 +46,7 @@ export default {
     },
     setup(props) {
         const announcements = props.elements;
+        
         return { announcements };
     },
     methods: {

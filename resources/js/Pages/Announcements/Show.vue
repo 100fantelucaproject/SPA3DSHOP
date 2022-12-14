@@ -30,9 +30,9 @@
                                 </div>
                                 <div class="text-center py-2">
                                     <button class="btn btn-primary shadow mx-2" data-bs-toggle="modal"
-                                        data-bs-target="#Modal" @click="View3D">Visualizza 3D</button>
+                                        data-bs-target="#Modal" @click="View3D">View 3D model</button>
                                     <a :href="route('file.download', file_id)" class="btn btn-secondary shadow mx-2">
-                                    Scarica file</a>
+                                        Download file</a>
                                 </div>
                                 <div class="modal fade" id="Modal" tabindex="-1" aria-labelledby="ModalLabel"
                                     aria-hidden="true">
@@ -69,13 +69,6 @@ import { usePage } from '@inertiajs/inertia-vue3';
 import { Link } from '@inertiajs/inertia-vue3';
 
 export default {
-    data() {
-        return {
-            category: '',
-            path: '/storage/' + this.pathFile.path,
-            visualize3d: false,
-        };
-    },
     components: {
         CarouselAnnouncement,
         AppLayout,
@@ -87,8 +80,16 @@ export default {
         images: Object,
         file_id: Number,
     },
+    data() {
+        return {
+            category: '',
+            path: '/storage/' + this.pathFile.path,
+            visualize3d: false,
+        };
+    },
     setup() {
         const categories = computed(() => usePage().props.value.categories);
+        
         return { categories };
 
     },

@@ -8,7 +8,7 @@
                             <div class="btn-group">
                                 <a class="nav-link fw-bold text-uppercase dropdown-toggle" type="a"
                                     data-bs-toggle="dropdown" aria-expanded="false">
-                                    Range di prezzo
+                                    Price range
                                 </a>
                                 <ul class="dropdown-menu dropdown-menu-start rounded-2 p-1">
                                     <li>
@@ -32,20 +32,20 @@
                         <div class="btn-group">
                             <a class="nav-link dropdown-toggle text-uppercase fw-bold" type="a"
                                 data-bs-toggle="dropdown" aria-expanded="false">
-                                Ordina per data
+                                Sort by data
                             </a>
                             <ul class="dropdown-menu dropdown-menu-start rounded-2 p-0">
                                 <li>
                                     <button class="btn btn-light rounded-0 rounded-top w-100
                                     text-uppercase" @click="changeOrder('created_at', 'asc')">
-                                        Dal più vecchio
+                                        Older
                                     </button>
                                 </li>
                                 <hr class="m-0">
                                 <li>
                                     <button class="btn btn-light rounded-0 rounded-bottom w-100
                                     text-uppercase" @click="changeOrder('created_at', 'desc')">
-                                        Dal più nuovo
+                                        Younger
                                     </button>
                                 </li>
                             </ul>
@@ -55,20 +55,20 @@
                         <div class="btn-group">
                             <a class="nav-link fw-bold text-uppercase dropdown-toggle" type="a"
                                 data-bs-toggle="dropdown" aria-expanded="false">
-                                Ordina per prezzo
+                                Sort by price
                             </a>
                             <ul class="dropdown-menu dropdown-menu-start rounded-2 p-0">
                                 <li>
                                     <button class="btn btn-light rounded-0 rounded-top w-100 p-1
                                     text-uppercase" @click="changeOrder('price', 'desc')">
-                                        Dal più costoso
+                                        Most expensive
                                     </button>
                                 </li>
                                 <hr class="m-0">
                                 <li>
                                     <button class="btn btn-light rounded-0 rounded-bottom w-100 p-1
                                     text-uppercase" @click="changeOrder('price', 'asc')">
-                                        Dal meno costoso
+                                        Cheapiest
                                     </button>
                                 </li>
                             </ul>
@@ -77,7 +77,7 @@
                     <div class="col-3">
                         <select class="form-select nav-link text-uppercase fw-bold p-1"
                             aria-label="Default select example" v-model="selectedCategory">
-                            <option value="" selected>Tutte le categorie</option>
+                            <option value="" selected>All categories</option>
                             <option v-for="category in categories" :value="category.id">
                                 {{ category.name }}</option>
                         </select>
@@ -86,7 +86,7 @@
                 <div v-else-if="(sizeScreen < screenBreakPoint)"
                     class="row justify-content-around align-items-center py-2 ">
                     <div class="row d-flex justify-content-start align-items-center text-center py-1">
-                        <div class="col-4 text-uppercase fw-bold">Prezzo:</div>
+                        <div class="col-4 text-uppercase fw-bold">Price:</div>
                         <div class="col-4">
                             <input type="number" class="form-control" placeholder="Min" v-model="Min">
                         </div>
@@ -147,10 +147,10 @@
                     <div class="col-12  py-4">
                         <div v-for="category in categories">
                             <div v-if="selectedCategory == category.id">
-                                Categoria selezionata: {{ category.name }}
+                                Selected category: {{ category.name }}
                             </div>
                         </div>
-                        <div v-if="researchData.textSearch">Risultati relativi a: {{ researchData.textSearch }}</div>
+                        <div v-if="researchData.textSearch">Results for: {{ researchData.textSearch }}</div>
                         <div class="row">
                             <div v-for="(announcement, index) in announcements.data" :key="announcement.id"
                                 class="col-12 col-md-6 col-lg-3">

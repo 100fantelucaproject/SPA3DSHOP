@@ -8,17 +8,17 @@
                         <div class="row m-0 p-0 justify-content-center">
                             <div class="col-12">
                                 <div class="card-body">
-                                    <h4 class="card-title text-center text-uppercase fw-bold">INSERISCI IL TUo annuncio
-                                    </h4>
+                                    <h1 class="card-title text-center text-uppercase fw-bold">insert your announcement
+                                    </h1>
                                     <form class="mb-3" enctype="multipart/form-data" @submit.prevent="submit">
                                         <div class="mb-3">
-                                            <label for="title" class="form-label fw-bold">Titolo</label>
+                                            <label for="title" class="form-label fw-bold">Title</label>
                                             <input v-model="form.title" type="text" class="form-control"
                                                 :class="{ 'is-invalid': errors.title }" id="title" />
                                             <div v-if="errors.title" class="text-danger"> {{ errors.title }}</div>
                                         </div>
                                         <div class="mb-3">
-                                            <label for="description" class="form-label fw-bold">Descrizione</label>
+                                            <label for="description" class="form-label fw-bold">Description</label>
                                             <textarea v-model="form.description" type="text" class="form-control"
                                                 :class="{ 'is-invalid': errors.description }" id="description"
                                                 rows="4"></textarea>
@@ -26,7 +26,7 @@
                                             </div>
                                         </div>
                                         <div class="mb-3">
-                                            <label for="price" class="form-label fw-bold">Prezzo</label>
+                                            <label for="price" class="form-label fw-bold">Price</label>
                                             <input v-model="form.price" type="number" class="form-control"
                                                 :class="{ 'is-invalid': errors.price }" id="price" />
                                             <div v-if="errors.price" class="text-danger"> {{ errors.price }}</div>
@@ -34,7 +34,7 @@
                                         <div class="mb-3">
                                             <select class="form-select" :class="{ 'is-invalid': errors.category_id }"
                                                 aria-label="Default select example" v-model="form.category_id">
-                                                <option selected value="">Seleziona una categoria</option>
+                                                <option selected value="">Select a category</option>
                                                 <option v-for="category in categories" :value="category.id">
                                                     {{ category.name }}</option>
                                             </select>
@@ -42,7 +42,7 @@
                                             </div>
                                         </div>
                                         <div class="mb-3">
-                                            <label for="file" class="fw-bold">Carica qui il tuo file 3d</label>
+                                            <label for="file" class="fw-bold">Load here your 3d file</label>
                                             <input class="form-control" :class="{ 'is-invalid': errors.file }"
                                                 type="file" ref="file" @change="handleSelected" />
                                             <div v-if="currentProgress !== '0%'" class="text-center fw-bold py-2">
@@ -50,15 +50,15 @@
                                             <div v-if="errors.file" class="text-danger"> {{ errors.file }}</div>
                                         </div>
                                         <div class="mb-3">
-                                            <label for="file" class="fw-bold">Carica qui le tue immagini di
-                                                presentazione</label>
+                                            <label for="file" class="fw-bold">Load here your presentation's
+                                                images</label>
                                             <input class="form-control" :class="{ 'is-invalid': errors.images }"
                                                 type="file" id="inputImages" multiple @change="previewImage"
                                                 ref="images" />
                                             <div v-if="errors.images" class="text-danger"> {{ errors.images }}</div>
                                         </div>
                                         <div v-if="urls.length > 0">
-                                            <h6 class="text-center text-uppercase fw-bold">Preview Immagini</h6>
+                                            <h6 class="text-center text-uppercase fw-bold">Images preview</h6>
                                             <div class="container border border-dark rounded-2 shadow my-4">
                                                 <div class="row d-flex align-items-center">
                                                     <div v-for="(url, key) in urls" :key="url"
@@ -70,7 +70,7 @@
                                                                 <button
                                                                     class="col-12 fw-bold btn btn-danger rounded-0 rounded-bottom p-0 m-0"
                                                                     @click="deleteImage(key)">
-                                                                    Elimina
+                                                                    delete
                                                                 </button>
                                                             </div>
                                                         </div>

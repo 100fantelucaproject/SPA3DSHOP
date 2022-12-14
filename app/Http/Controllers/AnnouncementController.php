@@ -22,7 +22,7 @@ class AnnouncementController extends Controller
     public $textSearch;   //Text search
     public $orderColumn;  //Order by price or date
     public $order;        //Order asc or desc
-    public $priceMin;
+    public $priceMin;     
     public $priceMax;
     public $category;
 
@@ -37,6 +37,7 @@ class AnnouncementController extends Controller
         $this->priceMax = !empty(request('priceMax')) ? intval(request('priceMax')) : $this->maximum;
         $this->category =  request('category') ? request('category') : "";
 
+        //Filter research
         $announcements = AnnouncementResource::collection(
             Announcement::with('category')
                 ->with('user')
@@ -64,7 +65,6 @@ class AnnouncementController extends Controller
         $images = [];
 
         foreach ($announcements as $announcement) {
-
             array_push($images, $announcement->images()->first()->getUrl(300, 200));
         }
 
@@ -123,14 +123,13 @@ class AnnouncementController extends Controller
     //To show the selected announcement
     public function show(Announcement $announcement)
     {
-        $pathFile = $announcement->file;
-        $file_id = $announcement->file->id;
+        $pathFile = $announcement->file;  //File for 3D view
 
-        //Images for carousel
-        $images = [];
+        $file_id = $announcement->file->id;  //Id file for download
+
+        $images = [];  //Images for carousel
 
         foreach ($announcement->images as $image) {
-
             array_push($images, $image->getUrl(1200, 500));
         }
 

@@ -1,7 +1,7 @@
 <template>
     <div class="card shadow-lg bg-body rounded-2 my-2">
         <Link class="p-0 m-0 text-decoration-none text-dark" :href="route('announcement.show', announcement)">
-        <img :src="'/storage/' + images" class="card-img-top" alt="image card">
+        <img :src="'/storage/' + images" class="card-img-top" alt="card's image">
         <div class="card-body p-0">
             <hr class="my-0">
             <div class="row d-flex justify-content-around m-0 p-0 py-2">
@@ -20,7 +20,7 @@
             <div class="row d-flex justify-content-center mb-2">
                 <div
                     class="col-12 col-lg-6 text-md-end d-flex align-items-center align-content-center justify-content-center p-2">
-                    <p class="fs-small m-0">Opzioni disponibili:</p>
+                    <p class="fs-small m-0">Aviable options:</p>
                 </div>
                 <div class="col-12 col-lg-6 text-center">
                     <div class="row d-flex justify-content-center">
@@ -30,7 +30,7 @@
                                     class="fa-solid fa-trash-can"></i></button>
                         </div>
                         <div class="col-5 text-center px-3">
-                            <Link class="btn btn-modify rounded rounded-3 w-100"
+                            <Link class="btn btn-update rounded rounded-3 w-100"
                                 :href="route('announcement.edit', announcement.id)"><i
                                 class="fa-solid fa-pen-to-square"></i>
                             </Link>
@@ -58,13 +58,13 @@ export default {
         images: String,
     },
     setup() {
-
         //Delete post
         const destroy = (id) => {
             if (confirm('Ne sei sicuro?')) {
                 Inertia.delete(route('announcement.destroy', id));
             }
         }
+
         return { destroy }
     },
 
@@ -72,7 +72,7 @@ export default {
 </script>
 
 <style scoped>
-.btn-modify {
+.btn-update {
     background-color: #FAFF00;
 }
 </style>
