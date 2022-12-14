@@ -124,6 +124,7 @@ class AnnouncementController extends Controller
     public function show(Announcement $announcement)
     {
         $pathFile = $announcement->file;
+        $file_id = $announcement->file->id;
 
         //Images for carousel
         $images = [];
@@ -133,7 +134,7 @@ class AnnouncementController extends Controller
             array_push($images, $image->getUrl(1200, 500));
         }
 
-        return Inertia::render('Announcements/Show', compact('announcement', 'pathFile', 'images'));
+        return Inertia::render('Announcements/Show', compact('announcement', 'pathFile', 'file_id', 'images'));
     }
 
     //View to update announcement (only announcement's user)

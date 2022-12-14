@@ -29,11 +29,13 @@
                                     <h5> Data: {{ announcement.created_at.slice(0, 7) }}</h5>
                                 </div>
                                 <div class="text-center py-2">
-                                    <button class="btn btn-primary shadow" data-bs-toggle="modal"
-                                        data-bs-target="#exampleModal" @click="View3D">Visualizza 3D</button>
+                                    <button class="btn btn-primary shadow mx-2" data-bs-toggle="modal"
+                                        data-bs-target="#Modal" @click="View3D">Visualizza 3D</button>
+                                    <a :href="route('file.download', file_id)" class="btn btn-secondary shadow mx-2">
+                                    Scarica file</a>
                                 </div>
-                                <div class="modal fade" id="exampleModal" tabindex="-1"
-                                    aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal fade" id="Modal" tabindex="-1" aria-labelledby="ModalLabel"
+                                    aria-hidden="true">
                                     <div class="modal-dialog modal-dialog-centered modal-lg">
                                         <div class="modal-content">
                                             <div class="d-flex justify-content-end">
@@ -41,11 +43,10 @@
                                                     aria-label="Close"></button>
                                             </div>
                                             <div class="modal-body p-3 modal-background rounded-bottom">
-                                                    <model-viewer id="model-viewer" :src="path" camera-controls
-                                                        touch-action="pan-y" auto-rotate ar alt="3D model"
-                                                        class="rounded-2 shadow-lg">
-                                                    </model-viewer>
-                                                </div>
+                                                <model-viewer id="model-viewer" :src="path" camera-controls
+                                                    touch-action="pan-y" auto-rotate ar alt="3D model"
+                                                    class="rounded-2 shadow-lg">
+                                                </model-viewer>
                                             </div>
                                         </div>
                                     </div>
@@ -53,9 +54,10 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-0 col-lg-2"></div>
                 </div>
+                <div class="col-0 col-lg-2"></div>
             </div>
+        </div>
     </AppLayout>
 </template>
 
@@ -64,6 +66,7 @@ import AppLayout from '../../Layouts/AppLayout.vue';
 import CarouselAnnouncement from '../../Components/CustomComponents/CarouselAnnouncement.vue';
 import { computed } from 'vue';
 import { usePage } from '@inertiajs/inertia-vue3';
+import { Link } from '@inertiajs/inertia-vue3';
 
 export default {
     data() {
@@ -76,15 +79,18 @@ export default {
     components: {
         CarouselAnnouncement,
         AppLayout,
+        Link,
     },
     props: {
         announcement: Object,
         pathFile: Object,
         images: Object,
+        file_id: Number,
     },
     setup() {
         const categories = computed(() => usePage().props.value.categories);
         return { categories };
+
     },
     mounted() {
         this.categories.forEach((category) => {

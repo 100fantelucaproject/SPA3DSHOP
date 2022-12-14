@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AnnouncementController;
+use App\Http\Controllers\FileController;
 use App\Http\Controllers\ImageController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -60,3 +61,8 @@ Route::post('/announcement/update/image/', [ImageController::class, 'update'])->
 });
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+//File routes
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------
+Route::get('/file/download/{file}', [FileController::class, 'downloadFile'])->name('file.download');
+
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------
