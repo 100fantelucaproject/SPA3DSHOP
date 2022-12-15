@@ -287,9 +287,3 @@ export default {
 
 }
 </script>
-
-<style scoped>
-.shadow-bottom {
-    box-shadow: 2px 4px 16px 1px rgba(0, 0, 0, 1);
-}
-</style>

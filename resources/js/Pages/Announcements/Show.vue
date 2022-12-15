@@ -126,8 +126,4 @@ model-viewer {
     background-position: center;
     background-repeat: no-repeat;
 }
-
-.modal-background {
-    background-color: black;
-}
 </style>
