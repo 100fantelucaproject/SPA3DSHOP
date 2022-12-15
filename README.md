@@ -1,3 +1,27 @@
+<h1 class="text-center"> An example store to sell 3d models </h1>
+<p class="fst-italic"> 
+Work in progress..
+</p>
+<h6> Before start go to your php.ini and change: </h6>
+<ul>
+<li> upload_max_filesize --> 1G ;</li>
+<li> post_max_size --> 2G ;</li>
+<li> max_input_time --> 600 ;</li>
+<li> max_input_time --> 600 ;</li>
+<li> memory_limit --> 3G ;</li>
+</ul>
+<p class="fst-italic"> 
+This dimensions are required because a 3D file could have a great size.
+</p>
+<p >1°-> Clone the repository; </p>
+<p >2°->In terminal: composer install;</p>
+<p >3°->In terminal: cp .env.example .env;</p>
+<p >4°->In terminal: php artisan key:generate;</p>
+<p >5°->In terminal: npm install;</p>
+<p >6°->In terminal (after insert your DB_DATABASE): php artisan migrate;</p>
+<p >7°->In terminal: npm run dev;</p>
+<p >8°->In terminal: php artisan serve;</p>
+
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
 <p align="center">
