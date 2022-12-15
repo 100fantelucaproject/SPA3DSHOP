@@ -7,7 +7,6 @@ Work in progress..
 <li> upload_max_filesize --> 1G ;</li>
 <li> post_max_size --> 2G ;</li>
 <li> max_input_time --> 600 ;</li>
-<li> max_input_time --> 600 ;</li>
 <li> memory_limit --> 3G ;</li>
 </ul>
 <p class="fst-italic"> 
