@@ -208,6 +208,8 @@ export default {
 
         const categories = computed(() => usePage().props.value.categories);
 
+        //Filtering announcement
+
         const changeOrder = (column, order) => {
             Inertia.get(route('announcement.index',
                 {

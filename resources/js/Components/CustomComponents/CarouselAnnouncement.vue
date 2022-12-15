@@ -19,7 +19,7 @@
             <div class="carousel-inner">
                 <div v-for="(image, index) in images" class="carousel-item" :class="{ 'active': (index === 0) }"
                     :key="index">
-                    <img :src="('/storage/' + image)" class="img-fluid rounded-2 shadow border border-2 border-dark" alt="...">
+                    <img :src="('/storage/' + image)" class="img-fluid rounded-2 shadow border border-2 border-dark" alt="carousel's image">
                 </div>
             </div>
         </div>
@@ -27,7 +27,7 @@
     <div v-else-if="(images.length <= 1)">
         <div v-for="(image, index) in images">
             <div>
-                <img :src="('/storage/' + image)" class="d-block w-100 rounded-2 border border-2 border-dark" alt="...">
+                <img :src="('/storage/' + image)" class="d-block w-100 rounded-2 border border-2 border-dark" alt="announcement's image">
             </div>
         </div>
     </div>

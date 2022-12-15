@@ -10,7 +10,7 @@
                 <div class="row d-flex align-items-center">
                     <div v-for="(url, key) in urls" :key="url" class="col-12 col-md-3 my-2 px-2">
                         <div class="card shadow border border-dark">
-                            <img :src="url" class="card-img-top img-heigth" alt="Preview">
+                            <img :src="url" class="card-img-top img-heigth" alt="preview image">
                             <div class="card-body p-0 border-top border-dark">
                                 <button :disabled="newImages.processing"
                                     class="col-12 fw-bold btn btn-danger rounded-0 rounded-bottom p-0 m-0"
@@ -32,7 +32,6 @@
         </div>
     </form>
 </template>
-
 
 <script>
 

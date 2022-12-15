@@ -16,8 +16,6 @@ use App\Jobs\ResizeImage;
 
 class AnnouncementController extends Controller
 {
-
-
     protected $maximum = 1000000000;
     public $textSearch;   //Text search
     public $orderColumn;  //Order by price or date

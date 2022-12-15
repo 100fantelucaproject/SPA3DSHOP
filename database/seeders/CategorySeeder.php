@@ -29,7 +29,7 @@ class CategorySeeder extends Seeder
             ],
             [
                 'name' => 'Characters',
-                'path' =>  'resources/Media/characters.jpeg',
+                'path' =>  'resources/Media/characters.jpg',
                 'image' => 'characters.jpeg',
             ],
             [
@@ -44,7 +44,7 @@ class CategorySeeder extends Seeder
             ],
             [
                 'name' => 'Forniture',
-                'path' => 'resources/Media/Forniture.jpg',
+                'path' => 'resources/Media/forniture.jpg',
                 'image' => 'Forniture.jpg',
             ],
             [
@@ -64,7 +64,7 @@ class CategorySeeder extends Seeder
             ],
             [
                 'name' => 'Science',
-                'path' => 'resources/Media/science.webp',
+                'path' => 'resources/Media/science.jpg',
                 'image' => 'science.webp',
             ],
             [

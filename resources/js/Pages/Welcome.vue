@@ -1,12 +1,11 @@
 <template>
-  <AppLayout title="Welcome">
-
+  <AppLayout title="Welcome Page">
     <MainCategory :categories="categories" />
   </AppLayout>
 </template>
 
 <script>
-import { Head } from '@inertiajs/inertia-vue3';
+
 import AppLayout from '../Layouts/AppLayout.vue';
 import MainCategory from '../Layouts/MainCategory.vue';
 import { computed } from 'vue';

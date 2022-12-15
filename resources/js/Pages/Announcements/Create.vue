@@ -1,5 +1,5 @@
 <template>
-    <AppLayout title="Create post">
+    <AppLayout title="Create announcement">
         <div class="container-fluid my-5 p-1">
             <div class="row d-flex justify-content-center align-content-center mx-0 px-0">
                 <div class="col-0 col-lg-1"></div>
@@ -102,6 +102,7 @@
 </template>
 
 <script>
+
 import { useForm } from '@inertiajs/inertia-vue3';
 import AppLayout from '../../Layouts/AppLayout.vue';
 import { computed } from 'vue';
@@ -138,6 +139,7 @@ export default {
             category_id: '',
         });
 
+        //Handle file upload (UX, User can see file's percentage upload)
         function handleEvent(event) {
             if (['loadend', 'load'].includes(event.type)) {
                 currentProgress.value = 'Finished loading file';
@@ -177,7 +179,6 @@ export default {
         };
 
     },
-
     methods: {
         submit() {
             if (this.$refs.images) {

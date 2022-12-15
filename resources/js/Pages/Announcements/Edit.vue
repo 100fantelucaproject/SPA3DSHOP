@@ -1,5 +1,5 @@
 <template>
-    <AppLayout title="Edit post">
+    <AppLayout title="Edit announcement">
         <div class="container-fluid my-5 p-5">
             <div class="row d-flex justify-content-center align-content-center">
                 <div class="col-0 col-lg-2"></div>
@@ -137,7 +137,6 @@ export default {
         watch(changed, (current, previous) => {
             Inertia.get(route('announcement.edit', props.announcement.id));
         });
-
 
         return { form, destroyImage, changed, categories };
     },

@@ -1,5 +1,5 @@
 <template>
-    <AppLayout>
+    <AppLayout title="Your announcement">
         <div v-if="announcements.data.length != 0">
             <div class="container-fluid">
                 <div class="row d-flex ">
@@ -29,6 +29,7 @@
 </template>
 
 <script>
+
 import AppLayout from '../../Layouts/AppLayout.vue';
 import Card from '../../Components/CustomComponents/CardAnnouncement.vue';
 import Pagination from '../../Components/CustomComponents/Pagination.vue'; 

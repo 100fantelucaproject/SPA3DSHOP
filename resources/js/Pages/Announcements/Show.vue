@@ -1,5 +1,5 @@
 <template>
-    <AppLayout>
+    <AppLayout title="Show announcement">
         <div class="container-fluid my-4">
             <div class="row d-flex justify-content-center">
                 <div class="col-0 col-lg-2"></div>
@@ -62,6 +62,7 @@
 </template>
 
 <script>
+
 import AppLayout from '../../Layouts/AppLayout.vue';
 import CarouselAnnouncement from '../../Components/CustomComponents/CarouselAnnouncement.vue';
 import { computed } from 'vue';
@@ -112,14 +113,11 @@ export default {
 </script>
 
 <style scoped>
+
 model-viewer {
     width: 100%;
     height: 500px;
     margin: 0 auto;
-}
-
-.announcement {
-    z-index: -20;
 }
 
 #model-viewer {
