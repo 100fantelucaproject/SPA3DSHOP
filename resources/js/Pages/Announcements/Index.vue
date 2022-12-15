@@ -2,7 +2,8 @@
     <AppLayout title="Announcements">
         <div class="container-fluid p-0 border-top border-dark">
             <div class="container-fluid shadow-bottom">
-                <div v-if="(sizeScreen >= screenBreakPoint)" class="row justify-content-start align-items-center py-2 ">
+                <div v-if="(sizeScreen >= screenBreakPoint)"
+                    class="row justify-content-start align-items-center py-2 border-1 border-dark border-bottom shadow-bottom">
                     <div class="col-3 ">
                         <div class="row d-flex justify-content-start align-items-center text-center">
                             <div class="btn-group">
@@ -23,7 +24,8 @@
                                                 {{ researchData.rangePrice.priceMax }}
                                             </span>
                                         </label>
-                                        <input type="number" class="form-control" placeholder="Prezzo max" v-model="Max">
+                                        <input type="number" class="form-control" placeholder="Prezzo max"
+                                            v-model="Max">
                                     </li>
                                 </ul>
                             </div>
@@ -85,7 +87,7 @@
                     </div>
                 </div>
                 <div v-else-if="(sizeScreen < screenBreakPoint)"
-                    class="row justify-content-around align-items-center py-2 ">
+                    class="row justify-content-around align-items-center py-2 border-1 border-dark border-bottom shadow-bottom">
                     <div class="row d-flex justify-content-start align-items-center text-center py-1">
                         <div class="col-4 text-uppercase fw-bold">Price:</div>
                         <div class="col-4">
@@ -287,3 +289,9 @@ export default {
 
 }
 </script>
+
+<style scoped>
+.shadow-bottom {
+    box-shadow: 0px 2px 16px 1px rgba(0, 0, 0, .2);
+}
+</style>

@@ -175,14 +175,13 @@
 
 <script>
 
-import { Head, Link } from '@inertiajs/inertia-vue3';
+import { Link } from '@inertiajs/inertia-vue3';
 import { computed } from 'vue';
 import { usePage } from '@inertiajs/inertia-vue3';
 import { Inertia } from '@inertiajs/inertia';
 
 export default {
     components: {
-        Head,
         Link,
     },
     data() {
