@@ -20,7 +20,7 @@
             <div class="row d-flex justify-content-center mb-2">
                 <div
                     class="col-12 col-lg-6 text-md-end d-flex align-items-center align-content-center justify-content-center p-2">
-                    <p class="fs-small m-0">Aviable options:</p>
+                    <p class="fs-small m-0">{{ $t("common.options") }} :</p>
                 </div>
                 <div class="col-12 col-lg-6 text-center">
                     <div class="row d-flex justify-content-center">

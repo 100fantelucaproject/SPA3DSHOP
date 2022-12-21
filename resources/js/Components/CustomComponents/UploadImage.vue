@@ -1,11 +1,11 @@
 <template>
     <form class="mb-3" @submit.prevent="submitImage">
         <div class="mb-3">
-            <label for="file" class="fw-bold fs-5">Do you want upload new images?</label>
+            <label for="file" class="fw-bold fs-5">{{ $t("common.moreImages") }}</label>
             <input type="file" id="inputImage" class="form-control" multiple @change="previewImage" ref="images" />
         </div>
         <div v-if="urls.length > 0">
-            <h2 class="col-12 text-center">New images</h2>
+            <h2 class="col-12 text-center">{{ $t("common.newImages") }}</h2>
             <div class="container border border-dark rounded-2 shadow my-4">
                 <div class="row d-flex align-items-center">
                     <div v-for="(url, key) in urls" :key="url" class="col-12 col-md-3 my-2 px-2">
@@ -15,7 +15,7 @@
                                 <button :disabled="newImages.processing"
                                     class="col-12 fw-bold btn btn-danger rounded-0 rounded-bottom p-0 m-0"
                                     @click="deleteImage(key)">
-                                    Delete
+                                    {{ $t("common.delete") }}
                                 </button>
                             </div>
                         </div>
@@ -25,7 +25,7 @@
             <div class="row">
                 <div class="col-12 text-center">
                     <button class="btn btn-danger text-uppercase fw-bold" type="submit">
-                        add new images
+                        {{ $t("common.addNewImages") }}
                     </button>
                 </div>
             </div>

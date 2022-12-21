@@ -16,10 +16,10 @@
         <div v-else class="p-2 text-center">
             <div class="container-fluid">
                 <div class="row d-flex justify-content-center">
-                    <h3 class="fw-bold">Non hai ancora creato nessun annuncio, creane uno: </h3>
+                    <h3 class="fw-bold">{{ $t("user.announcementNotCreated") }}: </h3>
                     <div>
-                        <Link :href="route('announcement.create')" class="btn btn-danger">Crea un
-                        annuncio
+                        <Link :href="route('announcement.create')" class="btn btn-danger">
+                            {{ $t("user.createAnnouncement") }}
                         </Link>
                     </div>
                 </div>

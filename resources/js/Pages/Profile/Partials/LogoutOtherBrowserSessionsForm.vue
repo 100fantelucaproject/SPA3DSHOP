@@ -1,23 +1,21 @@
 <template>
   <jet-action-section>
     <template #title>
-      Browser Sessions
+      {{ $t("auth.broSession") }}
     </template>
 
     <template #description>
-      Manage and log out your active sessions on other browsers and devices.
+      {{ $t("auth.manageSession") }}
     </template>
 
     <template #content>
 
       <jet-action-message :on="form.recentlySuccessful">
-        Done.
+        {{ $t("auth.done") }}.
       </jet-action-message>
 
       <div>
-        If necessary, you may log out of all of your other browser sessions across all of your devices. Some of your
-        recent sessions are listed below; however, this list may not be exhaustive. If you feel your account has been
-        compromised, you should also update your password.
+        {{ $t("auth.broSessionText") }}
       </div>
 
       <!-- Other Browser Sessions -->
@@ -51,8 +49,8 @@
               <div class="small font-weight-lighter text-muted">
                 {{ session.ip_address }},
 
-                <span class="text-success font-weight-bold" v-if="session.is_current_device">This device</span>
-                <span v-else>Last active {{ session.last_active }}</span>
+                <span class="text-success font-weight-bold" v-if="session.is_current_device">{{ $t("auth.thisDevice") }}</span>
+                <span v-else>{{ $t("auth.lastActive") }} {{ session.last_active }}</span>
               </div>
             </div>
           </div>
@@ -61,19 +59,18 @@
 
       <div class="col-12 d-flex justify-content-center mt-3">
         <jet-button @click="confirmLogout">
-          Log out Other Browser Sessions
+          {{ $t("auth.logoutBro") }}
         </jet-button>
       </div>
 
       <!-- Log out Other Devices Confirmation Modal -->
       <jet-dialog-modal id="confirmingLogoutModal">
         <template #title>
-          Log out Other Browser Sessions
+          {{ $t("auth.logoutBro") }}
         </template>
 
         <template #content>
-          Please enter your password to confirm you would like to log out of your other browser sessions across all of
-          your devices.
+          {{ $t("auth.passwordBro") }}.
 
           <div class="form-group mt-3 w-md-75">
             <jet-input type="password" placeholder="Password" ref="password"
@@ -86,7 +83,7 @@
 
         <template #footer>
           <jet-secondary-button data-dismiss="modal" @click="closeModal">
-            Cancel
+            {{ $t("auth.cancel") }}
           </jet-secondary-button>
             <jet-button class="ms-2" @click="logoutOtherBrowserSessions" :class="{ 'text-white-50': form.processing }"
               :disabled="form.processing">
@@ -94,7 +91,7 @@
                 <span class="visually-hidden">Loading...</span>
               </div>
 
-              Log out Other Browser Sessions
+              {{ $t("auth.logoutBro") }}
             </jet-button>
         </template>
       </jet-dialog-modal>

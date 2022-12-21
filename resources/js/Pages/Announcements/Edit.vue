@@ -8,16 +8,16 @@
                         <div class="row m-0 p-0 justify-content-center">
                             <div class="col-12">
                                 <div class="card-body">
-                                    <h1 class="card-title text-center text-uppercase fw-bold">modifica IL TUo POST</h1>
+                                    <h1 class="card-title text-center text-uppercase fw-bold">{{ $t("common.modifyAnnouncement") }}</h1>
                                     <form class="mb-3" @submit.prevent="submit">
                                         <div class="mb-3">
-                                            <label for="title" class="form-label fw-bold">Title</label>
+                                            <label for="title" class="form-label fw-bold">{{ $t("common.title") }}</label>
                                             <input v-model="form.title" type="text" class="form-control"
                                                 :class="{ 'is-invalid': errors.title }" id="title" />
                                             <div v-if="errors.title" class="text-danger"> {{ errors.title }}</div>
                                         </div>
                                         <div class="mb-3">
-                                            <label for="description" class="form-label fw-bold">Description</label>
+                                            <label for="description" class="form-label fw-bold">{{ $t("common.description") }}</label>
                                             <textarea v-model="form.description" type="text" class="form-control"
                                                 :class="{ 'is-invalid': errors.description }" id="description"
                                                 rows="5"></textarea>
@@ -25,7 +25,7 @@
                                             </div>
                                         </div>
                                         <div class="mb-3">
-                                            <label for="price" class="form-label fw-bold">Price</label>
+                                            <label for="price" class="form-label fw-bold">{{ $t("common.price") }}</label>
                                             <input v-model="form.price" type="number" class="form-control"
                                                 :class="{ 'is-invalid': errors.price }" id="price" />
                                             <div v-if="errors.price" class="text-danger"> {{ errors.price }}</div>
@@ -45,15 +45,15 @@
                                                 <div v-show="form.processing" class="spinner-border spinner-border-sm"
                                                     role="status">
                                                 </div>
-                                                upload
+                                                {{ $t("common.submit") }}
                                             </button>
-                                            <div class="p-2 text-uppercase fw-bold" v-show="form.processing">Please
-                                                wait, we are uploading your file !!!</div>
+                                            <div class="p-2 text-uppercase fw-bold" v-show="form.processing">
+                                                {{ $t("common.wait") }}!!!</div>
                                         </div>
                                     </form>
                                     <div class="mb-3">
                                         <div class="text-center fw-bold">
-                                            <h2>Images uploaded for your announcement</h2>
+                                            <h2>{{ $t("common.uploadedImages") }}</h2>
                                         </div>
                                         <div v-if="form.images.length > 0">
                                             <div class="container border border-dark rounded-2 shadow my-4">
@@ -66,7 +66,7 @@
                                                             <div class="card-body p-0 border-top border-dark">
                                                                 <button
                                                                     class="col-12 fw-bold btn btn-danger rounded-0 rounded-bottom p-0 m-0"
-                                                                    @click="destroyImage(image)">delete</button>
+                                                                    @click="destroyImage(image)">{{ $t("common.delete") }}</button>
                                                             </div>
                                                         </div>
                                                     </div>

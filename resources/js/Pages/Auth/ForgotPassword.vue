@@ -6,8 +6,7 @@
 
       <div class="card-body">
         <div class="mb-2">
-          Forgot your password? No problem. Just let us know your email address and we will email you a password reset
-          link that will allow you to choose a new one.
+          {{  $t("auth.forgotPasswordText") }}
         </div>
 
         <div v-if="status" class="alert alert-success" role="alert">
@@ -25,10 +24,9 @@
           <div class="d-flex justify-content-end mt-4">
             <jet-button :class="{ 'text-white-50': form.processing }" :disabled="form.processing">
               <div v-show="form.processing" class="spinner-border spinner-border-sm" role="status">
-                <span class="visually-hidden">Loading...</span>
+                <span class="visually-hidden">{{  $t("auth.loading") }}...</span>
               </div>
-
-              Email Password Reset Link
+              {{  $t("auth.emailLink") }}
             </jet-button>
           </div>
         </form>

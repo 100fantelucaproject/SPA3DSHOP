@@ -1,16 +1,16 @@
 <template>
   <jet-form-section @submitted="updatePassword">
     <template #title>
-      Update Password
+      {{ $t("auth.updatePassword") }}
     </template>
 
     <template #description>
-      Ensure your account is using a long, random password to stay secure.
+      {{ $t("auth.passwordAdvertise") }}
     </template>
 
     <template #form>
       <jet-action-message :on="form.recentlySuccessful">
-        Saved.
+        {{ $t("auth.saved") }}
       </jet-action-message>
 
       <div class="w-100">
@@ -43,8 +43,7 @@
           <div v-show="form.processing" class="spinner-border spinner-border-sm" role="status">
             <span class="visually-hidden">Loading...</span>
           </div>
-  
-          Save
+          {{ $t("auth.save") }}
         </jet-button>
       </div>
     </template>

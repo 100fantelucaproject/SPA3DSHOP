@@ -15,27 +15,28 @@
                             </div>
                             <div class="col-12 col-lg-6 ">
                                 <div class="card-body">
-                                    <h5 class="card-title text-center text-uppercase fw-bold">Welcome !</h5>
+                                    <h5 class="card-title text-center text-uppercase fw-bold">{{ $t("auth.welcome") }} !</h5>
                                     <jet-validation-errors class="mb-3" />
                                     <form class="mb-3" @submit.prevent="submit">
                                         <div class="mb-3">
-                                            <jet-label for="name" class="form-label fw-bold">Name</jet-label>
+                                            <jet-label for="name" class="form-label fw-bold">{{ $t("auth.name") }}</jet-label>
                                             <jet-input v-model="form.name" type="text" class="form-control" id="name"
                                                 required autofocus autocomplete="name" />
                                         </div>
                                         <div class="mb-3">
-                                            <jet-label for="email" class="form-label fw-bold">Email</jet-label>
+                                            <jet-label for="email" class="form-label fw-bold">{{ $t("auth.email") }}</jet-label>
                                             <jet-input v-model="form.email" type="email" class="form-control" id="email"
                                                 required />
                                         </div>
                                         <div class="mb-3">
-                                            <label for="password" class="form-label fw-bold">Password</label>
+                                            <label for="password" class="form-label fw-bold">{{ $t("auth.password") }}</label>
                                             <input v-model="form.password" type="password" class="form-control"
                                                 id="password" required autocomplete="new-password">
                                         </div>
                                         <div class="mb-3">
-                                            <label for="password_confirmation" class="form-label fw-bold">confirm
-                                                password</label>
+                                            <label for="password_confirmation" class="form-label fw-bold">
+                                                {{ $t("auth.confirmPassword") }}
+                                            </label>
                                             <input v-model="form.password_confirmation" type="password"
                                                 class="form-control" id="password_confirmation" required
                                                 autocomplete="new-password">
@@ -45,10 +46,10 @@
                                                 <div class="custom-control custom-checkbox">
                                                     <jet-checkbox name="terms" id="terms"
                                                         v-model:checked="form.terms" />
-                                                    <label class="form-check-label" for="policy_accepted">I accept
+                                                    <label class="form-check-label" for="policy_accepted">{{ $t("auth.iAccept") }}
                                                         <a target="_blank" :href="route('terms.show')">Terms of
                                                             Service</a>
-                                                        e <a target="_blank" :href="route('policy.show')">Privacy
+                                                        {{ $t("auth.e") }} <a target="_blank" :href="route('policy.show')">Privacy
                                                             Policy</a></label>
                                                 </div>
                                             </div>
@@ -57,17 +58,17 @@
                                             <div class="mb-3">
                                                 <jet-button class="btn-primary shadow" :class="{ 'text-light': form.processing }"
                                                     :disabled="form.processing">
-                                                    Register
+                                                    {{ $t("auth.register") }}
                                                     <div v-show="form.processing"
                                                         class="spinner-border spinner-border-sm" role="status">
-                                                        <span class="visually-hidden">Loading...</span>
+                                                        <span class="visually-hidden">{{ $t("auth.loading") }}...</span>
                                                     </div>
                                                 </jet-button>
 
                                             </div>
                                             <div>
                                                 <Link :href="route('login')" class="text-muted  text-decoration-none">
-                                                Already registered?
+                                                    {{ $t("auth.alreadyRegistered") }}
                                                 </Link>
                                             </div>
                                         </div>

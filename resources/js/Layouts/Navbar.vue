@@ -12,7 +12,7 @@
                         <span class="input-group-text search-item-rounded"><i
                                 class="fa-brands fa-searchengin fa-1x"></i></span>
                         <input v-model="textSearch" type="search" class="form-control search-bar-rounded"
-                            placeholder="Search" aria-label="Search" aria-describedby="search-addon"
+                            placeholder="search" aria-label="Search" aria-describedby="search-addon"
                             @keydown.enter="search(textSearch)" />
                     </div>
                 </div>
@@ -25,35 +25,35 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <div class="container-fluid navbar-nav me-auto mb-2 mb-lg-0 px-0
-             d-flex justify-content-between align-items-start align-items-center">
+             d-flex justify-content-center justify-content-lg-between  align-items-center">
 
                     <!-- User on Desktop category models-->
-                    <div v-if="sizeScreen >= screenBreakPoint && !route().current('announcement.index')"
-                        class="btn-group px-4">
-                        <a class="nav-link dropdown-toggle text-dark fw-bold" type="a" data-bs-toggle="dropdown">
-                            Models
-                        </a>
-                        <ul class="dropdown-menu dropdown-menu-start m-0 w-50">
-                            <li>
-                                <Link class="dropdown-item px-2 py-0" :href="route('announcement.index')">All models
-                                </Link>
-                            </li>
-                            <li>
-                                <hr class="dropdown-divider mb-0">
-                            </li>
-                            <li v-for="category in categories">
-                                <Link class="dropdown-item"
-                                    :href="route('announcement.index', { category: category.id })">
-                                {{ category.name }}
-                                </Link>
-                                <hr class="m-0 bg-dark">
-                            </li>
-                        </ul>
+                    <div class="px-4 text-center row p-0 m-0">
+                        <div class="btn-group col-6" v-if="sizeScreen >= screenBreakPoint && !route().current('announcement.index')">
+                            <a class="nav-link dropdown-toggle text-dark fw-bold" type="a" data-bs-toggle="dropdown">
+                                {{ $t("nav.models") }}
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-start m-0 w-50">
+                                <li>
+                                    <Link class="dropdown-item px-2 py-0" :href="route('announcement.index')">
+                                        {{  $t("nav.allModels") }}
+                                    </Link>
+                                </li>
+                                <li>
+                                    <hr class="dropdown-divider mb-0">
+                                </li>
+                                <li v-for="category in categories">
+                                    <Link class="dropdown-item"
+                                        :href="route('announcement.index', { category: category.id })">
+                                    {{ category.name }}
+                                    </Link>
+                                    <hr class="m-0 bg-dark">
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col-6"><LangSelector></LangSelector></div>
                     </div>
-                    <div v-else class="p-2">
-                    </div>
-                    <div class="row m-0 p-0">
-
+                    <div class="row m-0 p-0 d-flex justify-content-center">
                         <!-- User on desktop text search-->
                         <div v-if="(sizeScreen >= screenBreakPoint)" class="col-6 d-flex align-items-center"
                             :class="{ 'col-9': logged }">
@@ -65,14 +65,13 @@
                                     @keydown.enter="search(textSearch)" />
                             </div>
                         </div>
-
                         <!-- User not logged in -->
                         <ul v-if="!logged" class="navbar-nav px-4 d-flex align-items-center col-12 col-md-6">
-                            <li class="nav-item p-2 w-100">
-                                <button class="btn btn-primary rounded-2 text-uppercase shadow p-0 w-100">
+                            <li class="nav-item p-2 ">
+                                <button class="btn btn-primary rounded-2 text-uppercase shadow p-0 px-1">
                                     <Link :href="route('login')" class="nav-link active p-1 fw-bold"
                                         aria-current="page">
-                                    Login
+                                    {{ $t("nav.login") }}
                                     </Link>
                                 </button>
                             </li>
@@ -80,15 +79,15 @@
                                 <button class="btn btn-register rounded-2 text-uppercase shadow p-0 px-1">
                                     <Link :href="route('register')" class="nav-link active p-1 fw-bold"
                                         aria-current="page">
-                                    Register</Link>
+                                    {{ $t("nav.register") }}</Link>
                                 </button>
                             </li>
                         </ul>
 
                         <!-- User logged in -->
                         <div v-if="logged"
-                            class="navbar-nav px-4 d-flex align-items-start align-content-start justify-content-end col-12 col-md-3">
-                            <li class="nav-item btn-group px-4">
+                            class="navbar-nav px-4 d-flex align-items-center align-content-center justify-content-center justify-content-lg-end col-12 col-md-3">
+                            <li class="nav-item btn-group px-4 text-center">
                                 <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"
                                     aria-expanded="false">
                                     <i class="fa-solid fa-user"></i>
@@ -96,20 +95,20 @@
                                 <ul class="dropdown-menu dropdown-menu-end m-0">
                                     <li class="mb-1">
                                         <h6 class="dropdown-header small fw-bold">
-                                            announcement
+                                            {{ $t("common.announcement") }}
                                         </h6>
                                     </li>
                                     <li>
                                         <hr class="my-0 dropdown-divider">
                                     </li>
                                     <li>
-                                        <Link :href="route('user.announcements')" class="dropdown-item">Your
-                                        announcement
+                                        <Link :href="route('user.announcements')" class="dropdown-item">
+                                            {{ $t("nav.yourAnnouncement") }}
                                         </Link>
                                     </li>
                                     <li class="mb-1">
-                                        <Link :href="route('announcement.create')" class="dropdown-item">Create an
-                                        announcement
+                                        <Link :href="route('announcement.create')" class="dropdown-item">
+                                            {{ $t("nav.createAnnouncement") }}
                                         </Link>
                                     </li>
                                     <li>
@@ -117,14 +116,15 @@
                                     </li>
                                     <li>
                                         <h6 class="dropdown-header small fw-bold">
-                                            Manage Account
+                                            {{  $t("nav.manageAccount") }}
                                         </h6>
                                     </li>
                                     <li class="mb-1">
                                         <hr class="my-0 dropdown-divider">
                                     </li>
                                     <li>
-                                        <Link :href="route('profile.show')" class="dropdown-item">Profile
+                                        <Link :href="route('profile.show')" class="dropdown-item">
+                                            {{  $t("nav.profile") }}
                                         </Link>
                                     </li>
                                     <Link :href="route('logout')" method="post" as="button"
@@ -142,6 +142,7 @@
         </div>
     </nav>
 
+
     <!-- User on phone category research -->
     <div v-if="(sizeScreen < screenBreakPoint)" class="phone-section border-top border-dark"
         :class="{ 'shadow-bottom': !route().current('announcement.index') }">
@@ -149,11 +150,12 @@
             <div class="dropdown w-100">
                 <button class="btn btn-light dropdown-toggle text-dark text-uppercase fw-bold p-2 w-100" type="a"
                     data-bs-toggle="dropdown">
-                    Models
+                    {{  $t("nav.models") }}
                 </button>
                 <ul class="dropdown-menu m-0 w-50 text-center w-100 fw-bold">
                     <li>
-                        <Link class="dropdown-item px-2 py-0 fw-bold" :href="route('announcement.index')">All models
+                        <Link class="dropdown-item px-2 py-0 fw-bold" :href="route('announcement.index')">
+                            {{  $t("nav.allModels") }}
                         </Link>
                     </li>
                     <li>
@@ -170,7 +172,7 @@
             </div>
         </div>
     </div>
-    
+
 </template>
 
 <script>
@@ -179,10 +181,11 @@ import { Link } from '@inertiajs/inertia-vue3';
 import { computed } from 'vue';
 import { usePage } from '@inertiajs/inertia-vue3';
 import { Inertia } from '@inertiajs/inertia';
-
+import LangSelector from './LangSelector.vue';
 export default {
     components: {
         Link,
+        LangSelector,
     },
     data() {
         return {

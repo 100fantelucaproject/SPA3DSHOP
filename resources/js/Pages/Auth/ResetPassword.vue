@@ -29,10 +29,10 @@
             <div class="d-flex justify-content-end">
               <jet-button :class="{ 'text-white-50': form.processing }" :disabled="form.processing">
                 <div v-show="form.processing" class="spinner-border spinner-border-sm" role="status">
-                  <span class="visually-hidden">Loading...</span>
+                  <span class="visually-hidden">{{ $t("auth.loading") }}...</span>
                 </div>
 
-                Reset Password
+                {{ $t("auth.resetPassword") }}
               </jet-button>
             </div>
           </div>

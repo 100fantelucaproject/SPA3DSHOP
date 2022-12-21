@@ -2,14 +2,11 @@
   <AppLayout title="Confirm password">
 
     <jet-authentication-card>
-      <template #logo>
-        <jet-authentication-card-logo />
-      </template>
 
       <div class="card-body">
 
         <div class="mb-2">
-          This is a secure area of the application. Please confirm your password before continuing.
+          {{ $t("auth.secureArea") }}
         </div>
 
         <jet-validation-errors class="mb-2" />
@@ -24,10 +21,10 @@
           <div class="d-flex justify-content-end mt-2">
             <jet-button class="ms-4" :class="{ 'text-white-50': form.processing }" :disabled="form.processing">
               <div v-show="form.processing" class="spinner-border spinner-border-sm" role="status">
-                <span class="visually-hidden">Loading...</span>
+                <span class="visually-hidden">{{ $t("auth.loading") }}...</span>
               </div>
 
-              Confirm
+              {{ $t("auth.confirm") }}
             </jet-button>
           </div>
         </form>

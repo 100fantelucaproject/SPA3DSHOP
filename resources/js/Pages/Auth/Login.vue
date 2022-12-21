@@ -14,26 +14,26 @@
                             </div>
                             <div class="col-12 col-lg-6 ">
                                 <div class="card-body">
-                                    <h5 class="card-title text-center text-uppercase fw-bold">Welcome back !</h5>
+                                    <h5 class="card-title text-center text-uppercase fw-bold">{{ $t("auth.welcomeBack") }} !</h5>
                                     <jet-validation-errors class="mb-3" />
                                     <div v-if="status" class="alert alert-success mb-3 rounded-0" role="alert">
                                         {{ status }}
                                     </div>
                                     <form class="mb-3" @submit.prevent="submit">
                                         <div class="mb-3">
-                                            <jet-label for="email" class="form-label fw-bold">Email</jet-label>
+                                            <jet-label for="email" class="form-label fw-bold">{{ $t("auth.email") }}</jet-label>
                                             <jet-input v-model="form.email" type="email" class="form-control" id="email"
                                                 required autofocus />
                                         </div>
                                         <div class="mb-3">
-                                            <jet-label for="password" class="form-label fw-bold">Password</jet-label>
+                                            <jet-label for="password" class="form-label fw-bold">{{ $t("auth.password") }}</jet-label>
                                             <jet-input v-model="form.password" type="password" class="form-control"
                                                 id="password" required autocomplete="current-password" />
                                         </div>
                                         <div class="mb-3 form-check">
                                             <jet-checkbox id="remember_me" name="remember"
                                                 v-model:checked="form.remember" />
-                                            <label class="form-check-label" for="remember_me">Remember me</label>
+                                            <label class="form-check-label" for="remember_me">{{ $t("auth.rememberMe") }}</label>
                                         </div>
                                         <div class="text-center mb-3">
                                             <jet-button type="submit" class="btn btn-success fw-bold"
@@ -41,15 +41,15 @@
                                                 :disabled="form.processing">
                                                 <div v-show="form.processing" class="spinner-border spinner-border-sm"
                                                     role="status">
-                                                    <span class="visually-hidden">Loading...</span>
+                                                    <span class="visually-hidden">{{ $t("auth.loading") }}...</span>
                                                 </div>
-                                                Login
+                                                {{ $t("auth.login") }}
                                             </jet-button>
                                         </div>
                                         <div class="text-center">
                                             <Link v-if="canResetPassword" :href="route('password.request')"
                                                 class="text-muted me-3">
-                                            <p class="fw-small fst-italic text-center">Forgot password?</p>
+                                            <p class="fw-small fst-italic text-center">{{ $t("auth.forgotPassword") }}</p>
                                             </Link>
                                         </div>
                                     </form>

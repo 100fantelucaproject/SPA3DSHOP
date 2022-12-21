@@ -53,6 +53,7 @@ class HandleInertiaRequests extends Middleware
 
             //Categories for all pages
             'categories' => CategoryResource::collection(Category::get()),
+
         ]);
     }
 }

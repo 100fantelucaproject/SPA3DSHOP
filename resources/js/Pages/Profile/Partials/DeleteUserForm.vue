@@ -1,33 +1,32 @@
 <template>
   <jet-action-section>
     <template #title>
-      Delete Account
+      {{ $t("auth.deleteAccount") }}
     </template>
 
     <template #description>
-      Permanently delete your account.
+      {{ $t("auth.permanentlyDelete") }}
     </template>
 
     <template #content>
       <div>
-        Once your account is deleted, all of its resources and data will be permanently deleted. Before deleting your account, please download any data or information that you wish to retain.
+        {{ $t("auth.deleteAccountText") }}
       </div>
 
       <div class="col-12 d-flex justify-content-center mt-3">
         <jet-danger-button @click="confirmUserDeletion">
-          Delete Account
+          {{ $t("auth.deleteAccount") }}
         </jet-danger-button>
       </div>
 
       <!-- Delete Account Confirmation Modal -->
       <jet-dialog-modal id="confirmingUserDeletionModal">
         <template #title>
-          Delete Account
+          {{ $t("auth.deleteAccount") }}
         </template>
 
         <template #content>
-          Are you sure you want to delete your account? Once your account is deleted, all of its resources and data will be permanently deleted. Please enter your password to confirm you would like to permanently delete your account.
-
+          {{ $t("auth.areYouSure") }}
           <div class="mt-4">
             <jet-input type="password" placeholder="Password"
                        ref="password"
@@ -41,15 +40,15 @@
 
         <template #footer>
           <jet-secondary-button data-dismiss="modal" @click="closeModal">
-            Cancel
+            {{ $t("auth.cancel") }}
           </jet-secondary-button>
 
           <jet-danger-button @click="deleteUser" :class="{ 'text-white-50': form.processing }" :disabled="form.processing">
             <div v-show="form.processing" class="spinner-border spinner-border-sm" role="status">
-              <span class="visually-hidden">Loading...</span>
+              <span class="visually-hidden">{{ $t("auth.loading") }}...</span>
             </div>
 
-            Delete Account
+            {{ $t("auth.deleteAccount") }}
           </jet-danger-button>
         </template>
       </jet-dialog-modal>

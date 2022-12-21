@@ -1,16 +1,16 @@
 <template>
     <jet-form-section @submitted="updateProfileInformation">
       <template #title>
-        Profile Information
+        {{ $t("auth.profileInformation") }}
       </template>
 
       <template #description>
-        Update your account's profile information and email address.
+        {{ $t("auth.profileInformationText") }}
       </template>
 
       <template #form>
         <jet-action-message :on="form.recentlySuccessful">
-          Saved.
+          {{ $t("auth.saved") }}
         </jet-action-message>
 
         <!-- Profile Photo -->
@@ -31,11 +31,11 @@
           </div>
 
           <jet-secondary-button class="mt-2 me-2" type="button" @click.prevent="selectNewPhoto">
-            Select A New Photo
+            {{ $t("auth.selectPhoto") }}
           </jet-secondary-button>
 
           <jet-secondary-button type="button" class="mt-2" @click.prevent="deletePhoto" v-if="user.profile_photo_path">
-            Remove Photo
+            {{ $t("auth.removePhoto") }}
           </jet-secondary-button>
 
           <jet-input-error :message="form.errors.photo" class="mt-2" />
@@ -62,10 +62,9 @@
         <div class="col-12 d-flex justify-content-center">
           <jet-button :class="{ 'text-white-50': form.processing }" :disabled="form.processing">
             <div v-show="form.processing" class="spinner-border spinner-border-sm" role="status">
-              <span class="visually-hidden">Loading...</span>
+              <span class="visually-hidden">{{ $t("auth.loading") }}...</span>
             </div>
-
-            Save
+            {{ $t("auth.save") }}
           </jet-button>
         </div>
       </template>

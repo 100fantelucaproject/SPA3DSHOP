@@ -9,7 +9,7 @@
                             <div class="btn-group">
                                 <a class="nav-link fw-bold text-uppercase dropdown-toggle" type="a"
                                     data-bs-toggle="dropdown" aria-expanded="false">
-                                    Price range
+                                    {{ $t("common.priceRange") }}
                                 </a>
                                 <ul class="dropdown-menu dropdown-menu-start rounded-2 p-1">
                                     <li>
@@ -35,20 +35,20 @@
                         <div class="btn-group">
                             <a class="nav-link dropdown-toggle text-uppercase fw-bold" type="a"
                                 data-bs-toggle="dropdown" aria-expanded="false">
-                                Sort by date
+                                {{ $t("common.sortDate") }}
                             </a>
                             <ul class="dropdown-menu dropdown-menu-start rounded-2 p-0">
                                 <li>
                                     <button class="btn btn-light rounded-0 rounded-top w-100
                                     text-uppercase" @click="changeOrder('created_at', 'asc')">
-                                        Older
+                                        {{ $t("common.older") }}
                                     </button>
                                 </li>
                                 <hr class="m-0">
                                 <li>
                                     <button class="btn btn-light rounded-0 rounded-bottom w-100
                                     text-uppercase" @click="changeOrder('created_at', 'desc')">
-                                        Younger
+                                        {{ $t("common.younger") }}
                                     </button>
                                 </li>
                             </ul>
@@ -58,20 +58,20 @@
                         <div class="btn-group">
                             <a class="nav-link fw-bold text-uppercase dropdown-toggle" type="a"
                                 data-bs-toggle="dropdown" aria-expanded="false">
-                                Sort by price
+                                {{ $t("common.sortPrice") }}
                             </a>
                             <ul class="dropdown-menu dropdown-menu-start rounded-2 p-0">
                                 <li>
                                     <button class="btn btn-light rounded-0 rounded-top w-100 p-1
                                     text-uppercase" @click="changeOrder('price', 'desc')">
-                                        Most expensive
+                                        {{ $t("common.expensive") }}
                                     </button>
                                 </li>
                                 <hr class="m-0">
                                 <li>
                                     <button class="btn btn-light rounded-0 rounded-bottom w-100 p-1
                                     text-uppercase" @click="changeOrder('price', 'asc')">
-                                        Cheapiest
+                                        {{ $t("common.cheapiest") }}
                                     </button>
                                 </li>
                             </ul>
@@ -80,7 +80,7 @@
                     <div class="col-3">
                         <select class="form-select nav-link text-uppercase fw-bold p-1"
                             aria-label="Default select example" v-model="selectedCategory">
-                            <option value="" selected>All categories</option>
+                            <option value="" selected>{{ $t("common.allCategories") }}</option>
                             <option v-for="category in categories" :value="category.id">
                                 {{ category.name }}</option>
                         </select>
@@ -89,7 +89,7 @@
                 <div v-else-if="(sizeScreen < screenBreakPoint)"
                     class="row justify-content-around align-items-center py-2 border-1 border-dark border-bottom shadow-bottom">
                     <div class="row d-flex justify-content-start align-items-center text-center py-1">
-                        <div class="col-4 text-uppercase fw-bold">Price:</div>
+                        <div class="col-4 text-uppercase fw-bold">{{ $t("common.price") }}:</div>
                         <div class="col-4">
                             <input type="number" class="form-control" placeholder="Min" v-model="Min">
                         </div>
@@ -101,20 +101,20 @@
                         <div class="btn-group">
                             <a class="nav-link dropdown-toggle text-uppercase fw-bold" type="a"
                                 data-bs-toggle="dropdown" aria-expanded="false">
-                                Date
+                                {{ $t("common.date") }}
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end rounded-2 p-0">
                                 <li>
                                     <button class="btn btn-light rounded-0 rounded-top w-100
                                     text-uppercase" @click="changeOrder('created_at', 'asc')">
-                                        Older
+                                        {{ $t("common.older") }}
                                     </button>
                                 </li>
                                 <hr class="m-0">
                                 <li>
                                     <button class="btn btn-light rounded-0 rounded-bottom w-100
                                     text-uppercase" @click="changeOrder('created_at', 'desc')">
-                                        Younger
+                                        {{ $t("common.younger") }}
                                     </button>
                                 </li>
                             </ul>
@@ -124,20 +124,20 @@
                         <div class="btn-group">
                             <a class="nav-link fw-bold text-uppercase dropdown-toggle" type="a"
                                 data-bs-toggle="dropdown" aria-expanded="false">
-                                Price
+                                {{ $t("common.price") }}
                             </a>
                             <ul class="dropdown-menu dropdown-menu-center rounded-2 p-0">
                                 <li>
                                     <button class="btn btn-light rounded-0 rounded-top w-100 p-1
                                     text-uppercase" @click="changeOrder('price', 'desc')">
-                                        More expensive
+                                        {{ $t("common.expensive") }}
                                     </button>
                                 </li>
                                 <hr class="m-0">
                                 <li>
                                     <button class="btn btn-light rounded-0 rounded-bottom w-100 p-1
                                     text-uppercase" @click="changeOrder('price', 'asc')">
-                                        Cheapiest
+                                        {{ $t("common.cheapiest") }}
                                     </button>
                                 </li>
                             </ul>
@@ -150,10 +150,10 @@
                     <div class="col-12  py-4">
                         <div v-for="category in categories">
                             <div v-if="selectedCategory == category.id">
-                                Selected category: {{ category.name }}
+                                {{ $t("common.selectedCategory") }}: {{ category.name }}
                             </div>
                         </div>
-                        <div v-if="researchData.textSearch">Results for: {{ researchData.textSearch }}</div>
+                        <div v-if="researchData.textSearch">{{ $t("common.results") }}: {{ researchData.textSearch }}</div>
                         <div class="row">
                             <div v-for="(announcement, index) in announcements.data" :key="announcement.id"
                                 class="col-12 col-md-6 col-lg-3">

@@ -8,17 +8,17 @@
                         <div class="row m-0 p-0 justify-content-center">
                             <div class="col-12">
                                 <div class="card-body">
-                                    <h1 class="card-title text-center text-uppercase fw-bold">insert your announcement
+                                    <h1 class="card-title text-center text-uppercase fw-bold">{{ $t("common.insertAnnouncement") }}
                                     </h1>
                                     <form class="mb-3" enctype="multipart/form-data" @submit.prevent="submit">
                                         <div class="mb-3">
-                                            <label for="title" class="form-label fw-bold">Title</label>
+                                            <label for="title" class="form-label fw-bold">{{ $t("common.title") }}</label>
                                             <input v-model="form.title" type="text" class="form-control"
                                                 :class="{ 'is-invalid': errors.title }" id="title" />
                                             <div v-if="errors.title" class="text-danger"> {{ errors.title }}</div>
                                         </div>
                                         <div class="mb-3">
-                                            <label for="description" class="form-label fw-bold">Description</label>
+                                            <label for="description" class="form-label fw-bold">{{ $t("common.description") }}</label>
                                             <textarea v-model="form.description" type="text" class="form-control"
                                                 :class="{ 'is-invalid': errors.description }" id="description"
                                                 rows="4"></textarea>
@@ -26,7 +26,7 @@
                                             </div>
                                         </div>
                                         <div class="mb-3">
-                                            <label for="price" class="form-label fw-bold">Price</label>
+                                            <label for="price" class="form-label fw-bold">{{ $t("common.price") }}</label>
                                             <input v-model="form.price" type="number" class="form-control"
                                                 :class="{ 'is-invalid': errors.price }" id="price" />
                                             <div v-if="errors.price" class="text-danger"> {{ errors.price }}</div>
@@ -34,7 +34,7 @@
                                         <div class="mb-3">
                                             <select class="form-select" :class="{ 'is-invalid': errors.category_id }"
                                                 aria-label="Default select example" v-model="form.category_id">
-                                                <option selected value="">Select a category</option>
+                                                <option selected value="">{{ $t("common.category") }}</option>
                                                 <option v-for="category in categories" :value="category.id">
                                                     {{ category.name }}</option>
                                             </select>
@@ -42,7 +42,7 @@
                                             </div>
                                         </div>
                                         <div class="mb-3">
-                                            <label for="file" class="fw-bold">Load here your 3d file</label>
+                                            <label for="file" class="fw-bold">{{ $t("common.file3D") }}</label>
                                             <input class="form-control" :class="{ 'is-invalid': errors.file }"
                                                 type="file" ref="file" @change="handleSelected" />
                                             <div v-if="currentProgress !== '0%'" class="text-center fw-bold py-2">
@@ -50,15 +50,14 @@
                                             <div v-if="errors.file" class="text-danger"> {{ errors.file }}</div>
                                         </div>
                                         <div class="mb-3">
-                                            <label for="file" class="fw-bold">Load here your presentation's
-                                                images</label>
+                                            <label for="file" class="fw-bold">{{ $t("common.imagesPresentation") }}</label>
                                             <input class="form-control" :class="{ 'is-invalid': errors.images }"
                                                 type="file" id="inputImages" multiple @change="previewImage"
                                                 ref="images" />
                                             <div v-if="errors.images" class="text-danger"> {{ errors.images }}</div>
                                         </div>
                                         <div v-if="urls.length > 0">
-                                            <h6 class="text-center text-uppercase fw-bold">Images preview</h6>
+                                            <h6 class="text-center text-uppercase fw-bold">{{ $t("common.imagesPreview") }}</h6>
                                             <div class="container border border-dark rounded-2 shadow my-4">
                                                 <div class="row d-flex align-items-center">
                                                     <div v-for="(url, key) in urls" :key="url"
@@ -70,7 +69,7 @@
                                                                 <button
                                                                     class="col-12 fw-bold btn btn-danger rounded-0 rounded-bottom p-0 m-0"
                                                                     @click="deleteImage(key)">
-                                                                    delete
+                                                                    {{ $t("common.delete") }}
                                                                 </button>
                                                             </div>
                                                         </div>
@@ -84,10 +83,9 @@
                                                 <span v-show="form.processing" class="spinner-border spinner-border-sm"
                                                     role="status">
                                                 </span>
-                                                submit
+                                                {{ $t("common.submit") }}
                                             </button>
-                                            <div class="p-2 text-uppercase fw-bold" v-show="form.processing">Please
-                                                wait, we are uploading your file !!!</div>
+                                            <div class="p-2 text-uppercase fw-bold" v-show="form.processing">{{ $t("common.wait") }} !!!</div>
                                         </div>
                                     </form>
                                 </div>

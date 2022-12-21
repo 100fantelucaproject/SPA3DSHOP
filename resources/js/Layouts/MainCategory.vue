@@ -1,7 +1,7 @@
 <template>
     <div class="text-center pt-4 bg-warning">
-        <h1 class="fw-bold fs-1 text-uppercase m-0">Welcome</h1>
-        <h3 class="fs-3 m-0">Which 3D model are you searching for?</h3>
+        <h1 class="fw-bold fs-1 text-uppercase m-0">{{ $t("body.welcome") }}</h1>
+        <h3 class="fs-3 m-0">{{ $t("body.questionHome") }}</h3>
     </div>
     <div class="container-fluid bg-warning text-center text-uppercase fw-bold py-5">
         <div class="container">
